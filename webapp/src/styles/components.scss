@@ -1,0 +1,11 @@
+.btn {
+  @apply
+    bg-red p-3 shadow-md rounded-lg text-white
+    hover:bg-rose-800 hover:shadow-xl transition-all;
+}
+
+.input {
+  @apply
+    w-full p-3 border-2 border-gray-200 rounded-md shadow-md
+    focus:shadow-xl focus:border-red transition-all outline-none;
+}

@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: beyondbrand
+      POSTGRES_USER: beyondbrand
+      POSTGRES_PASSWORD: test1234
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - my_network
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - my_network
+
+  nodejs:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+    ports:
+      - "3001:3001"
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      DATABASE_URL: postgres://beyondbrand:test1234@postgres/beyondbrand
+      REDIS_URL: redis://redis:6379
+    networks:
+      - my_network
+
+  react:
+    build:
+      context: ./webapp
+      dockerfile: Dockerfile
+    volumes:
+      - ./webapp:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - nodejs
+    networks:
+      - my_network
+
+volumes:
+  postgres-data:
+
+networks:
+  my_network:
+    driver: bridge

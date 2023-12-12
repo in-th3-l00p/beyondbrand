@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./components.scss";
+
+body {
+  @apply bg-light text-grey;
+}

@@ -1,6 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
+import {getServerSession} from "next-auth";
 
-export default function Home() {
+export default async function Home() {
+    const session = await getServerSession();
+
     return (
         <section className={
             "py-24 px-8 lg:px-32 xl:px-64 bg-ghost-white " +
@@ -29,8 +33,37 @@ export default function Home() {
                     easier, than ever</p>
 
                 <div className={"flex gap-4 flex-wrap justify-center"}>
-                    <button type={"submit"} className={"btn"}>Find more</button>
-                    <button type={"submit"} className={"btn"}>Register</button>
+                    {!!session ? (
+                        <>
+                            <Link
+                                href={"/brands"}
+                                className={"btn"}
+                            >
+                                My brands
+                            </Link>
+                            <Link
+                                href={"/profile"}
+                                className={"btn"}
+                            >
+                                Profile
+                            </Link>
+                        </>
+                    ): (
+                        <>
+                            <Link
+                                href={"/about"}
+                                className={"btn"}
+                            >
+                                Find more
+                            </Link>
+                            <Link
+                                href={"/register"}
+                                className={"btn"}
+                            >
+                                Register
+                            </Link>
+                        </>
+                    )}
                 </div>
             </div>
         </section>

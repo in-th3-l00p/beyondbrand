@@ -8,7 +8,7 @@ import Link from "next/link";
 export default function HeaderLinks({ windowWidthLimit }: {
     windowWidthLimit?: number;
 }) {
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [windowWidth, setWindowWidth] = useState(0);
     const [opened, setOpened] = useState(false);
 
     useEffect(() => {

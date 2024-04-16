@@ -6,6 +6,9 @@ import clientPromise from "@/database/mongo";
 
 export const authOptions = {
     adapter: MongoDBAdapter(clientPromise),
+    session: {
+        strategy: "jwt"
+    },
     providers: [
         GithubProvider({
             clientId: process.env.GITHUB_ID!,
@@ -18,5 +21,6 @@ export const authOptions = {
     ]
 };
 
+// @ts-ignore
 export const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST }

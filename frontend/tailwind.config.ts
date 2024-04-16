@@ -10,10 +10,12 @@ const config: Config = {
     extend: {
       colors: {
         "cyan": "#30BCED",
+        "tomato": "#FC5130",
         "jet": "#303036",
         "ghost-white": "#FFFAFF",
-        "tomato": "#FC5130",
-        "dark-gray": "#050401"
+        "dark-gray": "#050401",
+        "dark-cyan": "#2697be",
+        "dark-tomato": "#bd3d24",
       }
     },
   },

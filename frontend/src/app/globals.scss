@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+$cyan: #30BCED;
+$tomato: #FC5130;
+$jet: #303036;
+$ghost-white: #FFFAFF;
+$dark-gray: #050401;
+$dark-cyan: #2697be;
+$dark-tomato: #bd3d24;
+
+@layer components {
+    .icon-btn {
+        @apply
+            p-2 border-2 rounded-md border-gray-300
+            hover:border-gray-500 focus:border-gray-500
+    }
+
+    .btn {
+        @apply
+            px-8 py-2 bg-jet rounded-md shadow-md
+            text-lg text-white
+            hover:shadow-xl hover:bg-dark-gray focus:bg-dark-gray
+            focus:outline-none
+            transition-all
+    }
+
+    .input {
+        @apply
+            mt-1 block w-full px-3 py-2
+            border border-jet rounded-md shadow-md
+            focus:outline-none focus:ring-cyan focus:border-cyan;
+    }
+}

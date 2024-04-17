@@ -25,7 +25,7 @@ export default async function Header() {
     return (
         <header className={
             "flex items-center gap-8 " +
-            "px-4 sm:px-8 md:px-16 lg:px-32 xl:px-64 " +
+            "responsive-px " +
             "py-4 bg-ghost-white shadow-md"
         }>
             <Branding />

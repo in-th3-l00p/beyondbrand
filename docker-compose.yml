@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+  brands:
+    restart: always
+    build:
+      context: ./brands-service
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - MONGO_URI=mongodb://mongo:27017/beyondbrand-brands
+      - RABBITMQ_URI=amqp://rabbitmq
+      - RABBITMQ_QUEUE=brands-service
+    volumes:
+      - ./brands-service:/app
+      - ./shared/rabbitmq-client:/shared/rabbitmq-client
+    depends_on:
+      - mongo
+      - rabbitmq
+    networks:
+      - app
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+        - rabbitmq-data:/var/lib/rabbitmq
+        - rabbitmq-log:/var/log/rabbitmq
+    networks:
+      - app
+networks:
+  app:
+    driver: bridge
+volumes:
+  mongo-data:
+    driver: local
+  rabbitmq-data:
+    driver: local
+  rabbitmq-log:
+    driver: local

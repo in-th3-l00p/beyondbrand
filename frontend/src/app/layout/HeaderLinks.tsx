@@ -1,16 +1,30 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import * as Icon from "react-feather";
 import Sidebar from "@/app/layout/sidebar/Sidebar";
 import Link from "next/link";
 import {useSession} from "next-auth/react";
 import ProfileDropdown from "@/app/layout/ProfileDropdown";
 
+function DesktopLink({ href, children }: {
+    href: string;
+    children: React.ReactNode;
+}) {
+    return (
+        <Link
+            href={href}
+            className={"hover:underline"}
+        >
+            {children}
+        </Link>
+    );
+}
+
 export default function HeaderLinks({ windowWidthLimit }: {
     windowWidthLimit?: number;
 }) {
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [windowWidth, setWindowWidth] = useState(0);
     const session = useSession();
     const [opened, setOpened] = useState(false);
 
@@ -30,15 +44,17 @@ export default function HeaderLinks({ windowWidthLimit }: {
     if (windowWidthLimit && windowWidth > windowWidthLimit)
         return (
             <div className={"flex items-center gap-4 text-xl w-full ps-8"}>
-                <Link href={"/"}>Home</Link>
-                <div className="flex-grow" />
+                <DesktopLink href={"/"}>Home</DesktopLink>
+                <DesktopLink href={"/about"}>About</DesktopLink>
+                <DesktopLink href={"/contact"}>Contact</DesktopLink>
 
+                <div className="flex-grow" />
                 {session.status !== "loading" && (
                     <>
                         {session.status === "unauthenticated" ? (
                             <>
-                                <Link href={"/login"}>Login</Link>
-                                <Link href={"/register"}>Register</Link>
+                                <DesktopLink href={"/login"}>Login</DesktopLink>
+                                <DesktopLink href={"/register"}>Register</DesktopLink>
                             </>
                         ) : (
                             <ProfileDropdown />

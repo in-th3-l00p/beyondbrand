@@ -1,6 +1,7 @@
 import {signOut, useSession} from "next-auth/react";
 import React, {useState} from "react";
 import * as Icon from "react-feather";
+import {SidebarLink} from "@/app/layout/sidebar/SidebarLink";
 
 export function SidebarProfileToggle() {
     const session = useSession();

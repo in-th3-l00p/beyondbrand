@@ -1,55 +1,10 @@
-import React, {useState} from "react";
+import React from "react";
 import {Branding} from "@/app/layout/Header";
 import * as Icon from "react-feather";
-import Link from "next/link";
-import {signOut, useSession} from "next-auth/react";
+import {useSession} from "next-auth/react";
 import "./sidebar.scss";
-
-function SidebarProfileToggle() {
-    const session = useSession();
-    const [open, setOpen] = useState(false);
-
-    return (
-        <div>
-            <button
-                type={"button"}
-                className={
-                    "sidebar-link !flex items-center gap-4 " +
-                    (open ? "border-b-2 border-b-zinc-200" : "")
-                }
-                onClick={() => setOpen(!open)}
-            >
-                <Icon.User />
-                {session.data?.user?.name}
-            </button>
-
-            {open && (
-                <>
-                    <SidebarLink href={"/profile"}>Profile</SidebarLink>
-                    <SidebarLink href={"/settings"}>Settings</SidebarLink>
-                    <button
-                        type={"button"}
-                        className={"sidebar-link"}
-                        onClick={() => signOut()}
-                    >
-                        Logout
-                    </button>
-                </>
-            )}
-        </div>
-    );
-}
-
-function SidebarLink({ href, children }: {
-    href: string;
-    children: React.ReactNode
-}) {
-    return (
-        <Link href={href} className={"sidebar-link"}>
-            {children}
-        </Link>
-    )
-}
+import {SidebarProfileToggle} from "@/app/layout/sidebar/SidebarProfileToggle";
+import {SidebarLink} from "@/app/layout/sidebar/SidebarLink";
 
 export default function Sidebar({ setOpened }: {
     setOpened: React.Dispatch<React.SetStateAction<boolean>>;
@@ -82,6 +37,8 @@ export default function Sidebar({ setOpened }: {
 
                 <div className="flex-grow flex flex-col w-full">
                     <SidebarLink href={"/"}>Home</SidebarLink>
+                    <SidebarLink href={"/about"}>About</SidebarLink>
+                    <SidebarLink href={"/contact"}>Contact</SidebarLink>
                     <div className="flex-grow" />
 
                     {!!session ? (

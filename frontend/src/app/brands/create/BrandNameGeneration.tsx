@@ -1,3 +1,5 @@
+"use client";
+
 import React, {useContext} from "react";
 import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
 import {FormLabel} from "@/app/brands/create/FormLabel";
@@ -29,6 +31,18 @@ export function BrandNameGeneration() {
                 type={"button"} className={"btn mb-4"}
                 disabled={!brief}
                 onClick={() => {
+                    fetch("/api/brands/generateName", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({brief}),
+                        cache: "no-cache"
+                    })
+                        .then(response => response.json())
+                        .then((data: { brandName: string }) => {
+                            setName(data.brandName);
+                        })
                 }}
             >
                 Generate

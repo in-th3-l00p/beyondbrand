@@ -1,97 +1,21 @@
 "use client";
 
 import PageTitle from "@/components/PageTitle";
-import React, {useState} from "react";
-import * as Icon from "react-feather";
+import React, {useContext, useEffect, useState} from "react";
+import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
 import "./style.scss";
-
-enum FormStep {
-    NameQuestion,
-    NameInput,
-    NameGeneration
-}
-
-function FormLabel({ back, setStep, children }: {
-    back?: FormStep;
-    setStep?: React.Dispatch<React.SetStateAction<FormStep>>;
-    children: React.ReactNode;
-}) {
-    if (back !== undefined && setStep)
-        return (
-            <div className="flex flex-wrap items-center gap-4 mb-4">
-                <button
-                    type={"button"} className={"btn"}
-                    onClick={() => setStep(back)}
-                >
-                    <Icon.ArrowLeft />
-                </button>
-                <p className={"form-label"}>{children}</p>
-            </div>
-        );
-    return (
-        <p className={"form-label mb-4"}>{children}</p>
-    );
-}
+import {FormLabel} from "@/app/brands/create/FormLabel";
+import {BrandNameInput} from "@/app/brands/create/BrandNameInput";
+import {BrandNameGeneration} from "@/app/brands/create/BrandNameGeneration";
 
 function CreateForm() {
-    const [step, setStep] = useState<FormStep>(FormStep.NameQuestion);
-    const [name, setName] = useState<string>("");
-    const [brief, setBrief] = useState<string>("");
+    const { step, setStep } = useContext(BrandContext);
 
     if (step === FormStep.NameInput)
-        return (
-            <div className={"form-container"}>
-                <FormLabel back={FormStep.NameQuestion} setStep={setStep}>
-                    Enter your brand name:
-                </FormLabel>
-
-                <input
-                    type={"text"} className={"input mb-4"} placeholder={"Brand name"}
-                    onChange={(e) => setName(e.target.value)}
-                />
-
-                <button
-                    type={"button"} className={"btn"}
-                    disabled={!name}
-                >
-                    Next
-                </button>
-            </div>
-        );
+        return <BrandNameInput />;
     if (step === FormStep.NameGeneration)
         return (
-            <div className={"form-container"}>
-                <FormLabel back={FormStep.NameQuestion} setStep={setStep}>
-                    Give us a brief about your business idea. We will generate a name for you.
-                </FormLabel>
-                <textarea
-                    className={"input mb-4"}
-                    onChange={(e) => setBrief(e.target.value)}
-                    rows={6}
-                >{brief}</textarea>
-
-                <button
-                    type={"button"} className={"btn mb-4"}
-                    disabled={!brief}
-                >
-                    Generate
-                </button>
-
-                <label htmlFor="name" className={"self-start"}>Generated name:</label>
-                <input
-                    type="text"
-                    readOnly={true}
-                    value={name}
-                    className={"input mb-4"}
-                />
-
-                <button
-                    type={"button"} disabled={!name}
-                    className={"btn"}
-                >
-                    Next
-                </button>
-            </div>
+            <BrandNameGeneration />
         );
     return (
         <div className={"form-container"}>
@@ -111,10 +35,37 @@ function CreateForm() {
 }
 
 export default function CreateBrand() {
+    const [name, setName] = useState<string>(
+        localStorage.getItem("brand.create.name") || ""
+    );
+    const [brief, setBrief] = useState<string>(
+        localStorage.getItem("brand.create.brief") || ""
+    );
+    const [step, setStep] = useState<FormStep>(
+        Number.parseInt(localStorage.getItem("brand.create.step") || "0") as FormStep
+    );
+
+    useEffect(() => {
+        console.log("saved nigga");
+
+        localStorage.setItem("brand.create.name", name);
+        localStorage.setItem("brand.create.brief", brief);
+        localStorage.setItem("brand.create.step", step.toString());
+    }, [name, brief, step]);
+
     return (
         <section className={"py-8 responsive-px flex-grow flex flex-col"}>
             <PageTitle>Create brand</PageTitle>
-            <CreateForm />
+
+            <BrandContext.Provider
+                value={{
+                    name, setName,
+                    brief, setBrief,
+                    step, setStep
+                }}
+            >
+                <CreateForm />
+            </BrandContext.Provider>
         </section>
     );
 }

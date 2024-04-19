@@ -3,7 +3,7 @@ import openai from "@/utils/openai";
 import {NextResponse} from "next/server";
 
 const bodySchema = z.object({
-    description: z.string().max(500).min(10)
+    prompt: z.string().max(500).min(10)
 })
 
 export async function POST(req: Request) {
@@ -33,12 +33,12 @@ export async function POST(req: Request) {
             {
                 role: "system",
                 content:
-                    "Generate a name for a brand, based on the given brief." +
-                    "Generate the response as JSON, the name value having the \"brandName\" key."
+                    "Generate a name for a brand, based on the given instructions." +
+                    "Generate the response as JSON, the description value having the \"name\" key."
             },
             {
                 role: "user",
-                content: body.data.description
+                content: body.data.prompt
             }
         ]
     });

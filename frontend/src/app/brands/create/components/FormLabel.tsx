@@ -3,11 +3,11 @@ import React, {useContext} from "react";
 import * as Icon from "react-feather";
 
 export function FormLabel({back, onBack, children}: {
-    back?: FormStep;
+    back?: boolean;
     onBack?: () => void;
     children: React.ReactNode;
 }) {
-    const {setStep} = useContext(BrandContext);
+    const {stepStack, setStep} = useContext(BrandContext);
 
     if (back !== undefined && setStep)
         return (
@@ -17,7 +17,7 @@ export function FormLabel({back, onBack, children}: {
                     onClick={() => {
                         if (onBack)
                             onBack();
-                        setStep(back);
+                        setStep(stepStack.pop() || FormStep.NameQuestion);
                     }}
                 >
                     <Icon.ArrowLeft/>

@@ -1,16 +1,14 @@
 import React, {useContext} from "react";
 import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
-import {FormLabel} from "@/app/brands/create/FormLabel";
+import {FormLabel} from "@/app/brands/create/components/FormLabel";
+import FormNext from "@/app/brands/create/components/FormNext";
 
-export function BrandNameInput() {
+export function NameInput() {
     const {name, setName} = useContext(BrandContext);
 
     return (
         <div className={"form-container"}>
-            <FormLabel
-                back={FormStep.NameQuestion}
-                onBack={() => setName("")}
-            >
+            <FormLabel back>
                 Enter your brand name:
             </FormLabel>
 
@@ -22,12 +20,11 @@ export function BrandNameInput() {
                 onChange={(e) => setName(e.target.value)}
             />
 
-            <button
-                type={"button"} className={"btn"}
+            <FormNext
                 disabled={!name}
-            >
-                Next
-            </button>
+                current={FormStep.NameGeneration}
+                next={FormStep.DescriptionInput}
+            />
         </div>
     );
 }

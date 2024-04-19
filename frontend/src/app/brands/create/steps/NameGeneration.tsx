@@ -2,46 +2,42 @@
 
 import React, {useContext} from "react";
 import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
-import {FormLabel} from "@/app/brands/create/FormLabel";
+import {FormLabel} from "@/app/brands/create/components/FormLabel";
+import FormNext from "@/app/brands/create/components/FormNext";
 
-export function BrandNameGeneration() {
+export function NameGeneration() {
     const {
         name, setName,
-        brief, setBrief
+        description, setDescription
     } = useContext(BrandContext);
 
     return (
         <div className={"form-container"}>
-            <FormLabel
-                back={FormStep.NameQuestion}
-                onBack={() => {
-                    setName("");
-                    setBrief("");
-                }}
-            >
+            <FormLabel back>
                 Give us a brief about your business idea. We will generate a name for you.
             </FormLabel>
             <textarea
                 className={"input mb-4"}
-                onChange={(e) => setBrief(e.target.value)}
+                onChange={(e) => setDescription(e.target.value)}
                 rows={6}
-            >{brief}</textarea>
+                defaultValue={description}
+            />
 
             <button
                 type={"button"} className={"btn mb-4"}
-                disabled={!brief}
+                disabled={!description}
                 onClick={() => {
                     fetch("/api/brands/generateName", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify({brief}),
+                        body: JSON.stringify({description: description}),
                         cache: "no-cache"
                     })
                         .then(response => response.json())
-                        .then((data: { brandName: string }) => {
-                            setName(data.brandName);
+                        .then((data: { brandName?: string }) => {
+                            setName(data.brandName || "");
                         })
                 }}
             >
@@ -56,12 +52,11 @@ export function BrandNameGeneration() {
                 className={"input mb-4"}
             />
 
-            <button
-                type={"button"} disabled={!name}
-                className={"btn"}
-            >
-                Next
-            </button>
+            <FormNext
+                disabled={!name}
+                current={FormStep.NameGeneration}
+                next={FormStep.DescriptionInput}
+            />
         </div>
     );
 }

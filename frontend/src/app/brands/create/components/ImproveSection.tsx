@@ -54,7 +54,7 @@ export function ImproveSection() {
                         .then(response => response.json())
                         .then((data: { brandDescription?: string }) => {
                             setImproved(data.brandDescription || "");
-                        })
+                        });
                 }}
             >
                 Improve

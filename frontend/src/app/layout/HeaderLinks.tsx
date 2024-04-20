@@ -1,17 +1,35 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import * as Icon from "react-feather";
-import Sidebar from "@/app/layout/Sidebar";
+import Sidebar from "@/app/layout/sidebar/Sidebar";
 import Link from "next/link";
+import {useSession} from "next-auth/react";
+import ProfileDropdown from "@/app/layout/ProfileDropdown";
+
+function DesktopLink({ href, children }: {
+    href: string;
+    children: React.ReactNode;
+}) {
+    return (
+        <Link
+            href={href}
+            className={"hover:underline"}
+        >
+            {children}
+        </Link>
+    );
+}
 
 export default function HeaderLinks({ windowWidthLimit }: {
     windowWidthLimit?: number;
 }) {
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [windowWidth, setWindowWidth] = useState(0);
+    const session = useSession();
     const [opened, setOpened] = useState(false);
 
     useEffect(() => {
+        setWindowWidth(window.innerWidth);
         const handleResize = () => {
             setWindowWidth(window.innerWidth);
             if (windowWidthLimit && window.innerWidth > windowWidthLimit) {
@@ -21,14 +39,28 @@ export default function HeaderLinks({ windowWidthLimit }: {
 
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    }, [windowWidthLimit]);
 
     if (windowWidthLimit && windowWidth > windowWidthLimit)
         return (
-            <div className={"flex gap-4 text-xl w-full"}>
-                <Link href={"/"}>Home</Link>
-                <Link href={"/login"} className={"ms-auto"}>Login</Link>
-                <Link href={"/register"}>Register</Link>
+            <div className={"flex items-center gap-4 text-xl w-full ps-8"}>
+                <DesktopLink href={"/"}>Home</DesktopLink>
+                <DesktopLink href={"/about"}>About</DesktopLink>
+                <DesktopLink href={"/contact"}>Contact</DesktopLink>
+
+                <div className="flex-grow" />
+                {session.status !== "loading" && (
+                    <>
+                        {session.status === "unauthenticated" ? (
+                            <>
+                                <DesktopLink href={"/login"}>Login</DesktopLink>
+                                <DesktopLink href={"/register"}>Register</DesktopLink>
+                            </>
+                        ) : (
+                            <ProfileDropdown />
+                        )}
+                    </>
+                )}
             </div>
         );
     return (

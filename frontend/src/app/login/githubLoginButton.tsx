@@ -7,7 +7,7 @@ export default function GithubLoginButton() {
     return (
         <button
             type={"submit"}
-            className={"btn flex items-center gap-8"}
+            className={"btn flex items-center gap-8 w-full"}
             onClick={() => signIn("github", {
                 // redirect: false
             })}

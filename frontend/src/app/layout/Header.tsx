@@ -1,11 +1,15 @@
 import Image from "next/image";
 import HeaderLinks from "@/app/layout/HeaderLinks";
+import Link from "next/link";
 
 export function Branding() {
     const LOGO_SIZE = 60;
 
     return (
-        <div className={"flex gap-4 items-center me-8"}>
+        <Link
+            className={"flex gap-4 items-center"}
+            href={"/"}
+        >
             <Image
                 src={"/logo.svg"}
                 alt={"logo"}
@@ -13,7 +17,7 @@ export function Branding() {
                 height={LOGO_SIZE}
             />
             <h2 className={"text-2xl"}>BeyondBrand</h2>
-        </div>
+        </Link>
     );
 }
 
@@ -21,7 +25,7 @@ export default async function Header() {
     return (
         <header className={
             "flex items-center gap-8 " +
-            "px-4 sm:px-8 md:px-16 lg:px-32 xl:px-64 " +
+            "responsive-px " +
             "py-4 bg-ghost-white shadow-md"
         }>
             <Branding />

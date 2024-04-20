@@ -4,6 +4,7 @@ import "./globals.scss";
 import React from "react";
 import Header from "@/app/layout/Header";
 import "@/database/mongoose";
+import NextAuthSessionProvider from "@/app/layout/NextAuthSessionProvider";
 
 const inter = Tilt_Neon({subsets: ["latin"]});
 
@@ -19,10 +20,12 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-        <body className={inter.className + " min-h-screen overflow-x-hidden flex flex-col"}>
-            <Header/>
-            {children}
-        </body>
+            <body className={inter.className + " min-h-screen overflow-x-hidden flex flex-col"}>
+                <NextAuthSessionProvider>
+                    <Header/>
+                    {children}
+                </NextAuthSessionProvider>
+            </body>
         </html>
     );
 }

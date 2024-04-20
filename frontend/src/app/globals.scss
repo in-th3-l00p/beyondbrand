@@ -33,3 +33,9 @@ $dark-tomato: #bd3d24;
             focus:outline-none focus:ring-cyan focus:border-cyan;
     }
 }
+
+@layer utilities {
+    .responsive-px {
+        @apply px-8 lg:px-32 xl:px-64;
+    }
+}

@@ -15,17 +15,15 @@ export interface IBrandContext {
     description: string;
     setDescription: React.Dispatch<React.SetStateAction<string>>;
 
-    step: FormStep;
-    setStep: React.Dispatch<React.SetStateAction<FormStep>>;
     stepStack: FormStep[];
     setStepStack: React.Dispatch<React.SetStateAction<FormStep[]>>;
     addStep: (step: FormStep) => void;
+    popStep: () => void;
 }
 
 const BrandContext = createContext<IBrandContext>({
     name: "",
     description: "",
-    step: FormStep.NameQuestion,
     stepStack: [] as FormStep[],
 } as IBrandContext);
 export default BrandContext;

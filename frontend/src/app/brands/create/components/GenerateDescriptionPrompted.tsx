@@ -3,6 +3,7 @@
 import React, {useContext, useState} from "react";
 import * as Icon from "react-feather";
 import BrandContext from "@/app/brands/create/BrandContext";
+import Loading from "@/app/brands/create/components/Loading";
 
 export default function GenerateDescriptionPrompted() {
     const { setDescription } = useContext(BrandContext);
@@ -11,11 +12,7 @@ export default function GenerateDescriptionPrompted() {
     const [loading, setLoading] = useState<boolean>(false);
 
     if (loading)
-        return (
-            <div className="w-full flex justify-center items-center flex-col gap-4 mb-4">
-                <p>Loading...</p>
-            </div>
-        )
+        return <Loading />;
     if (!generated)
         return (
             <div className={"w-full flex items-center gap-4 mb-4"}>
@@ -45,7 +42,7 @@ export default function GenerateDescriptionPrompted() {
                             .then((data: { brandDescription?: string }) => {
                                 setGenerated(data.brandDescription || "");
                             })
-                            .catch(() => setLoading(false));
+                            .finally(() => setLoading(false));
                     }}
                 >
                     Generate

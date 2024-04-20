@@ -4,10 +4,9 @@ import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
 import React, {useContext} from "react";
 
 export default function FormNext({
-    disabled, current, next
+    disabled, next
 }: {
     disabled?: boolean;
-    current: FormStep;
     next: FormStep;
 }) {
     const { addStep, setStep } = useContext(BrandContext);
@@ -18,8 +17,7 @@ export default function FormNext({
             disabled={disabled}
             className={"btn"}
             onClick={() => {
-                addStep(current);
-                setStep(next);
+                addStep(next);
             }}
         >
             Next

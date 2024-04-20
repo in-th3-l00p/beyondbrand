@@ -1,12 +1,15 @@
 import React, {useContext, useState} from "react";
 import BrandContext from "@/app/brands/create/BrandContext";
 import * as Icon from "react-feather";
+import Loading from "@/app/brands/create/components/Loading";
 
 export function ImproveSection() {
     const [improved, setImproved] = useState<string | null>(null);
     const {name, description, setDescription} = useContext(BrandContext);
     const [loading, setLoading] = useState<boolean>(false);
 
+    if (loading)
+        return <Loading />;
     if (improved !== null)
         return (
             <div className={"mt-4 mb-8 w-full flex gap-4 flex-wrap items-center"}>
@@ -40,7 +43,9 @@ export function ImproveSection() {
         <div className="flex flex-wrap justify-between items-center gap-4 mb-4">
             <p>Press the following button to get AI improvement:</p>
             <button
-                type={"button"} className="btn"
+                type={"button"}
+                className="btn"
+                disabled={loading || !name || !description}
                 onClick={() => {
                     setLoading(true);
                     fetch("/api/brands/generateDescription", {

@@ -23,7 +23,6 @@ export default function DescriptionInput() {
             <GenerateDescriptionPrompted />
             <FormNext
                 disabled={!description}
-                current={FormStep.DescriptionInput}
                 next={FormStep.DescriptionInput}
             />
         </div>

@@ -17,6 +17,7 @@ export async function POST(req: Request) {
                 {status: 400}
             );
         }
+        console.log(body);
     } catch (e) {
         return NextResponse.json(
             {errors: "Invalid JSON body."},

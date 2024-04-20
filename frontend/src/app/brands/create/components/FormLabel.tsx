@@ -7,9 +7,9 @@ export function FormLabel({back, onBack, children}: {
     onBack?: () => void;
     children: React.ReactNode;
 }) {
-    const {stepStack, setStep} = useContext(BrandContext);
+    const {stepStack, popStep} = useContext(BrandContext);
 
-    if (back !== undefined && setStep)
+    if (back && stepStack.length > 0)
         return (
             <div className="flex flex-wrap items-center gap-4 mb-4">
                 <button
@@ -17,7 +17,7 @@ export function FormLabel({back, onBack, children}: {
                     onClick={() => {
                         if (onBack)
                             onBack();
-                        setStep(stepStack.pop() || FormStep.NameQuestion);
+                        popStep();
                     }}
                 >
                     <Icon.ArrowLeft/>

@@ -54,7 +54,6 @@ export function NameGeneration() {
 
             <FormNext
                 disabled={!name}
-                current={FormStep.NameGeneration}
                 next={FormStep.DescriptionInput}
             />
         </div>

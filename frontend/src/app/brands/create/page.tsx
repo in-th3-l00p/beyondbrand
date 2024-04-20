@@ -10,40 +10,39 @@ import {NameGeneration} from "@/app/brands/create/steps/NameGeneration";
 import DescriptionInput from "@/app/brands/create/steps/DescriptionInput";
 
 function CreateForm() {
-    const { step, setStep } = useContext(BrandContext);
+    const { stepStack, addStep} = useContext(BrandContext);
 
-    if (step === FormStep.NameInput)
-        return <NameInput />;
-    if (step === FormStep.NameGeneration)
-        return <NameGeneration />;
-    if (step === FormStep.DescriptionInput)
-        return <DescriptionInput />
-    return (
-        <div className={"form-container"}>
-            <FormLabel>Are you currently having a business name yet?</FormLabel>
-            <div className="flex gap-4">
-                <button
-                    type={"button"} className={"btn"}
-                    onClick={() => setStep(FormStep.NameInput)}
-                >Yes</button>
-                <button
-                    type={"button"} className={"btn"}
-                    onClick={() => setStep(FormStep.NameGeneration)}
-                >No</button>
+    if (stepStack.length === 0)
+        return (
+            <div className={"form-container"}>
+                <FormLabel>Are you currently having a business name yet?</FormLabel>
+                <div className="flex gap-4">
+                    <button
+                        type={"button"} className={"btn"}
+                        onClick={() => addStep(FormStep.NameInput)}
+                    >Yes</button>
+                    <button
+                        type={"button"} className={"btn"}
+                        onClick={() => addStep(FormStep.NameGeneration)}
+                    >No</button>
+                </div>
             </div>
-        </div>
-    );
+        );
+    if (stepStack.at(stepStack.length - 1) === FormStep.NameInput)
+        return <NameInput />;
+    if (stepStack.at(stepStack.length - 1)  === FormStep.NameGeneration)
+        return <NameGeneration />;
+    if (stepStack.at(stepStack.length - 1) === FormStep.DescriptionInput)
+        return <DescriptionInput />
+    return <></>;
 }
 
 export default function CreateBrand() {
     const [name, setName] = useState<string>(
-        localStorage.getItem("brand.create.name") || ""
+        localStorage?.getItem("brand.create.name") || ""
     );
     const [description, setDescription] = useState<string>(
-        localStorage.getItem("brand.create.description") || ""
-    );
-    const [step, setStep] = useState<FormStep>(
-        Number.parseInt(localStorage.getItem("brand.create.step") || "0") as FormStep
+        localStorage?.getItem("brand.create.description") || ""
     );
     const [stepStack, setStepStack] = useState<FormStep[]>([
         ...(JSON.parse(localStorage.getItem("brand.create.stepStack") || "[]") as FormStep[])
@@ -52,9 +51,8 @@ export default function CreateBrand() {
     useEffect(() => {
         localStorage.setItem("brand.create.name", name);
         localStorage.setItem("brand.create.description", description);
-        localStorage.setItem("brand.create.step", step.toString());
         localStorage.setItem("brand.create.stepStack", JSON.stringify(stepStack));
-    }, [name, description, step, stepStack]);
+    }, [name, description, stepStack]);
 
     return (
         <section className={"py-8 responsive-px flex-grow flex flex-col"}>
@@ -64,9 +62,9 @@ export default function CreateBrand() {
                 value={{
                     name, setName,
                     description: description, setDescription: setDescription,
-                    step, setStep,
                     stepStack, setStepStack,
                     addStep: (step: FormStep) => setStepStack([...stepStack, step]),
+                    popStep: () => setStepStack(stepStack.slice(0, stepStack.length - 1))
                 }}
             >
                 <CreateForm />

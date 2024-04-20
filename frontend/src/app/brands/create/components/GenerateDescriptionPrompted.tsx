@@ -8,7 +8,14 @@ export default function GenerateDescriptionPrompted() {
     const { setDescription } = useContext(BrandContext);
     const [prompt, setPrompt] = useState<string>("");
     const [generated, setGenerated] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
 
+    if (loading)
+        return (
+            <div className="w-full flex justify-center items-center flex-col gap-4 mb-4">
+                <p>Loading...</p>
+            </div>
+        )
     if (!generated)
         return (
             <div className={"w-full flex items-center gap-4 mb-4"}>
@@ -25,6 +32,7 @@ export default function GenerateDescriptionPrompted() {
                     className={"btn"}
                     disabled={!prompt}
                     onClick={() => {
+                        setLoading(true);
                         fetch("/api/brands/generateDescription/prompted", {
                             method: "POST",
                             headers: {
@@ -36,7 +44,8 @@ export default function GenerateDescriptionPrompted() {
                             .then(response => response.json())
                             .then((data: { brandDescription?: string }) => {
                                 setGenerated(data.brandDescription || "");
-                            });
+                            })
+                            .catch(() => setLoading(false));
                     }}
                 >
                     Generate

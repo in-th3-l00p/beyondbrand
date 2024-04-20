@@ -5,6 +5,7 @@ import * as Icon from "react-feather";
 export function ImproveSection() {
     const [improved, setImproved] = useState<string | null>(null);
     const {name, description, setDescription} = useContext(BrandContext);
+    const [loading, setLoading] = useState<boolean>(false);
 
     if (improved !== null)
         return (
@@ -41,6 +42,7 @@ export function ImproveSection() {
             <button
                 type={"button"} className="btn"
                 onClick={() => {
+                    setLoading(true);
                     fetch("/api/brands/generateDescription", {
                         method: "POST",
                         headers: {
@@ -54,7 +56,8 @@ export function ImproveSection() {
                         .then(response => response.json())
                         .then((data: { brandDescription?: string }) => {
                             setImproved(data.brandDescription || "");
-                        });
+                        })
+                        .finally(() => setLoading(false));
                 }}
             >
                 Improve

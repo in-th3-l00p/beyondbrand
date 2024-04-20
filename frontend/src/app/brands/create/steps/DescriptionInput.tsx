@@ -4,8 +4,8 @@ import React, {useContext} from "react";
 import {FormLabel} from "@/app/brands/create/components/FormLabel";
 import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
 import FormNext from "@/app/brands/create/components/FormNext";
-import {ImproveSection} from "@/app/brands/create/components/ImproveSection";
-import GenerateDescriptionPrompted from "@/app/brands/create/components/GenerateDescriptionPrompted";
+import {ImproveSection} from "@/app/brands/create/components/description/ImproveSection";
+import GenerateDescriptionPrompted from "@/app/brands/create/components/description/GenerateDescriptionPrompted";
 
 export default function DescriptionInput() {
     const { description, setDescription } = useContext(BrandContext);
@@ -23,7 +23,7 @@ export default function DescriptionInput() {
             <GenerateDescriptionPrompted />
             <FormNext
                 disabled={!description}
-                next={FormStep.DescriptionInput}
+                next={FormStep.ColorInput}
             />
         </div>
     )

@@ -8,6 +8,7 @@ import {FormLabel} from "@/app/brands/create/components/FormLabel";
 import {NameInput} from "@/app/brands/create/steps/NameInput";
 import {NameGeneration} from "@/app/brands/create/steps/NameGeneration";
 import DescriptionInput from "@/app/brands/create/steps/DescriptionInput";
+import ColorInput from "@/app/brands/create/steps/ColorInput";
 
 function CreateForm() {
     const { stepStack, addStep} = useContext(BrandContext);
@@ -33,7 +34,9 @@ function CreateForm() {
     if (stepStack.at(stepStack.length - 1)  === FormStep.NameGeneration)
         return <NameGeneration />;
     if (stepStack.at(stepStack.length - 1) === FormStep.DescriptionInput)
-        return <DescriptionInput />
+        return <DescriptionInput />;;;;
+    if (stepStack.at(stepStack.length - 1) === FormStep.ColorInput)
+        return <ColorInput />;
     return <></>;
 }
 
@@ -45,7 +48,7 @@ export default function CreateBrand() {
         localStorage?.getItem("brand.create.description") || ""
     );
     const [stepStack, setStepStack] = useState<FormStep[]>([
-        ...(JSON.parse(localStorage.getItem("brand.create.stepStack") || "[]") as FormStep[])
+        ...(JSON.parse(localStorage?.getItem("brand.create.stepStack") || "[]") as FormStep[])
     ]);
 
     useEffect(() => {

@@ -6,7 +6,8 @@ export enum FormStep {
     NameQuestion,
     NameInput,
     NameGeneration,
-    DescriptionInput
+    DescriptionInput,
+    ColorInput,
 }
 
 export interface IBrandContext {

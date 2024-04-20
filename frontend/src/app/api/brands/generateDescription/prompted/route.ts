@@ -3,6 +3,7 @@ import openai from "@/utils/openai";
 import {NextResponse} from "next/server";
 
 const bodySchema = z.object({
+    name: z.string().max(255).optional(),
     prompt: z.string().max(500).min(10)
 })
 
@@ -17,7 +18,6 @@ export async function POST(req: Request) {
                 {status: 400}
             );
         }
-        console.log(body);
     } catch (e) {
         return NextResponse.json(
             {errors: "Invalid JSON body."},
@@ -34,12 +34,13 @@ export async function POST(req: Request) {
             {
                 role: "system",
                 content:
-                    "Generate a description for a brand, based on the given instructions." +
+                    "Generate a description for a brand, based on the given prompt. " +
+                    "Also, there is an optional \"Name\" field, that represents the brand's name. " +
                     "Generate the response as JSON, the description value having the \"brandDescription\" key."
             },
             {
                 role: "user",
-                content: body.data.prompt
+                content: "Name: " + body.data.prompt + (body.data.name ? "\nName: " + body.data.name : "")
             }
         ]
     });

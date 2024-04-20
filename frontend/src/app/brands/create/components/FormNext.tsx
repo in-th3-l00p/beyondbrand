@@ -9,11 +9,11 @@ export default function FormNext({
     disabled?: boolean;
     next: FormStep;
 }) {
-    const { addStep, setStep } = useContext(BrandContext);
+    const { addStep } = useContext(BrandContext);
 
     return (
         <button
-            type={"button"}
+            type={"submit"}
             disabled={disabled}
             className={"btn"}
             onClick={() => {

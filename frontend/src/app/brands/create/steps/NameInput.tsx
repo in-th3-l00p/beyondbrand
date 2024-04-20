@@ -7,7 +7,7 @@ export function NameInput() {
     const {name, setName} = useContext(BrandContext);
 
     return (
-        <div className={"form-container"}>
+        <form className={"form-container"}>
             <FormLabel back>
                 Enter your brand name:
             </FormLabel>
@@ -24,6 +24,6 @@ export function NameInput() {
                 disabled={!name}
                 next={FormStep.DescriptionInput}
             />
-        </div>
+        </form>
     );
 }

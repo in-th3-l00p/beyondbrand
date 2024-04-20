@@ -6,7 +6,7 @@ import BrandContext from "@/app/brands/create/BrandContext";
 import Loading from "@/app/brands/create/components/Loading";
 
 export default function GenerateDescriptionPrompted() {
-    const { setDescription } = useContext(BrandContext);
+    const { name, setDescription } = useContext(BrandContext);
     const [prompt, setPrompt] = useState<string>("");
     const [generated, setGenerated] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
@@ -15,12 +15,12 @@ export default function GenerateDescriptionPrompted() {
         return <Loading />;
     if (!generated)
         return (
-            <div className={"w-full flex items-center gap-4 mb-4"}>
+            <form className={"w-full flex items-center gap-4 mb-4"}>
                 <p>Prompt:</p>
                 <textarea
                     name="improved"
                     id="improved" className={"input flex-grow"}
-                    rows={1}
+                    rows={2}
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
                 />
@@ -35,7 +35,7 @@ export default function GenerateDescriptionPrompted() {
                             headers: {
                                 "Content-Type": "application/json"
                             },
-                            body: JSON.stringify({ prompt }),
+                            body: JSON.stringify({ name, prompt }),
                             cache: "no-cache"
                         })
                             .then(response => response.json())
@@ -47,7 +47,7 @@ export default function GenerateDescriptionPrompted() {
                 >
                     Generate
                 </button>
-            </div>
+            </form>
         );
     return (
         <div className={"mt-4 mb-8 w-full flex gap-4 flex-wrap items-center"}>
@@ -57,7 +57,7 @@ export default function GenerateDescriptionPrompted() {
                     name="generated"
                     id="generated" className={"input w-full resize-none"}
                     rows={6}
-                    value={generated}
+                    defaultValue={generated}
                 />
             </div>
             <div className="text-center">

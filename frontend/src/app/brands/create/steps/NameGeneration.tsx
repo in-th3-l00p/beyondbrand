@@ -12,7 +12,7 @@ export function NameGeneration() {
     } = useContext(BrandContext);
 
     return (
-        <div className={"form-container"}>
+        <form className={"form-container"}>
             <FormLabel back>
                 Give us a brief about your business idea. We will generate a name for you.
             </FormLabel>
@@ -56,6 +56,6 @@ export function NameGeneration() {
                 disabled={!name}
                 next={FormStep.DescriptionInput}
             />
-        </div>
+        </form>
     );
 }

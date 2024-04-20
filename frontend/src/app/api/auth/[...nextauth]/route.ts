@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth';
+import NextAuth, {AuthOptions} from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from "next-auth/providers/google";
 import {MongoDBAdapter} from "@auth/mongodb-adapter";
@@ -18,5 +18,5 @@ export const authOptions = {
     ]
 };
 
-export const handler = NextAuth(authOptions);
+export const handler = NextAuth(authOptions as AuthOptions);
 export { handler as GET, handler as POST }

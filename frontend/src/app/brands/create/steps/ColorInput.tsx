@@ -38,7 +38,7 @@ export default function ColorInput() {
                     >
                         {Array.from({length: 6}).map((_, i) => {
                             if (i === 2)
-                                return <option value={i + 1} key={i}>{i + 1} (recommanded)</option>
+                                return <option value={i + 1} key={i}>{i + 1} (recommended)</option>
                             return <option value={i + 1} key={i}>{i + 1}</option>
                         })}
                     </select>

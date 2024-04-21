@@ -45,7 +45,8 @@ export async function POST(req: Request) {
                     "Generate a color scheme for a brand." +
                     `Make sure you generate ${searchParams.get("colors")} colors, and Use the brand's information if given. ` +
                     "Generate the response as JSON, the colors being an array of strings stored on the \"colors\" key ." +
-                    "Make sure the colors are in hex format."
+                    "Make sure the colors are in hex format (ex: #FFFFFF). " +
+                    "Make sure you don't mess up the array with any float values."
             },
             {
                 role: "user",

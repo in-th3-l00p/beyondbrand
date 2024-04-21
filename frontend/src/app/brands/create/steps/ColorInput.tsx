@@ -5,7 +5,7 @@ import React, {useContext, useEffect, useState} from "react";
 import FormNext from "@/app/brands/create/components/FormNext";
 import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
 import * as Icon from "react-feather";
-import RandomGenerator from "@/app/brands/create/components/colors/RandomGenerator";
+import InformationGenerator from "@/app/brands/create/components/colors/InformationGenerator";
 import {ColorVisualizer} from "@/app/brands/create/components/colors/ColorVisualizer";
 
 export default function ColorInput() {
@@ -24,8 +24,8 @@ export default function ColorInput() {
     return (
         <div className={"form-container"}>
             <FormLabel back>{`Let's establish the colors of your brand`}</FormLabel>
-            <div className={"mb-8 border-b"}>idgaf about what it should be written here, but I should probably add a
-                subtitle
+            <div className={"mb-8 border-b w-full text-center"}>
+                <p>Choose the colors that represent your brand</p>
             </div>
 
             <div className={"mb-4"}>
@@ -73,7 +73,7 @@ export default function ColorInput() {
             <div className="py-4 my-4 border-t border-b w-full">
                 <h2 className={"text-lg"}>Generation</h2>
                 <p>Use AI powered tools to generate the colors of your brand</p>
-                <RandomGenerator
+                <InformationGenerator
                     colors={colors}
                     setColors={setColors}
                 />

@@ -5,7 +5,7 @@ import Loading from "@/app/brands/create/components/Loading";
 import BrandContext from "@/app/brands/create/BrandContext";
 import {ColorVisualizer} from "@/app/brands/create/components/colors/ColorVisualizer";
 
-export default function RandomGenerator({ colors, setColors }: {
+export default function InformationGenerator({ colors, setColors }: {
     colors: string[],
     setColors: (colors: string[]) => void
 }) {
@@ -71,7 +71,7 @@ export default function RandomGenerator({ colors, setColors }: {
         );
     return (
         <div className={"my-4 text-center"}>
-            <p>Random generator:</p>
+            <p>Generate using brand information:</p>
             <button
                 type={"button"} className={"btn"}
                 onClick={generateColors}

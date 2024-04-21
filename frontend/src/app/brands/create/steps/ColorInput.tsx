@@ -1,16 +1,16 @@
 "use client";
 
 import {FormLabel} from "@/app/brands/create/components/FormLabel";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import FormNext from "@/app/brands/create/components/FormNext";
-import {FormStep} from "@/app/brands/create/BrandContext";
+import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
 import * as Icon from "react-feather";
 import RandomGenerator from "@/app/brands/create/components/colors/RandomGenerator";
 import {ColorVisualizer} from "@/app/brands/create/components/colors/ColorVisualizer";
 
 export default function ColorInput() {
     const [colorCount, setColorCount] = useState<number>(3);
-    const [colors, setColors] = useState<string[]>(["#000000", "#000000", "#000000"]);
+    const {colors, setColors} = useContext(BrandContext);
 
     useEffect(() => {
         if (colors.length < colorCount)
@@ -19,7 +19,7 @@ export default function ColorInput() {
             setColors(Array
                 .from({length: colorCount})
                 .map((_, i) => colors[i] || "#000000"));
-    }, [colorCount, colors]);
+    }, [colorCount, colors, setColors]);
 
     return (
         <div className={"form-container"}>

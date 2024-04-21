@@ -34,7 +34,7 @@ function CreateForm() {
     if (stepStack.at(stepStack.length - 1)  === FormStep.NameGeneration)
         return <NameGeneration />;
     if (stepStack.at(stepStack.length - 1) === FormStep.DescriptionInput)
-        return <DescriptionInput />;;;;
+        return <DescriptionInput />;
     if (stepStack.at(stepStack.length - 1) === FormStep.ColorInput)
         return <ColorInput />;
     return <></>;
@@ -50,12 +50,16 @@ export default function CreateBrand() {
     const [stepStack, setStepStack] = useState<FormStep[]>([
         ...(JSON.parse(localStorage?.getItem("brand.create.stepStack") || "[]") as FormStep[])
     ]);
+    const [colors, setColors] = useState<string[]>(
+        JSON.parse(localStorage?.getItem("colors") || "[]") as string[]
+    );
 
     useEffect(() => {
         localStorage.setItem("brand.create.name", name);
         localStorage.setItem("brand.create.description", description);
         localStorage.setItem("brand.create.stepStack", JSON.stringify(stepStack));
-    }, [name, description, stepStack]);
+        localStorage.setItem("colors", JSON.stringify(colors));
+    }, [name, description, stepStack, colors]);
 
     return (
         <section className={"py-8 responsive-px flex-grow flex flex-col"}>
@@ -64,8 +68,9 @@ export default function CreateBrand() {
             <BrandContext.Provider
                 value={{
                     name, setName,
-                    description: description, setDescription: setDescription,
+                    description, setDescription,
                     stepStack, setStepStack,
+                    colors, setColors,
                     addStep: (step: FormStep) => setStepStack([...stepStack, step]),
                     popStep: () => setStepStack(stepStack.slice(0, stepStack.length - 1))
                 }}

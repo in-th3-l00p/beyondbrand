@@ -20,6 +20,8 @@ export interface IBrandContext {
     setDescription: React.Dispatch<React.SetStateAction<string>>;
     colors: string[];
     setColors: React.Dispatch<React.SetStateAction<string[]>>;
+    logo: string;
+    setLogo: React.Dispatch<React.SetStateAction<string>>;
 
     stepStack: FormStep[];
     setStepStack: React.Dispatch<React.SetStateAction<FormStep[]>>;

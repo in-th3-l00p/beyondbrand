@@ -1,28 +1,89 @@
 import {useDropzone} from "react-dropzone";
-import React from "react";
+import React, {useContext, useEffect} from "react";
 import "./uploadRegion.scss";
 import Image from "next/image";
+import BrandContext from "@/app/brands/create/BrandContext";
+import mime from "mime-types";
 
 export default function UploadRegion() {
     const FILE_SIZE = 1024 * 1024 * 2; // 2MB
     const PREVIEW_SIZE = 100; // in px
+    const { logo, setLogo } = useContext(BrandContext);
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
         maxFiles: 1,
         maxSize: FILE_SIZE,
         accept: {
-            "images": [ "images/*" ]
+            "image/png": [ ".png" ],
+            "image/jpeg": [ ".jpg", ".jpeg" ],
+            "image/svg+xml": [ ".svg" ],
+            "image/webp": [ ".webp" ]
         }
     });
+    const [file, setFile] = React.useState<File | null>(null);
     const [fileReader, setFileReader] = React.useState<FileReader | null>(null);
 
-    React.useEffect(() => {
-        if (!acceptedFiles.length)
+    // if base64 is set inside the logo string, create the file object based on it
+    useEffect(() => {
+        if (!logo || !setLogo)
             return;
-        const reader = new FileReader();
-        reader.onload = () => setFileReader(reader);
-        reader.onerror = () => console.error("Error reading file");
-        reader.readAsDataURL(acceptedFiles[0]);
-    }, [acceptedFiles]);
+        try {
+            const logoParts = logo.split(",");
+            const base64 = logoParts[1];
+            const byteCharacters = atob(base64);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++)
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            const byteArray = new Uint8Array(byteNumbers);
+            const mimeType = logoParts[0].split(":")[1];
+            setFile(
+                new File([byteArray],
+                    "logo." + mime.extension(mimeType),
+                    {type: mimeType})
+            );
+        } catch (e) {
+            setLogo("");
+        }
+    }, [logo, setLogo]);
+
+    // if a file is uploaded, read it as a base64 string and save it to the logo state
+    useEffect(() => {
+        if (!acceptedFiles.length || !setLogo)
+            return;
+        setFile(acceptedFiles[0]);
+
+        const bufferReader = new FileReader();
+        bufferReader.onload = () => {
+            const buffer = bufferReader.result as ArrayBuffer;
+            const bytes = new Uint8Array(buffer);
+            let base64 = "";
+            for (let i = 0; i < bytes.length; i++)
+                base64 += String.fromCharCode(bytes[i]);
+            base64 = btoa(base64);
+            setLogo(`data:${acceptedFiles[0].type};base64,${base64}`);
+        };
+        bufferReader.onerror = () => console.error("Error reading file");
+        bufferReader.readAsArrayBuffer(acceptedFiles[0]);
+
+        return () => {
+            bufferReader.onload = null;
+            bufferReader.onerror = null;
+        }
+    }, [acceptedFiles, setLogo]);
+
+    // read 4 preview
+    useEffect(() => {
+        if (!file || !setLogo)
+            return;
+        const urlReader = new FileReader();
+        urlReader.onload = () => setFileReader(urlReader);
+        urlReader.onerror = () => console.error("Error reading file");
+        urlReader.readAsDataURL(file);
+
+        return () => {
+            urlReader.onload = null;
+            urlReader.onerror = null;
+        }
+    }, [file, setLogo]);
 
     return (
         <section className="container">
@@ -31,7 +92,7 @@ export default function UploadRegion() {
                 <h2 className={"text-lg"}>Drag your logo here, or click to select it</h2>
                 <p>Max file size: {FILE_SIZE / (1024 * 1024)} MB</p>
             </div>
-            {acceptedFiles.length > 0 && (
+            {file && (
                 <div className={"w-full text-center flex flex-col items-center"}>
                     <p>Preview:</p>
                     {fileReader ? (
@@ -50,9 +111,8 @@ export default function UploadRegion() {
                         </div>
                     )}
 
-                    <p>Uploaded: {acceptedFiles[0].name}</p>
+                    <p>Uploaded: {file.name}</p>
                 </div>
-
             )}
         </section>
     );

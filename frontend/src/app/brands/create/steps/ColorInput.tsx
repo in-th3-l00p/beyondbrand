@@ -79,10 +79,7 @@ export default function ColorInput() {
                 />
             </div>
 
-            <FormNext
-                disabled={true}
-                next={FormStep.ColorInput}
-            />
+            <FormNext next={FormStep.LogoDialog} />
         </div>
     );
 }

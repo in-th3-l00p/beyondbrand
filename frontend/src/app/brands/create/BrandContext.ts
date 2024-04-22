@@ -8,6 +8,9 @@ export enum FormStep {
     NameGeneration,
     DescriptionInput,
     ColorInput,
+    LogoDialog,
+    LogoGeneration,
+    LogoUpload
 }
 
 export interface IBrandContext {

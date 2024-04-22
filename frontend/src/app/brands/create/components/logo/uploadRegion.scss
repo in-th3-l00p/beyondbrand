@@ -1,0 +1,11 @@
+.container {
+  @apply mt-4 mb-8 flex flex-col gap-4;
+
+  .dropzone {
+    @apply
+      flex flex-col justify-center items-center gap-2
+      py-8 border-4 border-cyan rounded-md shadow-md
+      hover:border-dark-cyan hover:cursor-pointer hover:shadow-xl
+      transition-all;
+  }
+}

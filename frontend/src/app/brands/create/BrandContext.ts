@@ -6,7 +6,11 @@ export enum FormStep {
     NameQuestion,
     NameInput,
     NameGeneration,
-    DescriptionInput
+    DescriptionInput,
+    ColorInput,
+    LogoDialog,
+    LogoGeneration,
+    LogoUpload
 }
 
 export interface IBrandContext {
@@ -14,6 +18,10 @@ export interface IBrandContext {
     setName: React.Dispatch<React.SetStateAction<string>>;
     description: string;
     setDescription: React.Dispatch<React.SetStateAction<string>>;
+    colors: string[];
+    setColors: React.Dispatch<React.SetStateAction<string[]>>;
+    logo: string;
+    setLogo: React.Dispatch<React.SetStateAction<string>>;
 
     stepStack: FormStep[];
     setStepStack: React.Dispatch<React.SetStateAction<FormStep[]>>;

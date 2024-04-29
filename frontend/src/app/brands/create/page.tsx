@@ -8,6 +8,10 @@ import {FormLabel} from "@/app/brands/create/components/FormLabel";
 import {NameInput} from "@/app/brands/create/steps/NameInput";
 import {NameGeneration} from "@/app/brands/create/steps/NameGeneration";
 import DescriptionInput from "@/app/brands/create/steps/DescriptionInput";
+import ColorInput from "@/app/brands/create/steps/ColorInput";
+import LogoDialog from "@/app/brands/create/steps/LogoDialog";
+import LogoGeneration from "@/app/brands/create/steps/LogoGeneration";
+import LogoUpload from "@/app/brands/create/steps/LogoUpload";
 
 function CreateForm() {
     const { stepStack, addStep} = useContext(BrandContext);
@@ -33,7 +37,15 @@ function CreateForm() {
     if (stepStack.at(stepStack.length - 1)  === FormStep.NameGeneration)
         return <NameGeneration />;
     if (stepStack.at(stepStack.length - 1) === FormStep.DescriptionInput)
-        return <DescriptionInput />
+        return <DescriptionInput />;
+    if (stepStack.at(stepStack.length - 1) === FormStep.ColorInput)
+        return <ColorInput />;
+    if (stepStack.at(stepStack.length - 1) === FormStep.LogoDialog)
+        return <LogoDialog />;
+    if (stepStack.at(stepStack.length - 1) === FormStep.LogoGeneration)
+        return <LogoGeneration />;
+    if (stepStack.at(stepStack.length - 1) === FormStep.LogoUpload)
+        return <LogoUpload />;
     return <></>;
 }
 
@@ -45,14 +57,22 @@ export default function CreateBrand() {
         localStorage?.getItem("brand.create.description") || ""
     );
     const [stepStack, setStepStack] = useState<FormStep[]>([
-        ...(JSON.parse(localStorage.getItem("brand.create.stepStack") || "[]") as FormStep[])
+        ...(JSON.parse(localStorage?.getItem("brand.create.stepStack") || "[]") as FormStep[])
     ]);
+    const [colors, setColors] = useState<string[]>(
+        JSON.parse(localStorage?.getItem("brand.create.colors") || "[]") as string[]
+    );
+    const [logo, setLogo] = useState<string>(
+        localStorage?.getItem("brand.create.logo") || ""
+    );
 
     useEffect(() => {
         localStorage.setItem("brand.create.name", name);
         localStorage.setItem("brand.create.description", description);
         localStorage.setItem("brand.create.stepStack", JSON.stringify(stepStack));
-    }, [name, description, stepStack]);
+        localStorage.setItem("brand.create.colors", JSON.stringify(colors));
+        localStorage.setItem("brand.create.logo", logo || "");
+    }, [name, description, stepStack, colors, logo]);
 
     return (
         <section className={"py-8 responsive-px flex-grow flex flex-col"}>
@@ -61,8 +81,10 @@ export default function CreateBrand() {
             <BrandContext.Provider
                 value={{
                     name, setName,
-                    description: description, setDescription: setDescription,
+                    description, setDescription,
                     stepStack, setStepStack,
+                    colors, setColors,
+                    logo, setLogo,
                     addStep: (step: FormStep) => setStepStack([...stepStack, step]),
                     popStep: () => setStepStack(stepStack.slice(0, stepStack.length - 1))
                 }}

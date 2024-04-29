@@ -41,7 +41,7 @@ export default function Sidebar({ setOpened }: {
                     <SidebarLink href={"/contact"}>Contact</SidebarLink>
                     <div className="flex-grow" />
 
-                    {!!session ? (
+                    {(session && session.status === "authenticated") ? (
                         <SidebarProfileToggle />
                     ): (
                         <>

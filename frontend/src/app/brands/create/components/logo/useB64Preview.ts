@@ -2,12 +2,21 @@ import React, {useContext, useEffect, useState} from "react";
 import BrandContext from "@/app/brands/create/BrandContext";
 import mime from "mime-types";
 
-export default function useB64Preview() {
-    const { logo , setLogo } = useContext(BrandContext);
+export default function useB64Preview(previewLogo?: string, setPreviewLogo?: ((logo: string) => void) | null) {
+    const {logo: contextLogo, setLogo: contextSetLogo} = useContext(BrandContext);
     const [file, setFile] = React.useState<File | null>(null);
     const [fileReader, setFileReader] = React.useState<FileReader | null>(null);
 
-    // if base64 is set inside the logo string, create the file object based on it
+    let logo: string, setLogo: (logo: string) => void;
+    if (previewLogo && setPreviewLogo) {
+        logo = previewLogo;
+        setLogo = setPreviewLogo;
+    } else {
+        logo = contextLogo;
+        setLogo = contextSetLogo;
+    }
+
+   // if base64 is set inside the logo string, create the file object based on it
     useEffect(() => {
         if (!logo || !setLogo)
             return;

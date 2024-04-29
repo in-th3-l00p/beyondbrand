@@ -1,10 +1,17 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import {FormLabel} from "@/app/brands/create/components/FormLabel";
+import BrandContext from "@/app/brands/create/BrandContext";
+import LogoPreview from "@/app/brands/create/components/logo/LogoPreview";
+import GenerateButton from "@/app/brands/create/components/logo/GenerateButton";
 
 export default function LogoGeneration() {
     return (
         <div className="form-container">
             <FormLabel back>Generate a logo</FormLabel>
+
+            <div className="mt-4 mb-8">
+                <LogoPreview />
+            </div>
 
             <div className={
                 "w-[300px] h-[300px] rounded-md border-2 border-cyan " +
@@ -16,13 +23,7 @@ export default function LogoGeneration() {
                     Press on the {`"Generate"`} button to get your first logo
                 </p>
             </div>
-
-            <button
-                type={"button"}
-                className={"btn"}
-            >
-                Generate
-            </button>
+            <GenerateButton />
         </div>
     );
 }

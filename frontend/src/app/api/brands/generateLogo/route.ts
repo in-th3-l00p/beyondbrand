@@ -4,8 +4,8 @@ import {NextResponse} from "next/server";
 
 const BodySchema = z.object({
     name: z.string().max(255),
-    description: z.string().max(255),
-    color: z.array(z.string()).max(6),
+    description: z.string().max(500),
+    colors: z.array(z.string()).max(6),
 });
 
 export async function POST(req: Request) {
@@ -33,8 +33,8 @@ export async function POST(req: Request) {
         style: "natural",
         n: 1,
         response_format: "b64_json",
-        prompt: `A logo for a brand named ${body.data.name} with the following description: ${body.data.description}, and the following colors: ${body.data.color.join(", ")}.`,
+        prompt: `A logo for a brand named ${body.data.name} with the following description: ${body.data.description}, and the following colors: ${body.data.colors.join(", ")}.`,
     });
 
-    return NextResponse.json(response.data);
+    return NextResponse.json(response.data[0]);
 }

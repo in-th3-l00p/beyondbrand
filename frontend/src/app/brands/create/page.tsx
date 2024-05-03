@@ -12,6 +12,7 @@ import ColorInput from "@/app/brands/create/steps/ColorInput";
 import LogoDialog from "@/app/brands/create/steps/LogoDialog";
 import LogoGeneration from "@/app/brands/create/steps/LogoGeneration";
 import LogoUpload from "@/app/brands/create/steps/LogoUpload";
+import Review from "@/app/brands/create/steps/Review";
 
 function CreateForm() {
     const { stepStack, addStep} = useContext(BrandContext);
@@ -46,6 +47,8 @@ function CreateForm() {
         return <LogoGeneration />;
     if (stepStack.at(stepStack.length - 1) === FormStep.LogoUpload)
         return <LogoUpload />;
+    if (stepStack.at(stepStack.length - 1) === FormStep.Review)
+        return <Review />;
     return <></>;
 }
 

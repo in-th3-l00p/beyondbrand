@@ -13,7 +13,7 @@ export default function LogoGeneration() {
             <UploadRegion />
             <FormNext
                 disabled={!logo}
-                next={FormStep.LogoUpload}
+                next={FormStep.Review}
             />
         </div>
     );

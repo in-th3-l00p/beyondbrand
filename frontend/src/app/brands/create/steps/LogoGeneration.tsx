@@ -1,10 +1,13 @@
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 import {FormLabel} from "@/app/brands/create/components/FormLabel";
-import BrandContext from "@/app/brands/create/BrandContext";
+import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
 import LogoPreview from "@/app/brands/create/components/logo/LogoPreview";
 import GenerateButton from "@/app/brands/create/components/logo/GenerateButton";
+import FormNext from "@/app/brands/create/components/FormNext";
 
 export default function LogoGeneration() {
+    const { logo } = useContext(BrandContext);
+
     return (
         <div className="form-container">
             <FormLabel back>Generate a logo</FormLabel>
@@ -24,6 +27,11 @@ export default function LogoGeneration() {
                 </p>
             </div>
             <GenerateButton />
+
+            <FormNext
+                disabled={!logo}
+                next={FormStep.Review}
+            />
         </div>
     );
 }

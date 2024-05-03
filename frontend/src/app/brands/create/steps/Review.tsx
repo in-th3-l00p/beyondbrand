@@ -1,10 +1,13 @@
 import {FormLabel} from "@/app/brands/create/components/FormLabel";
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import BrandContext from "@/app/brands/create/BrandContext";
 import LogoPreview from "@/app/brands/create/components/logo/LogoPreview";
+import {useRouter} from "next/navigation";
 
 export default function Review() {
-    const { name, description, colors} = useContext(BrandContext);
+    const router = useRouter();
+    const { name, description, colors, logo} = useContext(BrandContext);
+    const [loading, setLoading] = useState(false);
 
     return (
         <form className={"form-container"}>
@@ -58,7 +61,34 @@ export default function Review() {
                 </div>
 
                 <button
+                    type={"button"}
                     className={"btn mx-auto"}
+                    onClick={() => {
+                        setLoading(true);
+                        fetch("/api/brands/create", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                name,
+                                description,
+                                colors,
+                                logo
+                            }),
+                            cache: "no-cache"
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                localStorage.removeItem("brand.create.name");
+                                localStorage.removeItem("brand.create.description");
+                                localStorage.removeItem("brand.create.colors");
+                                localStorage.removeItem("brand.create.logo");
+                                localStorage.removeItem("brand.create.stepStack");
+                                router.push(`/brands/${data._id}`)
+                            })
+                            .finally(() => setLoading(false));
+                    }}
                 >
                     Create
                 </button>

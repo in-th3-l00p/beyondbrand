@@ -20,7 +20,7 @@ export function ColorVisualizer({ color, setColor }: {
                     if (!setColor) return;
                     setColor(e.target.value)
                 }}
-                className={"w-full h-48"}
+                className={"w-full h-48 rounded-md shadow-md"}
                 readOnly={!setColor}
                 disabled={!setColor}
             />

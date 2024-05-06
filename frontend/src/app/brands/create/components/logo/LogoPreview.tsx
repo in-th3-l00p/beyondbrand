@@ -10,7 +10,6 @@ export default function LogoPreview() {
         return <></>
     return (
         <div className={"w-full text-center flex flex-col items-center"}>
-            <p>Preview:</p>
             {fileReader ? (
                 <Image
                     src={fileReader.result as string} alt={"Logo preview"}

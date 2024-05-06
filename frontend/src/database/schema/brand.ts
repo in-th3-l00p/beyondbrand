@@ -1,4 +1,16 @@
-import mongoose from "mongoose";
+import mongoose, {Types} from "mongoose";
+
+export interface IBrand {
+    _id: Types.ObjectId;
+    name: string;
+    description: string;
+    colors: string[];
+    logo: string;
+    website?: string;
+    owner: Types.ObjectId;
+    createdAt: Date;
+    updatedAt: Date;
+}
 
 const BrandSchema = new mongoose.Schema({
     name: {
@@ -11,8 +23,13 @@ const BrandSchema = new mongoose.Schema({
     },
     logo: {
         type: String,
-        required: false
+        required: true
     },
+    colors: [{
+        type: String,
+        required: true,
+        length: 7
+    }],
     website: {
         type: String,
         required: false

@@ -8,7 +8,7 @@ import Link from "next/link";
 import * as Icon from "react-feather";
 import {tv} from "tailwind-variants";
 import {panel, panelTitle} from "@/app/brands/[id]/components/components";
-import Modal from "@/components/Modal";
+import {UploadLogoModal} from "@/app/brands/[id]/components/LogoDisplay/UploadLogoModal";
 
 const LogoButton = tv({
     base:
@@ -52,29 +52,13 @@ function LogoOverlay({ setShowUpload }: {
     );
 }
 
-function UploadLogo({ show, setShow }: {
-    show: boolean;
-    setShow: (show: boolean) => void;
-}) {
-    return (
-        <Modal
-            title={"Upload logo"}
-            show={show}
-            setShow={setShow}
-        >
-
-        </Modal>
-    );
-}
-
 export default function LogoDisplay() {
     const { brand } = useContext(BrandDisplayContext);
-
     const [showUpload, setShowUpload] = useState(false);
 
     return (
         <>
-            <UploadLogo show={showUpload} setShow={setShowUpload} />
+            <UploadLogoModal show={showUpload} setShow={setShowUpload} />
             <div className={panel()}>
                 <h2 className={panelTitle()}>Logo:</h2>
                 <div

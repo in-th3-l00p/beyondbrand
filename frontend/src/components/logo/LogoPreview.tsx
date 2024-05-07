@@ -1,10 +1,13 @@
-import useB64Preview from "@/app/brands/create/components/logo/useB64Preview";
+import useB64Preview from "@/components/logo/useB64Preview";
 import Image from "next/image";
 import React from "react";
 
-export default function LogoPreview() {
+export default function LogoPreview({ logo, setLogo }: {
+    logo?: string;
+    setLogo?: (logo: string) => void;
+}) {
     const PREVIEW_SIZE = 300; // in px
-    const {file, fileReader} = useB64Preview();
+    const {file, fileReader} = useB64Preview(logo, setLogo);
 
     if (!file)
         return <></>

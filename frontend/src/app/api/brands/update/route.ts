@@ -61,15 +61,15 @@ export async function POST(req: Request) {
     if (body.data.colors)
         brand.colors = body.data.colors;
     if (body.data.logo) {
-        let logoHeader, logoData;
+        let logoHeader, logoData, path;
         try {
             [ logoHeader, logoData ] = body.data.logo.split(";");
+            path = "brands/" + user._id + "/" + `${brand.name}.${mime.extension(logoHeader.split(":")[1])}`;
             await s3.send(new PutObjectCommand({
                 Bucket: process.env.AWS_S3_BUCKET!,
-                Key: "brands/" + user._id + "/" + `${brand.name}.${mime.extension(logoHeader.split(":")[1])}`,
+                Key: path,
                 Body: Buffer.from(logoData.split(",")[1], "base64"),
             }));
-            brand.logo = `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/brands/${user._id}/${brand.name}.${mime.extension(logoHeader.split(":")[1])}`;
         } catch (e) {
             return NextResponse.json(
                 { error: "Failed to upload logo" },
@@ -77,10 +77,14 @@ export async function POST(req: Request) {
             );
         }
 
-        await s3.send(new DeleteObjectCommand({
-            Bucket: process.env.AWS_S3_BUCKET!,
-            Key: "brands/" + user._id + "/" + `${brand.name}.${mime.extension(logoHeader.split(":")[1])}`,
-        }));
+        const oldLogo = brand.logo;
+        console.log(oldLogo);
+        brand.logo = `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${path}`;
+        if (brand.logo !== oldLogo)
+            await s3.send(new DeleteObjectCommand({
+                Bucket: process.env.AWS_S3_BUCKET!,
+                Key: oldLogo.split("com/")[1]
+            }));
     }
 
     return NextResponse.json(await brand.save());

@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import {FormLabel} from "@/app/brands/create/components/FormLabel";
 import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
-import LogoPreview from "@/app/brands/create/components/logo/LogoPreview";
+import LogoPreview from "@/components/logo/LogoPreview";
 import GenerateButton from "@/app/brands/create/components/logo/GenerateButton";
 import FormNext from "@/app/brands/create/components/FormNext";
 

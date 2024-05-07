@@ -1,7 +1,7 @@
 import {FormLabel} from "@/app/brands/create/components/FormLabel";
 import React, {useContext, useState} from "react";
 import BrandContext from "@/app/brands/create/BrandContext";
-import LogoPreview from "@/app/brands/create/components/logo/LogoPreview";
+import LogoPreview from "@/components/logo/LogoPreview";
 import {useRouter} from "next/navigation";
 
 export default function Review() {

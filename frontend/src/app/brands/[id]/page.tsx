@@ -5,7 +5,7 @@ import * as Icon from "react-feather";
 import LogoDisplay from "@/app/brands/[id]/components/LogoDisplay/LogoDisplay";
 import BrandDisplayContextProvider from "@/app/brands/[id]/components/BrandDisplayContext/BrandDisplayContextProvider";
 import BrandInformation from "@/app/brands/[id]/components/BrandInformation";
-import BrandDesign from "@/app/brands/[id]/components/BrandDesign";
+import BrandColorScheme from "@/app/brands/[id]/components/BrandColorScheme";
 import BrandTitle from "@/app/brands/[id]/components/BrandTitle";
 
 // @ts-ignore
@@ -23,7 +23,7 @@ export default async function BrandDisplay({ params }) {
                 <div className="w-full grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-8">
                     <LogoDisplay />
                     <BrandInformation />
-                    <BrandDesign />
+                    <BrandColorScheme />
                 </div>
             </section>
         </BrandDisplayContextProvider>

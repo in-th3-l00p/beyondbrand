@@ -6,7 +6,8 @@ import FormNext from "@/app/brands/create/components/FormNext";
 import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
 import * as Icon from "react-feather";
 import InformationGenerator from "@/app/brands/create/components/colors/InformationGenerator";
-import {ColorVisualizer} from "@/components/ColorVisualizer";
+import {ColorVisualizer} from "@/components/colors/ColorVisualizer";
+import ColorCountSelect from "@/components/colors/ColorCountSelect";
 
 export default function ColorInput() {
     const [colorCount, setColorCount] = useState<number>(3);
@@ -28,22 +29,11 @@ export default function ColorInput() {
                 <p>Choose the colors that represent your brand</p>
             </div>
 
-            <div className={"mb-4"}>
-                <div className="flex gap-4">
-                    <label htmlFor={"colorCount"}>Color count:</label>
-                    <select
-                        name="colorCount" id="colorCount"
-                        value={colorCount}
-                        onChange={(e) => setColorCount(parseInt(e.target.value))}
-                    >
-                        {Array.from({length: 6}).map((_, i) => {
-                            if (i === 2)
-                                return <option value={i + 1} key={i}>{i + 1} (recommended)</option>
-                            return <option value={i + 1} key={i}>{i + 1}</option>
-                        })}
-                    </select>
-                </div>
-            </div>
+            <ColorCountSelect
+                colorCount={colorCount}
+                setColorCount={setColorCount}
+                className={"mb-4"}
+            />
 
             <div className="mb-4 flex justify-center items-center gap-4 w-full">
                 {colors.map((color, i) => (

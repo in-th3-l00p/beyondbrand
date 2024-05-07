@@ -3,7 +3,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import BrandDisplayContext from "@/app/brands/[id]/components/BrandDisplayContext/BrandDisplayContext";
 import {button} from "@/components/defaults";
-import {label, panel, panelTitle} from "@/app/brands/[id]/components/components";
+import {label, panel, PanelLoading, panelTitle} from "@/app/brands/[id]/components/components";
 import {z} from "zod";
 import FormError from "@/components/FormError";
 
@@ -101,15 +101,7 @@ export default function BrandInformation() {
                 </button>
             </div>
 
-            {loading && (
-                <div className={
-                    "absolute top-0 left-0 w-full h-full " +
-                    "bg-black bg-opacity-50 rounded-md " +
-                    "flex flex-col justify-center items-center"
-                }>
-                    <p className="text-white">Loading...</p>
-                </div>
-            )}
+            {loading && <PanelLoading />}
         </div>
     );
 }

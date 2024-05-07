@@ -16,7 +16,9 @@ export default async function BrandDisplay({ params }) {
         <BrandDisplayContextProvider brand={JSON.stringify(brand)}>
             <section className="py-8 responsive-px">
                 <div className="flex flex-wrap items-center gap-4 mb-8">
-                    <Link href={"/"} className="btn"><Icon.ArrowLeft /></Link>
+                    <Link href={"/"} className="btn">
+                        <Icon.ArrowLeft />
+                    </Link>
                     <BrandTitle />
                 </div>
 

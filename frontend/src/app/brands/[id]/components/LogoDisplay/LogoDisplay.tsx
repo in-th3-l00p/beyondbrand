@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import BrandDisplayContext from "@/app/brands/[id]/components/BrandDisplayContext/BrandDisplayContext";
 import style from "@/app/brands/[id]/components/LogoDisplay/style.module.scss";
 import Image from "next/image";
@@ -8,6 +8,7 @@ import Link from "next/link";
 import * as Icon from "react-feather";
 import {tv} from "tailwind-variants";
 import {panel, panelTitle} from "@/app/brands/[id]/components/components";
+import Modal from "@/components/Modal";
 
 const LogoButton = tv({
     base:
@@ -21,7 +22,9 @@ const LogoButton = tv({
     }
 });
 
-function LogoOverlay() {
+function LogoOverlay({ setShowUpload }: {
+    setShowUpload: (show: boolean) => void;
+}) {
     return (
         <div
             id={"logo-overlay"}
@@ -31,13 +34,13 @@ function LogoOverlay() {
                 "bg-black bg-opacity-80"
             }
         >
-            <Link
-                href={"#"}
+            <button
                 className={LogoButton({ border: "right" })}
+                onClick={() => setShowUpload(true)}
             >
                 <Icon.Upload />
                 Upload
-            </Link>
+            </button>
             <Link
                 href={"#"}
                 className={LogoButton({ border: "left" })}
@@ -49,29 +52,49 @@ function LogoOverlay() {
     );
 }
 
+function UploadLogo({ show, setShow }: {
+    show: boolean;
+    setShow: (show: boolean) => void;
+}) {
+    return (
+        <Modal
+            title={"Upload logo"}
+            show={show}
+            setShow={setShow}
+        >
+
+        </Modal>
+    );
+}
+
 export default function LogoDisplay() {
     const { brand } = useContext(BrandDisplayContext);
 
-    return (
-        <div className={panel()}>
-            <h2 className={panelTitle()}>Logo:</h2>
-            <div
-                className={
-                    "max-w-fit max-h-fit mx-auto " +
-                    "bg-black aspect-square rounded-md border-2 border-cyan shadow-md " +
-                    "self-start flex justify-center items-center relative " +
-                    style.logoContainer
-                }
-            >
-                <Image
-                    src={brand.logo}
-                    alt={"logo"}
-                    width={300}
-                    height={300}
-                />
+    const [showUpload, setShowUpload] = useState(false);
 
-                <LogoOverlay />
+    return (
+        <>
+            <UploadLogo show={showUpload} setShow={setShowUpload} />
+            <div className={panel()}>
+                <h2 className={panelTitle()}>Logo:</h2>
+                <div
+                    className={
+                        "max-w-fit max-h-fit mx-auto " +
+                        "bg-black aspect-square rounded-md border-2 border-cyan shadow-md " +
+                        "self-start flex justify-center items-center relative " +
+                        style.logoContainer
+                    }
+                >
+                    <Image
+                        src={brand.logo}
+                        alt={"logo"}
+                        width={300}
+                        height={300}
+                    />
+
+                    <LogoOverlay setShowUpload={setShowUpload} />
+                </div>
             </div>
-        </div>
+        </>
     );
 }

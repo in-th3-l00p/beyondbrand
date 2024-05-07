@@ -39,6 +39,7 @@ export default function Sidebar({ setOpened }: {
                     <SidebarLink href={"/"}>Home</SidebarLink>
                     <SidebarLink href={"/about"}>About</SidebarLink>
                     <SidebarLink href={"/contact"}>Contact</SidebarLink>
+                    <SidebarLink href={"/blog/posts"}>Blog</SidebarLink>
                     <div className="flex-grow" />
 
                     {(session && session.status === "authenticated") ? (

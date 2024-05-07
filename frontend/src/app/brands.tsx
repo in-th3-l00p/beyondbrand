@@ -29,7 +29,7 @@ export default async function Brands() {
 
     return (
         <section className={"py-8 responsive-px"}>
-            <div className="flex flex-wrap gap-4 items-center justify-between">
+            <div className="px-4 flex flex-wrap gap-4 items-center justify-between">
                 <PageTitle>Your brands:</PageTitle>
                 <Link href={"/brands/create"} className="btn">Add brand</Link>
             </div>

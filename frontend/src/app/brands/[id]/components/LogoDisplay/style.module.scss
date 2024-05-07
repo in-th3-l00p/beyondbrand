@@ -1,0 +1,15 @@
+.logoContainer {
+  &:hover > div {
+    animation: fade-in 150ms ease-in-out;
+    display: grid;
+  }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

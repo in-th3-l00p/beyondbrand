@@ -3,7 +3,7 @@
 import React, {useContext, useState} from "react";
 import Loading from "@/app/brands/create/components/Loading";
 import BrandContext from "@/app/brands/create/BrandContext";
-import {ColorVisualizer} from "@/app/brands/create/components/colors/ColorVisualizer";
+import {ColorVisualizer} from "@/components/ColorVisualizer";
 
 export default function InformationGenerator({ colors, setColors }: {
     colors: string[],

@@ -6,7 +6,7 @@ import FormNext from "@/app/brands/create/components/FormNext";
 import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
 import * as Icon from "react-feather";
 import InformationGenerator from "@/app/brands/create/components/colors/InformationGenerator";
-import {ColorVisualizer} from "@/app/brands/create/components/colors/ColorVisualizer";
+import {ColorVisualizer} from "@/components/ColorVisualizer";
 
 export default function ColorInput() {
     const [colorCount, setColorCount] = useState<number>(3);

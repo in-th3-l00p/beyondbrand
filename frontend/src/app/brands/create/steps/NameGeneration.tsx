@@ -27,7 +27,7 @@ export function NameGeneration() {
                 type={"button"} className={"btn mb-4"}
                 disabled={!description}
                 onClick={() => {
-                    fetch("/api/brands/generateName", {
+                    fetch("/api/brands/generate/name", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"

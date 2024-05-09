@@ -1,6 +1,6 @@
 "use client";
 
-import {label, panel, PanelLoading, panelTitle} from "@/app/brands/[id]/components/components";
+import {panel, PanelLoading, panelTitle} from "@/app/brands/[id]/components/components";
 import React, {useContext, useState} from "react";
 import BrandDisplayContext from "@/app/brands/[id]/components/BrandDisplayContext/BrandDisplayContext";
 import {ColorVisualizer} from "@/components/colors/ColorVisualizer";
@@ -60,8 +60,8 @@ export default function BrandColorScheme() {
                         className={button()}
                         onClick={() => {
                             setLoading(true);
-                            fetch("/api/brands/update", {
-                                method: "POST",
+                            fetch("/api/brands", {
+                                method: "PUT",
                                 body: JSON.stringify({
                                     _id: brand._id,
                                     colors: colors

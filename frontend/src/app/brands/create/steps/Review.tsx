@@ -4,6 +4,7 @@ import BrandContext from "@/app/brands/create/BrandContext";
 import LogoPreview from "@/components/logo/LogoPreview";
 import {useRouter} from "next/navigation";
 
+// todo show loading
 export default function Review() {
     const router = useRouter();
     const { name, description, colors, logo} = useContext(BrandContext);
@@ -65,7 +66,7 @@ export default function Review() {
                     className={"btn mx-auto"}
                     onClick={() => {
                         setLoading(true);
-                        fetch("/api/brands/create", {
+                        fetch("/api/brands", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json"

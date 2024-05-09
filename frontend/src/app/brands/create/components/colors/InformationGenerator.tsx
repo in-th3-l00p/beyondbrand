@@ -15,7 +15,7 @@ export default function InformationGenerator({ colors, setColors }: {
 
     const generateColors = () => {
         setLoading(true);
-        fetch("/api/brands/generateColors?colors=" + colors.length, {
+        fetch("/api/brands/generate/colors?colors=" + colors.length, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -55,8 +55,8 @@ export default function BrandInformation() {
                     className={button()}
                     onClick={() => {
                         setLoading(true);
-                        fetch("/api/brands/update", {
-                            method: "POST",
+                        fetch("/api/brands", {
+                            method: "PUT",
                             body: JSON.stringify({
                                 _id: brand._id,
                                 name: name,

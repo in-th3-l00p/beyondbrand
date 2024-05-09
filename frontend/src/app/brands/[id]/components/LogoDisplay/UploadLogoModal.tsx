@@ -29,8 +29,8 @@ export function UploadLogoModal({show, setShow}: {
                     className={"btn btn-primary"}
                     onClick={() => {
                         setLoading(true);
-                        fetch("/api/brands/update", {
-                            method: "POST",
+                        fetch("/api/brands", {
+                            method: "PUT",
                             headers: {
                                 "Content-Type": "application/json"
                             },

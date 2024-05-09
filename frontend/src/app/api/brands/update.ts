@@ -3,11 +3,11 @@ import {NextResponse} from "next/server";
 import isAuthenticated from "@/app/api/utils/isAuthenticated";
 import getUser from "@/app/api/utils/getUser";
 import Brand from "@/database/schema/brand";
+import mime from "mime-types";
 import s3 from "@/utils/s3";
 import {DeleteObjectCommand, PutObjectCommand} from "@aws-sdk/client-s3";
-import mime from "mime-types";
 
-const bodySchema = z.object({
+const updateBodySchema = z.object({
     _id: z.string().length(24),
     name: z.string().max(255).min(1).optional(),
     description: z.string().max(500).min(1).optional(),
@@ -15,22 +15,22 @@ const bodySchema = z.object({
     logo: z.string().optional()
 });
 
-export async function POST(req: Request) {
+export async function PUT(req: Request) {
     let body;
     try {
-        body = bodySchema.safeParse(await req.json());
+        body = updateBodySchema.safeParse(await req.json());
     } catch (e) {
         return NextResponse.json(
-            { error: "Invalid request body" },
-            { status: 400 });
+            {error: "Invalid request body"},
+            {status: 400});
     }
     if (!body.success)
         return NextResponse.json(
-            { error: body.error },
-            { status: 400 }
+            {error: body.error},
+            {status: 400}
         );
 
-    const { error, session } = await isAuthenticated();
+    const {error, session} = await isAuthenticated();
     if (error) return error;
     const user = await getUser(session);
     let brand;
@@ -38,20 +38,20 @@ export async function POST(req: Request) {
         brand = await Brand.findById(body.data._id);
     } catch (e) {
         return NextResponse.json(
-            { error: "Brand not found" },
-            { status: 404 }
+            {error: "Brand not found"},
+            {status: 404}
         );
     }
 
     if (!brand)
         return NextResponse.json(
-            { error: "Brand not found" },
-            { status: 404 }
+            {error: "Brand not found"},
+            {status: 404}
         );
     if (!brand.owner.equals(user._id))
         return NextResponse.json(
-            { error: "Unauthorized" },
-            { status: 403 }
+            {error: "Unauthorized"},
+            {status: 403}
         );
 
     if (body.data.name)
@@ -63,7 +63,7 @@ export async function POST(req: Request) {
     if (body.data.logo) {
         let logoHeader, logoData, path;
         try {
-            [ logoHeader, logoData ] = body.data.logo.split(";");
+            [logoHeader, logoData] = body.data.logo.split(";");
             path = "brands/" + user._id + "/" + `${brand.name}.${mime.extension(logoHeader.split(":")[1])}`;
             await s3.send(new PutObjectCommand({
                 Bucket: process.env.AWS_S3_BUCKET!,
@@ -72,8 +72,8 @@ export async function POST(req: Request) {
             }));
         } catch (e) {
             return NextResponse.json(
-                { error: "Failed to upload logo" },
-                { status: 500 }
+                {error: "Failed to upload logo"},
+                {status: 500}
             );
         }
 

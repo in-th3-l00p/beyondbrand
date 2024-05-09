@@ -16,7 +16,7 @@ export default function GenerateButton() {
             className={"btn mb-4"}
             onClick={() => {
                 setLoading(true);
-                fetch("/api/brands/generateLogo", {
+                fetch("/api/brands/generate/logo", {
                     body: JSON.stringify({ name, description, colors }),
                     method: "POST"
                 })

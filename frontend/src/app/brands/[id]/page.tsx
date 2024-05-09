@@ -2,14 +2,15 @@ import React from "react";
 import Brand from "@/database/schema/brand";
 import Link from "next/link";
 import * as Icon from "react-feather";
-import LogoDisplay from "@/app/brands/[id]/components/LogoDisplay/LogoDisplay";
 import BrandDisplayContextProvider from "@/app/brands/[id]/components/BrandDisplayContext/BrandDisplayContextProvider";
-import BrandInformation from "@/app/brands/[id]/components/BrandInformation";
-import BrandColorScheme from "@/app/brands/[id]/components/BrandColorScheme";
 import BrandTitle from "@/app/brands/[id]/components/BrandTitle";
+import TabsShifter, {TabSelection} from "@/app/brands/[id]/components/tabs/TabsShifter";
 
-// @ts-ignore
-export default async function BrandDisplay({ params }) {
+export default async function BrandDisplay({ params }: {
+    params: {
+        id: string;
+    };
+}) {
     const brand = await Brand.findOne({ _id: params.id });
 
     return (
@@ -22,11 +23,8 @@ export default async function BrandDisplay({ params }) {
                     <BrandTitle />
                 </div>
 
-                <div className="w-full grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-8">
-                    <LogoDisplay />
-                    <BrandInformation />
-                    <BrandColorScheme />
-                </div>
+                <TabsShifter />
+                <TabSelection />
             </section>
         </BrandDisplayContextProvider>
     );

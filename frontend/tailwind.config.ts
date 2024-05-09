@@ -13,6 +13,7 @@ const config: Config = {
         "tomato": "#FC5130",
         "jet": "#303036",
         "ghost-white": "#faf5fa",
+        "dark-ghost-white": "#eae6ea",
         "dark-gray": "#050401",
         "dark-cyan": "#2697be",
         "dark-tomato": "#bd3d24",

@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useState} from "react";
 import BrandDisplayContext from "@/app/brands/[id]/components/BrandDisplayContext/BrandDisplayContext";
 import {button} from "@/components/defaults";
 import {label, panel, PanelLoading, panelTitle} from "@/app/brands/[id]/components/components";
@@ -16,16 +16,12 @@ export default function BrandInformation() {
         errors: z.ZodIssue[];
     }>({ errors: [] });
 
-    useEffect(() => {
-        console.log(error);
-    }, [error]);
-
     const checkChanges = () => {
         return name !== brand.name || description !== brand.description;
     }
 
     return (
-        <div className={panel() + " relative"}>
+        <div className={panel()}>
             <h2 className={panelTitle()}>Brand information:</h2>
 
             <div className="mb-4">

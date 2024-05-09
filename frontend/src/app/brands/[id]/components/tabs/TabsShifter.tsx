@@ -1,11 +1,12 @@
 "use client";
 
 import React, {useContext} from "react";
-import EditBrand from "@/app/brands/[id]/components/tabs/EditBrand";
+import InformationTab from "@/app/brands/[id]/components/tabs/InformationTab";
 import BrandDisplayContext, {
     Tabs,
     tabsDisplay
 } from "@/app/brands/[id]/components/BrandDisplayContext/BrandDisplayContext";
+import SettingsTab from "@/app/brands/[id]/components/tabs/SettingsTab";
 
 function TabButton({ currentTab, order = "middle", children }: {
     currentTab: Tabs;
@@ -36,9 +37,11 @@ function TabButton({ currentTab, order = "middle", children }: {
 export function TabSelection() {
     const { tab } = useContext(BrandDisplayContext);
 
-    return (
-        <EditBrand />
-    )
+    if (tab === Tabs.Information)
+        return <InformationTab />
+    if (tab === Tabs.Settings)
+        return <SettingsTab />
+    return <></>
 }
 
 export default function TabsShifter() {

@@ -17,3 +17,10 @@ export const button = tv({
         }
     }
 });
+
+export const input = tv({
+    base:
+        `mt-1 block w-full px-3 py-2
+        border border-jet rounded-md shadow-md
+        focus:outline-none focus:ring-cyan focus:border-cyan`
+});

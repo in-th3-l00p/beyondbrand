@@ -2,8 +2,10 @@ import {panel, panelContainer, panelTitle} from "@/app/brands/[id]/components/co
 import {button, input} from "@/components/defaults";
 import {useContext, useState} from "react";
 import BrandDisplayContext from "@/app/brands/[id]/components/BrandDisplayContext/BrandDisplayContext";
+import {useRouter} from "next/navigation";
 
 export default function SettingsTab() {
+    const router = useRouter();
     const { brand } = useContext(BrandDisplayContext);
     const [confirmation, setConfirmation] = useState<string>("");
 
@@ -30,6 +32,15 @@ export default function SettingsTab() {
                             type={"submit"}
                             disabled={confirmation !== brand.name}
                             className={button()}
+                            onClick={() => {
+                                fetch("/api/brands?_id=" + brand._id, {
+                                    method: "DELETE",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    }
+                                })
+                                    .then(() => router.push("/"));
+                            }}
                         >
                             Submit
                         </button>

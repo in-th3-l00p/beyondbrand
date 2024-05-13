@@ -2,7 +2,7 @@
 
 import React, {useContext, useState} from "react";
 import BrandDisplayContext from "@/app/brands/[id]/components/BrandDisplayContext/BrandDisplayContext";
-import {button} from "@/components/defaults";
+import {button} from "@/components/primitives";
 import {label, panel, PanelLoading, panelTitle} from "@/app/brands/[id]/components/components";
 import {z} from "zod";
 import FormError from "@/components/FormError";

@@ -1,6 +1,6 @@
-import React, {useRef} from "react";
+import React from "react";
 import {tv} from "tailwind-variants";
-import {button} from "@/components/defaults";
+import {button} from "@/components/primitives";
 import * as Icon from "react-feather";
 
 const modalContainer = tv({

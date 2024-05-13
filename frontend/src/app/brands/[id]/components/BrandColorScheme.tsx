@@ -4,7 +4,7 @@ import {panel, PanelLoading, panelTitle} from "@/app/brands/[id]/components/comp
 import React, {useContext, useState} from "react";
 import BrandDisplayContext from "@/app/brands/[id]/components/BrandDisplayContext/BrandDisplayContext";
 import {ColorVisualizer} from "@/components/colors/ColorVisualizer";
-import {button} from "@/components/defaults";
+import {button} from "@/components/primitives";
 import ColorCountSelect from "@/components/colors/ColorCountSelect";
 
 export default function BrandColorScheme() {

@@ -7,6 +7,7 @@ import BrandDisplayContext, {
     tabsDisplay
 } from "@/app/brands/[id]/components/BrandDisplayContext/BrandDisplayContext";
 import SettingsTab from "@/app/brands/[id]/components/tabs/SettingsTab";
+import SocialMediaTab from "@/app/brands/[id]/components/tabs/SocialMediaTab";
 
 function TabButton({ currentTab, order = "middle", children }: {
     currentTab: Tabs;
@@ -41,6 +42,8 @@ export function TabSelection() {
         return <InformationTab />
     if (tab === Tabs.Settings)
         return <SettingsTab />
+    if (tab === Tabs.SocialMedia)
+        return <SocialMediaTab />
     return <></>
 }
 

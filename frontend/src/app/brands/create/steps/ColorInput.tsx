@@ -8,6 +8,7 @@ import * as Icon from "react-feather";
 import InformationGenerator from "@/app/brands/create/components/colors/InformationGenerator";
 import {ColorVisualizer} from "@/components/colors/ColorVisualizer";
 import ColorCountSelect from "@/components/colors/ColorCountSelect";
+import {formContainer} from "@/components/form/primitives";
 
 export default function ColorInput() {
     const [colorCount, setColorCount] = useState<number>(3);
@@ -23,7 +24,7 @@ export default function ColorInput() {
     }, [colorCount, colors, setColors]);
 
     return (
-        <div className={"form-container"}>
+        <div className={formContainer()}>
             <FormLabel back>{`Let's establish the colors of your brand`}</FormLabel>
             <div className={"mb-8 border-b w-full text-center"}>
                 <p>Choose the colors that represent your brand</p>

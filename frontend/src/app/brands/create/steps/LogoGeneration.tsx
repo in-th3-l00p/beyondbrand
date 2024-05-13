@@ -4,12 +4,13 @@ import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
 import LogoPreview from "@/components/logo/LogoPreview";
 import GenerateButton from "@/app/brands/create/components/logo/GenerateButton";
 import FormNext from "@/app/brands/create/components/FormNext";
+import {formContainer} from "@/components/form/primitives";
 
 export default function LogoGeneration() {
     const { logo } = useContext(BrandContext);
 
     return (
-        <div className="form-container">
+        <div className={formContainer()}>
             <FormLabel back>Generate a logo</FormLabel>
 
             <div className="mt-4 mb-8">

@@ -3,6 +3,7 @@ import React, {useContext, useState} from "react";
 import BrandContext from "@/app/brands/create/BrandContext";
 import LogoPreview from "@/components/logo/LogoPreview";
 import {useRouter} from "next/navigation";
+import {formContainer} from "@/components/form/primitives";
 
 // todo show loading
 export default function Review() {
@@ -11,7 +12,7 @@ export default function Review() {
     const [loading, setLoading] = useState(false);
 
     return (
-        <form className={"form-container"}>
+        <form className={formContainer()}>
             <FormLabel back>Review your brand</FormLabel>
 
             <div className="flex flex-col gap-8 w-full">

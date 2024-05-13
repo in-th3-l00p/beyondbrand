@@ -1,5 +1,5 @@
 import {panel, panelContainer, panelTitle} from "@/app/brands/[id]/components/components";
-import {button, input} from "@/components/defaults";
+import {button, input} from "@/components/primitives";
 import {useContext, useState} from "react";
 import BrandDisplayContext from "@/app/brands/[id]/components/BrandDisplayContext/BrandDisplayContext";
 import {useRouter} from "next/navigation";

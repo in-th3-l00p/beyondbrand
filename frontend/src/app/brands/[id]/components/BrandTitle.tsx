@@ -1,11 +1,11 @@
 "use client";
 
 import React, {useContext} from "react";
-import BrandDisplayContext from "@/app/brands/[id]/components/BrandDisplayContext/BrandDisplayContext";
 import PageTitle from "@/components/PageTitle";
+import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
 
 export default function BrandTitle() {
-    const { brand } = useContext(BrandDisplayContext);
+    const { brand } = useContext(BrandContext);
 
     return (
         <PageTitle>{`Brand "${brand.name}"`}</PageTitle>

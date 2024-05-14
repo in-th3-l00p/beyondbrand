@@ -2,10 +2,10 @@
 
 import React, {useContext} from "react";
 import InformationTab from "@/app/brands/[id]/components/tabs/InformationTab";
-import BrandDisplayContext, {
+import TabContext, {
     Tabs,
     tabsDisplay
-} from "@/app/brands/[id]/components/BrandDisplayContext/BrandDisplayContext";
+} from "@/app/brands/[id]/components/TabContext/TabContext";
 import SettingsTab from "@/app/brands/[id]/components/tabs/SettingsTab";
 import SocialMediaTab from "@/app/brands/[id]/components/tabs/SocialMediaTab";
 
@@ -14,7 +14,7 @@ function TabButton({ currentTab, order = "middle", children }: {
     order?: "left" | "middle" | "right";
     children?: React.ReactNode;
 }) {
-    const { tab, setTab } = useContext(BrandDisplayContext);
+    const { tab, setTab } = useContext(TabContext);
     const selected = tab === currentTab;
 
     return (
@@ -36,7 +36,7 @@ function TabButton({ currentTab, order = "middle", children }: {
 }
 
 export function TabSelection() {
-    const { tab } = useContext(BrandDisplayContext);
+    const { tab } = useContext(TabContext);
 
     if (tab === Tabs.Information)
         return <InformationTab />

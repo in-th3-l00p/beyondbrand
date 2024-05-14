@@ -1,7 +1,6 @@
 "use client";
 
 import React, {useContext, useState} from "react";
-import BrandDisplayContext from "@/app/brands/[id]/components/BrandDisplayContext/BrandDisplayContext";
 import style from "@/app/brands/[id]/components/LogoDisplay/style.module.scss";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,6 +8,7 @@ import * as Icon from "react-feather";
 import {tv} from "tailwind-variants";
 import {panel, panelTitle} from "@/app/brands/[id]/components/components";
 import {UploadLogoModal} from "@/app/brands/[id]/components/LogoDisplay/UploadLogoModal";
+import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
 
 const LogoButton = tv({
     base:
@@ -53,7 +53,7 @@ function LogoOverlay({ setShowUpload }: {
 }
 
 export default function LogoDisplay() {
-    const { brand } = useContext(BrandDisplayContext);
+    const { brand } = useContext(BrandContext);
     const [showUpload, setShowUpload] = useState(false);
 
     return (

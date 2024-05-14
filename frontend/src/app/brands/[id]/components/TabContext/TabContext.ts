@@ -1,6 +1,5 @@
 "use client";
 
-import {IBrand} from "@/database/schema/brand";
 import React from "react";
 
 export enum Tabs {
@@ -18,14 +17,12 @@ export const tabsDisplay = [
 ];
 
 export interface IBrandDisplayContext {
-    brand: IBrand;
-    setBrand: (brand: IBrand) => void;
     tab: Tabs,
     setTab: (tab: Tabs) => void;
 }
 
-const BrandDisplayContext = React.createContext<IBrandDisplayContext>(
+const TabContext = React.createContext<IBrandDisplayContext>(
     {} as IBrandDisplayContext
 );
 
-export default BrandDisplayContext;
+export default TabContext;

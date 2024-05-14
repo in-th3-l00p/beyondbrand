@@ -1,14 +1,14 @@
 "use client";
 
 import React, {useContext, useState} from "react";
-import BrandDisplayContext from "@/app/brands/[id]/components/BrandDisplayContext/BrandDisplayContext";
 import {button} from "@/components/primitives";
 import {label, panel, PanelLoading, panelTitle} from "@/app/brands/[id]/components/components";
 import {z} from "zod";
 import FormError from "@/components/FormError";
+import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
 
 export default function BrandInformation() {
-    const { brand, setBrand } = useContext(BrandDisplayContext);
+    const { brand, setBrand } = useContext(BrandContext);
     const [name, setName] = useState<string>(brand.name);
     const [description, setDescription] = useState<string>(brand.description);
     const [loading, setLoading] = useState<boolean>(false);

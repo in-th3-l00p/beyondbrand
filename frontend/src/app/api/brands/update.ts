@@ -78,7 +78,6 @@ export async function PUT(req: Request) {
         }
 
         const oldLogo = brand.logo;
-        console.log(oldLogo);
         brand.logo = `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${path}`;
         if (brand.logo !== oldLogo)
             await s3.send(new DeleteObjectCommand({

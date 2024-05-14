@@ -2,13 +2,13 @@
 
 import {panel, PanelLoading, panelTitle} from "@/app/brands/[id]/components/components";
 import React, {useContext, useState} from "react";
-import BrandDisplayContext from "@/app/brands/[id]/components/BrandDisplayContext/BrandDisplayContext";
 import {ColorVisualizer} from "@/components/colors/ColorVisualizer";
 import {button} from "@/components/primitives";
 import ColorCountSelect from "@/components/colors/ColorCountSelect";
+import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
 
 export default function BrandColorScheme() {
-    const { brand, setBrand } = useContext(BrandDisplayContext);
+    const { brand, setBrand } = useContext(BrandContext);
 
     const [colors, setColors] = useState<string[]>(brand.colors);
     const [loading, setLoading] = useState<boolean>(false);

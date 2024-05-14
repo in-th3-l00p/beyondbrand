@@ -1,12 +1,13 @@
 import {createContext} from "react";
+import {IInstagramPost} from "@/database/schema/instagramPost";
 
 export enum Tools {
     SELECT = 'select',
 }
 
 interface IEditorContext {
-    postId: string;
-    brandId: string;
+    post: IInstagramPost;
+    setPost: (post: IInstagramPost) => void;
 
     tool: Tools;
     setTool: (tool: Tools) => void;

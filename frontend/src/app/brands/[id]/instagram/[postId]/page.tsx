@@ -4,23 +4,26 @@ import {useEffect, useState} from "react";
 import {Tools} from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
 import Loading from "@/app/brands/create/components/Loading";
 import {useParams} from "next/navigation";
-import {IBrand} from "@/database/schema/brand";
+import EditorContext from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
+import {IInstagramPost} from "@/database/schema/instagramPost";
 
 export default function InstagramPost() {
     const { id, postId } = useParams<{ id: string, postId: string }>();
     const [loading, setLoading] = useState(true);
 
-    const [brand, setBrand] = useState<IBrand>({} as IBrand);
+    const [post, setPost] = useState<IInstagramPost>({} as IInstagramPost);
     const [tool, setTool] = useState<Tools>(Tools.SELECT);
 
     // todo: better error handling
     useEffect(() => {
         const load = async () => {
-            const brandResponse = await fetch(`/api/brands/${id}`);
-            if (!brandResponse.ok)
+            const postResponse = await fetch(`/api/brands/${id}/instagram/${postId}`, {
+                cache: "no-cache"
+            });
+            if (!postResponse.ok)
                 console.error("error");
-            const brand = await brandResponse.json();
-            setBrand(brand);
+            const post = await postResponse.json();
+            setPost(post);
         }
 
         load()
@@ -32,14 +35,14 @@ export default function InstagramPost() {
             <Loading />
         )
     return (
-        // <EditorContext.Provider
-        //     value={{
-        //         tool,
-        //         setTool
-        //     }}
-        // >
+        <EditorContext.Provider
+            value={{
+                tool, setTool,
+                post, setPost
+            }}
+        >
             <div className={"flex-grow bg-white flex"}>
             </div>
-        // </EditorContext.Provider>
+        </EditorContext.Provider>
     );
 }

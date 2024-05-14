@@ -1,12 +1,12 @@
 import {panel, panelContainer, panelTitle} from "@/app/brands/[id]/components/components";
 import {button, input} from "@/components/primitives";
 import {useContext, useState} from "react";
-import BrandDisplayContext from "@/app/brands/[id]/components/BrandDisplayContext/BrandDisplayContext";
+import TabContext from "@/app/brands/[id]/components/TabContext/TabContext";
 import {useRouter} from "next/navigation";
 
 export default function SettingsTab() {
     const router = useRouter();
-    const { brand } = useContext(BrandDisplayContext);
+    const { brand } = useContext(TabContext);
     const [confirmation, setConfirmation] = useState<string>("");
 
     return (

@@ -1,16 +1,21 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Tools} from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
 import Loading from "@/app/brands/create/components/Loading";
 import {useParams} from "next/navigation";
 import EditorContext from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
 import {IInstagramPost} from "@/database/schema/instagramPost";
+import PageTitle from "@/components/PageTitle";
+import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
+import clsx from "clsx";
+import {pageContainer} from "@/components/primitives";
 
 export default function InstagramPost() {
     const { id, postId } = useParams<{ id: string, postId: string }>();
     const [loading, setLoading] = useState(true);
 
+    const { brand } = useContext(BrandContext);
     const [post, setPost] = useState<IInstagramPost>({} as IInstagramPost);
     const [tool, setTool] = useState<Tools>(Tools.SELECT);
 
@@ -27,6 +32,7 @@ export default function InstagramPost() {
         }
 
         load()
+            .catch(console.error)
             .finally(() => setLoading(false));
     }, [id, postId]);
 
@@ -41,7 +47,8 @@ export default function InstagramPost() {
                 post, setPost
             }}
         >
-            <div className={"flex-grow bg-white flex"}>
+            <div className={clsx(pageContainer(), "flex-grow")}>
+                <PageTitle back={"/brands/" + brand._id}>Instagram post: {post.name}</PageTitle>
             </div>
         </EditorContext.Provider>
     );

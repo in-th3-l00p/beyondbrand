@@ -24,3 +24,7 @@ export const input = tv({
         border border-jet rounded-md shadow-md
         focus:outline-none focus:ring-cyan focus:border-cyan`
 });
+
+export const pageContainer = tv({
+    base: "container mx-auto py-8"
+});

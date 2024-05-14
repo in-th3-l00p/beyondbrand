@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
+import clsx from "clsx";
 
 export default async function Landing() {
     return (
-        <section className={
-            "py-24 responsive-px bg-ghost-white " +
+        <section className={clsx(
+            "py-24 responsive-px bg-ghost-white",
             "grid grid-rows-2 grid-cols-1 md:grid-rows-1 md:grid-cols-2 gap-8"
-        }>
+        )}>
             <Image
                 src={"/logo.svg"} alt={"logo"}
                 width={300}

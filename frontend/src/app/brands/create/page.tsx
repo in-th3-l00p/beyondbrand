@@ -13,6 +13,8 @@ import LogoGeneration from "@/app/brands/create/steps/LogoGeneration";
 import LogoUpload from "@/app/brands/create/steps/LogoUpload";
 import Review from "@/app/brands/create/steps/Review";
 import {formContainer} from "@/components/form/primitives";
+import {pageContainer} from "@/components/primitives";
+import clsx from "clsx";
 
 function CreateForm() {
     const { stepStack, addStep} = useContext(BrandContext);
@@ -78,7 +80,7 @@ export default function CreateBrand() {
     }, [name, description, stepStack, colors, logo]);
 
     return (
-        <section className={"py-8 responsive-px flex-grow flex flex-col"}>
+        <section className={clsx(pageContainer(), "flex-grow flex flex-col")}>
             <PageTitle>Create brand</PageTitle>
 
             <BrandContext.Provider

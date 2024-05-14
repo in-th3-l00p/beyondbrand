@@ -1,23 +1,19 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
-import * as Icon from "react-feather";
+import React, {useContext} from "react";
 import TabContextProvider from "@/app/brands/[id]/components/tabs/TabContext/TabContextProvider";
-import BrandTitle from "@/app/brands/[id]/components/BrandTitle";
 import TabsShifter, {TabSelection} from "@/app/brands/[id]/components/tabs/TabsShifter";
+import PageTitle from "@/components/PageTitle";
+import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
+import {pageContainer} from "@/components/primitives";
 
 export default function BrandDisplay() {
+    const { brand } = useContext(BrandContext);
+
     return (
         <TabContextProvider>
-            <section className="py-8 responsive-px">
-                <div className="flex flex-wrap items-center gap-4 mb-8">
-                    <Link href={"/"} className="btn">
-                        <Icon.ArrowLeft />
-                    </Link>
-                    <BrandTitle />
-                </div>
-
+            <section className={pageContainer()}>
+                <PageTitle back={"/"}>Brand {`"${brand.name}"`}</PageTitle>
                 <TabsShifter />
                 <TabSelection />
             </section>

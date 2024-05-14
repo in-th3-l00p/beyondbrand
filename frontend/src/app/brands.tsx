@@ -1,9 +1,9 @@
-import {getServerSession} from "next-auth";
 import brandService from "@/service/brandService";
 import Link from "next/link";
 import PageTitle from "@/components/PageTitle";
 import {IBrand} from "@/database/schema/brand";
 import Image from "next/image";
+import {pageContainer} from "@/components/primitives";
 
 function Brand({ brand }: { brand: IBrand }) {
     return (
@@ -24,11 +24,10 @@ function Brand({ brand }: { brand: IBrand }) {
 }
 
 export default async function Brands() {
-    const session = await getServerSession();
     const brands = await brandService.getAll();
 
     return (
-        <section className={"py-8 responsive-px"}>
+        <section className={pageContainer()}>
             <div className="flex flex-wrap gap-4 items-center justify-between">
                 <PageTitle>Your brands:</PageTitle>
                 <Link href={"/brands/create"} className="btn">Add brand</Link>

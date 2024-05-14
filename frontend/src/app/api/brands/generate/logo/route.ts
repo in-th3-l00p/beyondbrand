@@ -28,11 +28,12 @@ export async function POST(req: Request) {
     }
 
     const response = await openai.images.generate({
-        model: "dall-e-3",
+        model: "dall-e-2",
         quality: "hd",
         style: "natural",
         n: 1,
         response_format: "b64_json",
+        size: "256x256",
         prompt: `A logo for a brand named ${body.data.name} with the following description: ${body.data.description}, and the following colors: ${body.data.colors.join(", ")}.`,
     });
 

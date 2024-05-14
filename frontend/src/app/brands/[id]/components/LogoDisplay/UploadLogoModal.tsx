@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import TabContext from "@/app/brands/[id]/components/TabContext/TabContext";
+import TabContext from "@/app/brands/[id]/components/tabs/TabContext/TabContext";
 import Modal, {modalFooter} from "@/components/Modal";
 import UploadRegion from "@/components/logo/UploadRegion";
 import Loading from "@/app/brands/create/components/Loading";

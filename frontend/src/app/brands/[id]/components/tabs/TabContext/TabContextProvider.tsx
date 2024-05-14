@@ -1,7 +1,7 @@
 "use client";
 
 import React, {useState} from 'react';
-import TabContext, {Tabs} from "@/app/brands/[id]/components/TabContext/TabContext";
+import TabContext, {Tabs} from "@/app/brands/[id]/components/tabs/TabContext/TabContext";
 
 export default function TabContextProvider({ children }: {
     children?: React.ReactNode;

@@ -5,7 +5,7 @@ import InformationTab from "@/app/brands/[id]/components/tabs/InformationTab";
 import TabContext, {
     Tabs,
     tabsDisplay
-} from "@/app/brands/[id]/components/TabContext/TabContext";
+} from "@/app/brands/[id]/components/tabs/TabContext/TabContext";
 import SettingsTab from "@/app/brands/[id]/components/tabs/SettingsTab";
 import SocialMediaTab from "@/app/brands/[id]/components/tabs/SocialMediaTab";
 

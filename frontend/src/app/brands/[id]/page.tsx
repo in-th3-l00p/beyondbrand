@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import * as Icon from "react-feather";
-import TabContextProvider from "@/app/brands/[id]/components/TabContext/TabContextProvider";
+import TabContextProvider from "@/app/brands/[id]/components/tabs/TabContext/TabContextProvider";
 import BrandTitle from "@/app/brands/[id]/components/BrandTitle";
 import TabsShifter, {TabSelection} from "@/app/brands/[id]/components/tabs/TabsShifter";
 

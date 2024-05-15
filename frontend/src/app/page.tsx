@@ -188,7 +188,7 @@ function Plan({ name, description, features, price }: {
         <div className={clsx(
             "flex flex-col justify-between max-w-sm mx-auto",
             "border-4 border-cyan p-8 rounded-lg shadow-md",
-            "aspect-[1/1.5]",
+            "aspect-[1/1.5] bg-white",
             "hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out",
         )}>
             <div>
@@ -199,7 +199,7 @@ function Plan({ name, description, features, price }: {
                 )}>
                     {name}
                 </h3>
-                <p>{description}</p>
+                <p className={"mb-4"}>{description}</p>
 
                 <ul className={"list-disc list-inside"}>
                     {features.map((feature, index) => (

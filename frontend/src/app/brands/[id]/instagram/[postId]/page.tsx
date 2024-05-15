@@ -10,6 +10,7 @@ import PageTitle from "@/components/PageTitle";
 import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
 import clsx from "clsx";
 import {pageContainer} from "@/components/primitives";
+import Toolbox from "@/app/brands/[id]/instagram/[postId]/components/Toolbox";
 
 export default function InstagramPost() {
     const { id, postId } = useParams<{ id: string, postId: string }>();
@@ -17,7 +18,9 @@ export default function InstagramPost() {
 
     const { brand } = useContext(BrandContext);
     const [post, setPost] = useState<IInstagramPost>({} as IInstagramPost);
+
     const [tool, setTool] = useState<Tools>(Tools.SELECT);
+    const [color, setColor] = useState<string>("#000000");
 
     // todo: better error handling
     useEffect(() => {
@@ -44,11 +47,13 @@ export default function InstagramPost() {
         <EditorContext.Provider
             value={{
                 tool, setTool,
-                post, setPost
+                post, setPost,
+                color, setColor
             }}
         >
             <div className={clsx(pageContainer(), "flex-grow")}>
                 <PageTitle back={"/brands/" + brand._id}>Instagram post: {post.name}</PageTitle>
+                <Toolbox />
             </div>
         </EditorContext.Provider>
     );

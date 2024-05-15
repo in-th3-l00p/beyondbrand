@@ -113,19 +113,19 @@ function Networking() {
 
             <div className={featureContainer()}>
                 <Feature
-                    icon={"/icons/forum.svg"} iconAlt={"create"}
+                    icon={"/icons/landing/forum.svg"} iconAlt={"create"}
                     title={"Forum"}
                     description={"Publish your ideas, ask for help, and get in touch with other entrepreneurs in our forum. You can also find partners for your business, and get feedback on your ideas."}
                 />
 
                 <Feature
-                    icon={"/icons/presentation.svg"} iconAlt={"manage"}
+                    icon={"/icons/landing/presentation.svg"} iconAlt={"manage"}
                     title={"Present yourself"}
                     description={"Create a profile where you show everything that you've done, all your achivement, and your goals. You can also add your social media links, and your website."}
                 />
 
                 <Feature
-                    icon={"/icons/search.svg"} iconAlt={"maintain"}
+                    icon={"/icons/landing/search.svg"} iconAlt={"maintain"}
                     title={"Search for partners"}
                     description={"Search for partners for your business, and find people that can help you grow your business. You can also find investors, and people that can help you with your marketing."}
                 />
@@ -146,19 +146,19 @@ function BrandCreation() {
 
             <div className={featureContainer()}>
                 <Feature
-                    icon={"/icons/create.svg"} iconAlt={"create"}
+                    icon={"/icons/landing/create.svg"} iconAlt={"create"}
                     title={"Create your brand"}
                     description={"Create your brand with our brand builder. You can choose from a variety of templates, colors, and fonts to create your brand."}
                 />
 
                 <Feature
-                    icon={"/icons/manage.svg"} iconAlt={"manage"}
+                    icon={"/icons/landing/manage.svg"} iconAlt={"manage"}
                     title={"Manage your brand"}
                     description={"Manage your brand with our brand manager. You can edit your brand, change colors, fonts, and templates."}
                 />
 
                 <Feature
-                    icon={"/icons/fix.svg"} iconAlt={"maintain"}
+                    icon={"/icons/landing/fix.svg"} iconAlt={"maintain"}
                     title={"Maintain your brand"}
                     description={"Maintain your brand with our brand maintainer. You can keep track of your brand, see how it is doing, and make changes to improve it."}
                 />

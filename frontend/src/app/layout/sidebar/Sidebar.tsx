@@ -42,7 +42,10 @@ export default function Sidebar({ setOpened }: {
                     <div className="flex-grow" />
 
                     {(session && session.status === "authenticated") ? (
-                        <SidebarProfileToggle />
+                        <>
+                            <SidebarLink href={"/brands"}>Your brands</SidebarLink>
+                            <SidebarProfileToggle />
+                        </>
                     ): (
                         <>
                             <SidebarLink href={"/login"}>Login</SidebarLink>

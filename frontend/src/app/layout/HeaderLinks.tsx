@@ -57,7 +57,10 @@ export default function HeaderLinks({ windowWidthLimit }: {
                                 <DesktopLink href={"/register"}>Register</DesktopLink>
                             </>
                         ) : (
-                            <ProfileDropdown />
+                            <div className="flex gap-4 items-center">
+                                <DesktopLink href={"/brands"}>Your brands</DesktopLink>
+                                <ProfileDropdown />
+                            </div>
                         )}
                     </>
                 )}

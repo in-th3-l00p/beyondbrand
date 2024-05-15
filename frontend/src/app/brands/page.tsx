@@ -23,7 +23,7 @@ function Brand({ brand }: { brand: IBrand }) {
     );
 }
 
-export default async function Brands() {
+export default async function Page() {
     const brands = await brandService.getAll();
 
     return (

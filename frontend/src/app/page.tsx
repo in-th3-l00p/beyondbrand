@@ -72,7 +72,7 @@ function Feature({ icon, iconAlt, title, description }: {
     return (
         <div className={"flex flex-col justify-center items-center"}>
 
-            <div className="rounded-full p-4 border-4 border-cyan mb-4">
+            <div className="rounded-full bg-white p-4 border-4 border-cyan mb-4">
                 <Image
                     src={icon} alt={iconAlt}
                     width={60}

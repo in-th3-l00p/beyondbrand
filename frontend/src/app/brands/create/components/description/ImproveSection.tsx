@@ -48,7 +48,7 @@ export function ImproveSection() {
                 disabled={loading || !name || !description}
                 onClick={() => {
                     setLoading(true);
-                    fetch("/api/brands/generateDescription", {
+                    fetch("/api/brands/generate/description", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"

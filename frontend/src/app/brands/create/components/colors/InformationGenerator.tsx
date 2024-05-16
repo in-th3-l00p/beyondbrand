@@ -3,7 +3,7 @@
 import React, {useContext, useState} from "react";
 import Loading from "@/app/brands/create/components/Loading";
 import BrandContext from "@/app/brands/create/BrandContext";
-import {ColorVisualizer} from "@/app/brands/create/components/colors/ColorVisualizer";
+import {ColorVisualizer} from "@/components/colors/ColorVisualizer";
 
 export default function InformationGenerator({ colors, setColors }: {
     colors: string[],
@@ -15,7 +15,7 @@ export default function InformationGenerator({ colors, setColors }: {
 
     const generateColors = () => {
         setLoading(true);
-        fetch("/api/brands/generateColors?colors=" + colors.length, {
+        fetch("/api/brands/generate/colors?colors=" + colors.length, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

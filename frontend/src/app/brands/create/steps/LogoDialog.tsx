@@ -3,12 +3,13 @@
 import {FormLabel} from "@/app/brands/create/components/FormLabel";
 import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
 import {useContext} from "react"
+import {formContainer} from "@/components/form/primitives";
 
 export default function LogoDialog() {
     const { addStep } = useContext(BrandContext);
 
     return (
-        <div className={"form-container"}>
+        <div className={formContainer()}>
             <FormLabel back>Are you already having a logo?</FormLabel>
             <div className="flex gap-4">
                 <button

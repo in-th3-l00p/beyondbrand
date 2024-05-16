@@ -52,6 +52,7 @@ export async function POST(req: Request) {
     const brand = await Brand.create({
         name: body.data.name,
         description: body.data.description,
+        colors: body.data.colors,
         logo: `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/brands/${user._id}/${body.data.name}.${mime.extension(logoHeader.split(":")[1])}`,
         owner: user._id
     });

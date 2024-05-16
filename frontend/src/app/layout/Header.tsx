@@ -1,6 +1,7 @@
 import Image from "next/image";
 import HeaderLinks from "@/app/layout/HeaderLinks";
 import Link from "next/link";
+import clsx from "clsx";
 
 export function Branding() {
     const LOGO_SIZE = 60;
@@ -23,11 +24,10 @@ export function Branding() {
 
 export default async function Header() {
     return (
-        <header className={
-            "flex items-center gap-8 " +
-            "responsive-px " +
+        <header className={clsx(
+            "flex items-center gap-8 responsive-px",
             "py-4 bg-ghost-white shadow-md"
-        }>
+        )}>
             <Branding />
             <HeaderLinks windowWidthLimit={768} />
         </header>

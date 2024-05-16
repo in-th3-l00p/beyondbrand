@@ -30,7 +30,7 @@ export default function GenerateDescriptionPrompted() {
                     disabled={!prompt}
                     onClick={() => {
                         setLoading(true);
-                        fetch("/api/brands/generateDescription/prompted", {
+                        fetch("/api/brands/generate/description/prompted", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json"

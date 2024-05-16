@@ -1,16 +1,18 @@
 import {FormLabel} from "@/app/brands/create/components/FormLabel";
 import React, {useContext, useState} from "react";
 import BrandContext from "@/app/brands/create/BrandContext";
-import LogoPreview from "@/app/brands/create/components/logo/LogoPreview";
+import LogoPreview from "@/components/logo/LogoPreview";
 import {useRouter} from "next/navigation";
+import {formContainer} from "@/components/form/primitives";
 
+// todo show loading
 export default function Review() {
     const router = useRouter();
     const { name, description, colors, logo} = useContext(BrandContext);
     const [loading, setLoading] = useState(false);
 
     return (
-        <form className={"form-container"}>
+        <form className={formContainer()}>
             <FormLabel back>Review your brand</FormLabel>
 
             <div className="flex flex-col gap-8 w-full">
@@ -65,7 +67,7 @@ export default function Review() {
                     className={"btn mx-auto"}
                     onClick={() => {
                         setLoading(true);
-                        fetch("/api/brands/create", {
+                        fetch("/api/brands", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json"

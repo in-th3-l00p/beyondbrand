@@ -4,6 +4,7 @@ import React, {useContext} from "react";
 import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
 import {FormLabel} from "@/app/brands/create/components/FormLabel";
 import FormNext from "@/app/brands/create/components/FormNext";
+import {formContainer} from "@/components/form/primitives";
 
 export function NameGeneration() {
     const {
@@ -12,7 +13,7 @@ export function NameGeneration() {
     } = useContext(BrandContext);
 
     return (
-        <form className={"form-container"}>
+        <form className={formContainer()}>
             <FormLabel back>
                 Give us a brief about your business idea. We will generate a name for you.
             </FormLabel>
@@ -27,7 +28,7 @@ export function NameGeneration() {
                 type={"button"} className={"btn mb-4"}
                 disabled={!description}
                 onClick={() => {
-                    fetch("/api/brands/generateName", {
+                    fetch("/api/brands/generate/name", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"

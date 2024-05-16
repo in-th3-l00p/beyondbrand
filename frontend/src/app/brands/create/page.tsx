@@ -3,7 +3,6 @@
 import PageTitle from "@/components/PageTitle";
 import React, {useContext, useEffect, useState} from "react";
 import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
-import "./style.scss";
 import {FormLabel} from "@/app/brands/create/components/FormLabel";
 import {NameInput} from "@/app/brands/create/steps/NameInput";
 import {NameGeneration} from "@/app/brands/create/steps/NameGeneration";
@@ -13,13 +12,16 @@ import LogoDialog from "@/app/brands/create/steps/LogoDialog";
 import LogoGeneration from "@/app/brands/create/steps/LogoGeneration";
 import LogoUpload from "@/app/brands/create/steps/LogoUpload";
 import Review from "@/app/brands/create/steps/Review";
+import {formContainer} from "@/components/form/primitives";
+import {pageContainer} from "@/components/primitives";
+import clsx from "clsx";
 
 function CreateForm() {
     const { stepStack, addStep} = useContext(BrandContext);
 
     if (stepStack.length === 0)
         return (
-            <div className={"form-container"}>
+            <div className={formContainer()}>
                 <FormLabel>Are you currently having a business name yet?</FormLabel>
                 <div className="flex gap-4">
                     <button
@@ -78,7 +80,7 @@ export default function CreateBrand() {
     }, [name, description, stepStack, colors, logo]);
 
     return (
-        <section className={"py-8 responsive-px flex-grow flex flex-col"}>
+        <section className={clsx(pageContainer(), "flex-grow flex flex-col")}>
             <PageTitle>Create brand</PageTitle>
 
             <BrandContext.Provider

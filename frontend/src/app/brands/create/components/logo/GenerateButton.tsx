@@ -16,12 +16,12 @@ export default function GenerateButton() {
             className={"btn mb-4"}
             onClick={() => {
                 setLoading(true);
-                fetch("/api/brands/generateLogo", {
+                fetch("/api/brands/generate/logo", {
                     body: JSON.stringify({ name, description, colors }),
                     method: "POST"
                 })
                     .then(resp => resp.json())
-                    .then((b64Json: [{ b64_json: string }]) => setLogo(b64Json[0].b64_json))
+                    .then((data: { b64_json: string }) => setLogo("data:image/jpeg;base64," + data.b64_json))
                     .finally(() => setLoading(false));
             }}
         >

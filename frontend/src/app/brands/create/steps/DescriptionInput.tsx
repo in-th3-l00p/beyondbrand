@@ -6,12 +6,13 @@ import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
 import FormNext from "@/app/brands/create/components/FormNext";
 import {ImproveSection} from "@/app/brands/create/components/description/ImproveSection";
 import GenerateDescriptionPrompted from "@/app/brands/create/components/description/GenerateDescriptionPrompted";
+import {formContainer} from "@/components/form/primitives";
 
 export default function DescriptionInput() {
     const { description, setDescription } = useContext(BrandContext);
 
     return (
-        <div className={"form-container"}>
+        <div className={formContainer()}>
             <FormLabel back>Tell us about your business idea.</FormLabel>
             <textarea
                 className={"input mb-4"}

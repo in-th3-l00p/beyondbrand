@@ -11,6 +11,7 @@ import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext
 import clsx from "clsx";
 import {pageContainer} from "@/components/primitives";
 import Toolbox from "@/app/brands/[id]/instagram/[postId]/components/Toolbox";
+import Canvas from "@/app/brands/[id]/instagram/[postId]/components/Canvas";
 
 export default function InstagramPost() {
     const { id, postId } = useParams<{ id: string, postId: string }>();
@@ -51,9 +52,13 @@ export default function InstagramPost() {
                 color, setColor
             }}
         >
-            <div className={clsx(pageContainer(), "flex-grow")}>
+            <div className={clsx(pageContainer(), "flex-grow flex flex-col")}>
                 <PageTitle back={"/brands/" + brand._id}>Instagram post: {post.name}</PageTitle>
                 <Toolbox />
+
+                <div className="flex-grow flex">
+                    <Canvas />
+                </div>
             </div>
         </EditorContext.Provider>
     );

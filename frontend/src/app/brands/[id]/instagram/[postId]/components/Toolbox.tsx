@@ -113,7 +113,7 @@ export default function Toolbox() {
         <div
             className={clsx(
                 "w-full bg-ghost-white rounded-md shadow-md p-2 px-4",
-                "flex flex-wrap items-center gap-4"
+                "flex flex-wrap items-center gap-4 mb-8"
             )}
         >
             <p>Tools:</p>

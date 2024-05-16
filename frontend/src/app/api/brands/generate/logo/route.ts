@@ -34,7 +34,7 @@ export async function POST(req: Request) {
         n: 1,
         response_format: "b64_json",
         size: "256x256",
-        prompt: `A logo for a brand named ${body.data.name} with the following description: ${body.data.description}, and the following colors: ${body.data.colors.join(", ")}.`,
+        prompt: `Design a realistic logo for a company with the name of ${body.data.name}, the company is about ${body.data.description} using the colors ${body.data.colors.join(", ")}, the logo should contain items from the company's description`,
     });
 
     return NextResponse.json(response.data[0]);

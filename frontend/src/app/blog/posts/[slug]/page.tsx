@@ -1,6 +1,6 @@
 'use client'
 import axios from "axios";
-import {IPost} from "@/app/blog/components/Post";
+import {IPost,IComment} from "@/app/blog/components/Post";
 import React, {useEffect, useState} from "react";
 import {useParams} from "next/navigation";
 import Image from "next/image";
@@ -11,14 +11,38 @@ import TextareaAutosize from 'react-textarea-autosize';
 export default function Page()
 {
     const [post, setPost] = useState<IPost[]>([]);
-    const [comments, setComments] = useState([]);
+    const [comments, setComments] = useState<IComment[]>([]);
     const [textAreaContent, setTextAreaContent] = useState("");
     const { slug } = useParams();
+    const fetchComments = () => {
+        axios.get(`${process.env.NEXT_PUBLIC_CMS_URL!}/api/comments?filters[post][$eq]=${post[0]?.id}&sort=id:desc`)
+            .then(response => {
+                setComments(response.data.data);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
+    const postComment = async () => {
+        try {
+            const dataObject = {
+                data: {
+                    name: 'Anonymous',
+                    content: textAreaContent,
+                    post: post[0].id
+                }
+            };
+            await axios.post('http://localhost:1337/api/comments', dataObject)
+            setTextAreaContent("");
+            fetchComments(); // Fetch comments after posting
+        } catch (error) {
+            console.error("Error submitting comment:", error);
+        }
+    };
     useEffect(() => {
-        // Axios request to fetch data
+// Axios request to fetch data
         axios.get(`${process.env.NEXT_PUBLIC_CMS_URL!}/api/posts?filters[slug][$eq]=${slug}&populate=banner`)
             .then(response => {
-                // Set the data state with the response data
                 console.log(response.data.data)
                 setPost(response.data.data);
             })
@@ -27,18 +51,8 @@ export default function Page()
             });
     }, []);
     useEffect(() => {
-    if (post[0]) {
-        axios.get(`${process.env.NEXT_PUBLIC_CMS_URL!}/api/comments?filters[post][$eq]=${post[0].id}`)
-            .then(response => {
-                // Set the data state with the response data
-                console.log(response.data.data)
-                setComments(response.data.data);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
-    }
-}, [post]);
+        fetchComments(); // Fetch comments on component mount or when 'post' changes
+    }, [post]);
     const src = post[0]
         ? `${process.env.NEXT_PUBLIC_CMS_URL!}${post[0].attributes.banner.data.attributes.url!}`
         : ''; // default value when post[0] is not yet available
@@ -78,8 +92,8 @@ export default function Page()
                 <div className={"flex justify-end gap-4 my-4"}>
                     {textAreaContent && (
                         <>
-                            <button className={"text-xl px-4 "}>Cancel</button>
-                            <button className={"text-xl px-6 py-2 rounded-3xl bg-[#30BCED]"}>Submit</button>
+                            <button className={"text-xl px-4 "} onClick={() => setTextAreaContent('')}>Cancel</button>
+                            <button className={"text-xl px-6 py-2 rounded-3xl bg-[#30BCED]"} onClick={postComment}>Submit</button>
                         </>
                     )}
                 </div>

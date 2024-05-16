@@ -19,6 +19,15 @@ export interface IPost {
     };
 }
 
+export interface IComment {
+    id: string;
+    attributes: {
+        name: string;
+        content: string;
+    };
+
+}
+
 export default function Post({post}: { post: IPost }) {
     return (
         <Link href={"/blog/posts/" + post.attributes.slug}>

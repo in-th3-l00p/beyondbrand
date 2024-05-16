@@ -80,8 +80,10 @@ function ColorPicker() {
                         "p-8 bg-ghost-white shadow-md border border-cyan rounded-md rounded-tl-none"
                     )}
                 >
-                    <HexColorPicker />
-
+                    <HexColorPicker
+                        color={color}
+                        onChange={setColor}
+                    />
                     <div className={"mt-4 pt-2 border-t"}>
                         <p>Brand colors:</p>
 

@@ -112,7 +112,7 @@ function ColorPicker() {
 
 export default function Toolbox() {
     return (
-        <div className={panel({
+        <section className={panel({
             layouts: "line",
             padding: "small"
         })}>
@@ -138,6 +138,6 @@ export default function Toolbox() {
 
             <p className={"ms-4"}>Color:</p>
             <ColorPicker />
-        </div>
+        </section>
     );
 }

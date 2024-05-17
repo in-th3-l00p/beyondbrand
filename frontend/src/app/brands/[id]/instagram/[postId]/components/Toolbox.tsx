@@ -2,10 +2,12 @@
 
 import clsx from "clsx";
 import Image from "next/image";
-import EditorContext, {Tools} from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
+import EditorContext from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
 import {useContext, useEffect, useRef, useState} from "react";
 import {HexColorPicker} from "react-colorful";
 import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
+import {Tools} from "@/app/brands/[id]/instagram/[postId]/components/tools";
+import {panel} from "@/app/brands/[id]/instagram/[postId]/components/primitives";
 
 function Tool({ tool, title, icon }: {
     tool: Tools;
@@ -110,12 +112,10 @@ function ColorPicker() {
 
 export default function Toolbox() {
     return (
-        <div
-            className={clsx(
-                "w-full bg-ghost-white rounded-md shadow-md p-2 px-4",
-                "flex flex-wrap items-center gap-4 mb-8"
-            )}
-        >
+        <section className={panel({
+            layouts: "line",
+            padding: "small"
+        })}>
             <p>Tools:</p>
 
             <Tool
@@ -138,6 +138,6 @@ export default function Toolbox() {
 
             <p className={"ms-4"}>Color:</p>
             <ColorPicker />
-        </div>
+        </section>
     );
 }

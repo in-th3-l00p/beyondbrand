@@ -12,7 +12,7 @@ function Brand({ brand }: { brand: IBrand }) {
             href={"/brands/" + brand._id}
             className={clsx(
                 "flex gap-8 rounded-md p-4 bg-ghost-white rounded-md shadow-md",
-                "hover:shadow-xl hover:scale-105 transition-all"
+                "hover:shadow-xl hover:scale-105 transition-all w-full"
             )}
         >
             <Image
@@ -38,7 +38,7 @@ export default async function Page() {
                 <Link href={"/brands/create"} className="btn">Add brand</Link>
             </div>
 
-            <div className="flex flex-wrap gap-8 items-center justify-between">
+            <div className="flex flex-col gap-8 items-center justify-between">
                 {brands.map(brand => (
                     <Brand
                         key={brand._id}

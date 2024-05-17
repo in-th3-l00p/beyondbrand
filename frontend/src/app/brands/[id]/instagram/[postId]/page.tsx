@@ -1,7 +1,6 @@
 "use client";
 
 import {useContext, useEffect, useState} from "react";
-import {Tools} from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
 import Loading from "@/app/brands/create/components/Loading";
 import {useParams} from "next/navigation";
 import EditorContext from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
@@ -12,6 +11,8 @@ import clsx from "clsx";
 import {pageContainer} from "@/components/primitives";
 import Toolbox from "@/app/brands/[id]/instagram/[postId]/components/Toolbox";
 import Canvas from "@/app/brands/[id]/instagram/[postId]/components/Canvas";
+import {Tools} from "@/app/brands/[id]/instagram/[postId]/components/tools";
+import Properties from "@/app/brands/[id]/instagram/[postId]/components/Properties";
 
 export default function InstagramPost() {
     const { id, postId } = useParams<{ id: string, postId: string }>();
@@ -56,8 +57,9 @@ export default function InstagramPost() {
                 <PageTitle back={"/brands/" + brand._id}>Instagram post: {post.name}</PageTitle>
                 <Toolbox />
 
-                <div className="flex-grow flex">
+                <div className="flex-grow flex gap-8">
                     <Canvas />
+                    <Properties />
                 </div>
             </div>
         </EditorContext.Provider>

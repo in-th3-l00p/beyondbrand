@@ -5,13 +5,12 @@ export type Shape = {
     data: {
         x: number;
         y: number;
-        width: number;
-        height: number;
-    } | {
-        x: number;
-        y: number;
-        radius: number;
-    };
+        width?: number;
+        height?: number;
+        radius?: number;
+        color: string;
+    }
+
 }
 
 const shapeSchema = new mongoose.Schema({
@@ -20,8 +19,21 @@ const shapeSchema = new mongoose.Schema({
         required: true
     },
     data: {
-        type: mongoose.SchemaTypes.Mixed,
-        required: true
+        x: Number,
+        y: Number,
+        width: {
+            type: Number,
+            required: false
+        },
+        height: {
+            type: Number,
+            required: false
+        },
+        radius: {
+            type: Number,
+            required: false
+        },
+        color: String
     }
 });
 
@@ -29,6 +41,9 @@ export interface IInstagramPost {
     _id: string;
     name: string;
     brandId: string;
+    shapes: Shape[];
+
+    save: () => Promise<void>;
 }
 
 const InstagramPostSchema = new mongoose.Schema({
@@ -37,11 +52,14 @@ const InstagramPostSchema = new mongoose.Schema({
         required: true
     },
     brandId: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Brand",
         required: true
     },
-    shapes: [shapeSchema]
+    shapes: {
+        type: [shapeSchema],
+        default: []
+    }
 });
 
 const InstagramPost =

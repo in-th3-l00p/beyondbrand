@@ -1,3 +1,7 @@
 import GET from "./get";
+import PUT from "./update";
+import DELETE from "./delete";
 
-export { GET };
+export type Params = { params: { postId: string } };
+
+export { GET, PUT, DELETE };

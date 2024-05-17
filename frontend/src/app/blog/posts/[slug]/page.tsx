@@ -1,9 +1,8 @@
-import { IPost } from "@/app/blog/components/Post";
 import Image from "next/image";
 import * as Icon from "react-feather";
 import Link from "next/link";
 import CommentSection from "@/app/blog/components/commentSection";
-import { notFound } from "next/navigation";
+import {notFound} from "next/navigation";
 import React from "react";
 
 interface Props {
@@ -19,19 +18,13 @@ const fetchPost = async (slug: string) => {
     );
 
     const posts = await postsResponse.json();
-
-    const post = posts.data[0];
-
-    return post;
+    return posts.data[0];
 };
 
 export default async function Page({ params }: Props) {
     const post = await fetchPost(params.slug);
-
-    if (!post) {
+    if (!post)
         notFound();
-    }
-
     const src = `${process.env.NEXT_PUBLIC_CMS_URL!}${post.attributes.banner.data.attributes.url!}`;
 
     return (

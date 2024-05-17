@@ -12,8 +12,9 @@ export const panel = tv({
             small: "p-2 px-4",
         },
         layouts: {
-            base: "flex justify-center items-center",
-            line: "flex flex-wrap items-center gap-4"
+            base: "flex justify-center items-center flex-grow",
+            line: "flex flex-wrap items-center gap-4",
+            properties: "flex flex-col gap-4 flex-shrink"
         },
         margin: {
             small: "mb-4"

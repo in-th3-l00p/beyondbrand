@@ -1,7 +1,8 @@
-import {Tools} from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
+import {Tools} from "@/app/brands/[id]/instagram/[postId]/components/tools";
+import EditorContext from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
 
-type MouseCallback = (this:HTMLCanvasElement, ev: MouseEvent) => any;
+type MouseCallback = (ev: MouseEvent) => any;
 type NullableMouseCallback = MouseCallback | null;
 type Canvas = React.RefObject<HTMLCanvasElement>;
 type EventNames = "mousedown" | "mouseup" | "mousemove";
@@ -24,6 +25,15 @@ function useUpdateEvent(
                 .current
                 .addEventListener(eventName, callback);
         currentCallback.current = callback;
+
+        const cleanupCanvas = canvas.current;
+        return () => {
+            if (currentCallback.current)
+                cleanupCanvas.removeEventListener(
+                    eventName,
+                    currentCallback.current
+                );
+        }
     }, [callback, canvas, currentCallback, eventName]);
 }
 
@@ -32,13 +42,20 @@ function useStatefulEvent(canvas: Canvas, eventName: EventNames) {
     const currentCallback = useRef<NullableMouseCallback>(null);
     useUpdateEvent(canvas, eventName, callback, currentCallback);
 
-    return [callback, setCallback] as const;
+    return (newCallback: NullableMouseCallback) => {
+        setCallback(() => newCallback);
+    };
 }
 
-export default function useToolEvents(canvas: Canvas, tool: Tools) {
-    const [mouseDownCallback, setMouseDownCallback] = useStatefulEvent(canvas, "mousedown");
-    const [mouseUpCallback, setMouseUpCallback] = useStatefulEvent(canvas, "mouseup");
-    const [mouseMoveCallback, setMouseMoveCallback] = useStatefulEvent(canvas, "mousemove");
+export default function useToolEvents(canvas: Canvas) {
+    const { tool, post, setPost , color} = useContext(EditorContext);
+
+    const setMouseDownCallback = useStatefulEvent(canvas, "mousedown");
+    const setMouseUpCallback = useStatefulEvent(canvas, "mouseup");
+    const setMouseMoveCallback = useStatefulEvent(canvas, "mousemove");
+
+    const rectangleStart = useRef<{ x: number, y: number } | null>(null);
+    const circleStart = useRef<{ x: number, y: number } | null>(null);
 
     useEffect(() => {
         if (!canvas.current)
@@ -46,27 +63,69 @@ export default function useToolEvents(canvas: Canvas, tool: Tools) {
 
         switch (tool) {
             case Tools.SELECT:
-                setMouseDownCallback(() => {
-                    return () => {
-                        console.log("Selecting");
-                    }
-                });
+                setMouseDownCallback(null);
+                setMouseUpCallback(null);
+                setMouseMoveCallback(null);
                 break;
             case Tools.RECTANGLE:
-                setMouseDownCallback(() => {
-                    return () => {
-                        console.log("Rectangle");
+                setMouseDownCallback((ev: MouseEvent) => {
+                    rectangleStart.current = {
+                        x: ev.offsetX,
+                        y: ev.offsetY
                     }
+                });
+
+                setMouseUpCallback((ev: MouseEvent) => {
+                    if (!rectangleStart.current)
+                        return;
+                    const rectangle = {
+                        x: rectangleStart.current.x,
+                        y: rectangleStart.current.y,
+                        width: ev.offsetX - rectangleStart.current.x,
+                        height: ev.offsetY - rectangleStart.current.y,
+                        color: color
+                    };
+
+                    const newPost = {...post};
+                    newPost.shapes.push({
+                        type: "rectangle",
+                        data: rectangle
+                    });
+                    setPost(newPost);
+
+                    rectangleStart.current = null;
                 });
                 break;
             case Tools.CIRCLE:
-                setMouseDownCallback(() => {
-                    return () => {
-                        console.log("Circle");
-                    }
+                setMouseDownCallback((ev: MouseEvent) => {
+                    circleStart.current = {
+                        x: ev.offsetX,
+                        y: ev.offsetY
+                    };
+                });
+                setMouseUpCallback((ev: MouseEvent) => {
+                    if (!circleStart.current)
+                        return;
+                    const distance = Math.sqrt(
+                        (ev.offsetX - circleStart.current.x) ** 2 +
+                        (ev.offsetY - circleStart.current.y) ** 2
+                    );
+                    const circle = {
+                        x: circleStart.current.x,
+                        y: circleStart.current.y,
+                        radius: distance,
+                        color: color
+                    };
+                    const newPost = {...post};
+                    newPost.shapes.push({
+                        type: "circle",
+                        data: circle
+                    });
+                    setPost(newPost);
+
+                    circleStart.current = null;
                 });
                 break;
         }
-    }, [canvas, setMouseDownCallback, tool]);
-
+    }, [canvas, tool, color, post, setPost]);
 }

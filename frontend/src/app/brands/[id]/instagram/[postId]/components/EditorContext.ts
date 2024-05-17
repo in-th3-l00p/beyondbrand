@@ -1,15 +1,10 @@
-import {createContext} from "react";
+import React, {createContext} from "react";
 import {IInstagramPost} from "@/database/schema/instagramPost";
-
-export enum Tools {
-    SELECT = 'select',
-    RECTANGLE = 'rectangle',
-    CIRCLE = 'circle'
-}
+import {Tools} from "@/app/brands/[id]/instagram/[postId]/components/tools";
 
 interface IEditorContext {
     post: IInstagramPost;
-    setPost: (post: IInstagramPost) => void;
+    setPost: React.Dispatch<React.SetStateAction<IInstagramPost>>;
 
     tool: Tools;
     setTool: (tool: Tools) => void;

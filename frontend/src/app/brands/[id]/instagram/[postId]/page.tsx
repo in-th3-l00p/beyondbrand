@@ -1,7 +1,6 @@
 "use client";
 
 import {useContext, useEffect, useState} from "react";
-import {Tools} from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
 import Loading from "@/app/brands/create/components/Loading";
 import {useParams} from "next/navigation";
 import EditorContext from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
@@ -12,6 +11,7 @@ import clsx from "clsx";
 import {pageContainer} from "@/components/primitives";
 import Toolbox from "@/app/brands/[id]/instagram/[postId]/components/Toolbox";
 import Canvas from "@/app/brands/[id]/instagram/[postId]/components/Canvas";
+import {Tools} from "@/app/brands/[id]/instagram/[postId]/components/tools";
 
 export default function InstagramPost() {
     const { id, postId } = useParams<{ id: string, postId: string }>();
@@ -39,6 +39,10 @@ export default function InstagramPost() {
             .catch(console.error)
             .finally(() => setLoading(false));
     }, [id, postId]);
+
+    useEffect(() => {
+        console.log(post);
+    }, [post]);
 
     if (loading)
         return (

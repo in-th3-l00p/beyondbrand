@@ -4,10 +4,25 @@ import EditorContext from "@/app/brands/[id]/instagram/[postId]/components/Edito
 import useToolEvents from "@/app/brands/[id]/instagram/[postId]/components/useToolEvents";
 
 export default function Canvas() {
-    const { post, tool } = useContext(EditorContext);
+    const { post} = useContext(EditorContext);
     const container = useRef<HTMLDivElement>(null);
     const canvas = useRef<HTMLCanvasElement>(null);
-    useToolEvents(canvas, tool);
+
+    useToolEvents(canvas);
+    useEffect(() => {
+        if (!canvas.current || !container.current)
+            return;
+
+        const { width, height } = container.current.getBoundingClientRect();
+        canvas.current.width = canvas.current.height = Math.min(width, height);
+        container.current.addEventListener("resize", () => {
+            if (!canvas.current || !container.current)
+                return;
+            const { width, height } =
+                container.current.getBoundingClientRect();
+            canvas.current.width = canvas.current.height = Math.min(width, height);
+        });
+    }, []);
 
     useEffect(() => {
         if (!canvas.current || !container.current)
@@ -17,13 +32,35 @@ export default function Canvas() {
         if (!ctx)
             return;
 
-        const { width, height } = container.current.getBoundingClientRect();
-        canvas.current.width = canvas.current.height = Math.min(width, height);
-
         ctx.fillStyle = "white";
-        ctx.fillRect(0, 0, width, height);
-    }, [post]);
+        ctx.fillRect(0, 0, canvas.current.width, canvas.current.height);
 
+        for (const shape of post.shapes) {
+            switch (shape.type) {
+                case "rectangle":
+                    ctx.fillStyle = shape.data.color;
+                    ctx.fillRect(
+                        shape.data.x,
+                        shape.data.y,
+                        shape.data.width!,
+                        shape.data.height!
+                    );
+                    break;
+                case "circle":
+                    ctx.fillStyle = shape.data.color;
+                    ctx.beginPath();
+                    ctx.arc(
+                        shape.data.x,
+                        shape.data.y,
+                        shape.data.radius!,
+                        0,
+                        2 * Math.PI
+                    );
+                    ctx.fill();
+                    break;
+            }
+        }
+    }, [post]);
 
     return (
         <section

@@ -1,48 +1,58 @@
-'use client'
-import axios from "axios";
-import {IPost} from "@/app/blog/components/Post";
-import React, {useEffect, useState} from "react";
-import {useParams} from "next/navigation";
+import { IPost } from "@/app/blog/components/Post";
 import Image from "next/image";
 import * as Icon from "react-feather";
 import Link from "next/link";
+import CommentSection from "@/app/blog/components/commentSection";
+import { notFound } from "next/navigation";
+import React from "react";
 
-export default function Page()
-{
-    const [post, setPost] = useState<IPost[]>([]);
-    const { slug } = useParams();
-    useEffect(() => {
-        // Axios request to fetch data
-        axios.get(`${process.env.NEXT_PUBLIC_CMS_URL!}/api/posts?filters[slug][$eq]=${slug}&populate=banner`)
-            .then(response => {
-                // Set the data state with the response data
-                console.log(response.data.data)
-                setPost(response.data.data);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
-    }, []); // Empty dependency array to ensure useEffect only runs once
-    const src = post[0]
-        ? `${process.env.NEXT_PUBLIC_CMS_URL!}${post[0].attributes.banner.data.attributes.url!}`
-        : ''; // default value when post[0] is not yet available
+interface Props {
+    params: {
+        slug: string;
+    };
+}
+
+const fetchPost = async (slug: string) => {
+    const postsResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_CMS_URL!}/api/posts?filters[slug][$eq]=${slug}&populate=banner`,
+        { cache: "no-cache" }
+    );
+
+    const posts = await postsResponse.json();
+
+    const post = posts.data[0];
+
+    return post;
+};
+
+export default async function Page({ params }: Props) {
+    const post = await fetchPost(params.slug);
+
+    if (!post) {
+        notFound();
+    }
+
+    const src = `${process.env.NEXT_PUBLIC_CMS_URL!}${post.attributes.banner.data.attributes.url!}`;
+
     return (
-        <section className={"py-8 responsive-px bg-gray-100 h-full"}>
-            <div className={"px-16 items-center"}>
+        <section className="py-8 px-4 md:px-16 bg-gray-100 h-full">
+            <div className="md:px-16 items-center">
                 <div className="flex flex-wrap justify-between items-center gap-4 mb-4">
-                    <p className={"text-4xl font-bold"}>{post.length > 0 ? post[0].attributes.title : 'Loading...'}</p>
-                    <Link href={"/blog/posts"} className={"btn w-full md:w-auto"}>
-                        <Icon.ArrowLeft className={"mx-auto"}/>
+                    <p className="text-4xl font-bold">{post.attributes.title}</p>
+                    <Link href="/blog/posts" className="btn w-full md:w-auto">
+                        <Icon.ArrowLeft className="mx-auto" />
                     </Link>
                 </div>
-                <p className={"text-center mb-4 text-3xl"}>{post.length > 0 ? post[0].attributes.heading : 'Loading...'}</p>
-                <div className={"flex mb-4 gap-4 flex-col md:flex-row"}>
-                    <p className={"text-left text-2xl text-justify"}>{post.length > 0 ? post[0].attributes.opening : 'Loading...'}</p>
-                    <Image src={src} width={400} height={600} alt={"post banner"}/>
+                <p className="text-center mb-4 text-3xl">{post.attributes.heading}</p>
+                <div className="flex mb-4 gap-4 flex-col md:flex-row">
+                    <p className="text-left text-2xl text-justify">{post.attributes.opening}</p>
+                    <Image src={src} width={400} height={600} alt="post banner" />
                 </div>
-                <p className={"text-center mb-4 text-2xl"}>{post.length > 0 ? post[0].attributes.subHeading : 'Loading...'}</p>
-                <p className={"text-left text-justify text-2xl"}>{post.length > 0 ? post[0].attributes.content : 'Loading...'}</p>
+                <p className="text-center mb-4 text-2xl">{post.attributes.subHeading}</p>
+                <p className="text-left text-justify text-2xl">{post.attributes.content}</p>
             </div>
+            <hr className="w-full rounded-xl my-4" style={{ border: "1px solid gray" }} />
+            <CommentSection post={post} />
         </section>
-    )
+    );
 }

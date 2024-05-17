@@ -25,6 +25,7 @@
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
     "react-feather": "^2.0.10",
+    "react-textarea-autosize": "^8.5.3",
     "sass": "^1.75.0",
     "tailwind-variants": "^0.2.1",
     "zod": "^3.22.4"

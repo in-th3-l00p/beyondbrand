@@ -1,0 +1,58 @@
+import { IPost } from "@/app/blog/components/Post";
+import Image from "next/image";
+import * as Icon from "react-feather";
+import Link from "next/link";
+import CommentSection from "@/app/blog/components/commentSection";
+import { notFound } from "next/navigation";
+import React from "react";
+
+interface Props {
+    params: {
+        slug: string;
+    };
+}
+
+const fetchPost = async (slug: string) => {
+    const postsResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_CMS_URL!}/api/posts?filters[slug][$eq]=${slug}&populate=banner`,
+        { cache: "no-cache" }
+    );
+
+    const posts = await postsResponse.json();
+
+    const post = posts.data[0];
+
+    return post;
+};
+
+export default async function Page({ params }: Props) {
+    const post = await fetchPost(params.slug);
+
+    if (!post) {
+        notFound();
+    }
+
+    const src = `${process.env.NEXT_PUBLIC_CMS_URL!}${post.attributes.banner.data.attributes.url!}`;
+
+    return (
+        <section className="py-8 px-4 md:px-16 bg-gray-100 h-full">
+            <div className="md:px-16 items-center">
+                <div className="flex flex-wrap justify-between items-center gap-4 mb-4">
+                    <p className="text-4xl font-bold">{post.attributes.title}</p>
+                    <Link href="/blog/posts" className="btn w-full md:w-auto">
+                        <Icon.ArrowLeft className="mx-auto" />
+                    </Link>
+                </div>
+                <p className="text-center mb-4 text-3xl">{post.attributes.heading}</p>
+                <div className="flex mb-4 gap-4 flex-col md:flex-row">
+                    <p className="text-left text-2xl text-justify">{post.attributes.opening}</p>
+                    <Image src={src} width={400} height={600} alt="post banner" />
+                </div>
+                <p className="text-center mb-4 text-2xl">{post.attributes.subHeading}</p>
+                <p className="text-left text-justify text-2xl">{post.attributes.content}</p>
+            </div>
+            <hr className="w-full rounded-xl my-4" style={{ border: "1px solid gray" }} />
+            <CommentSection post={post} />
+        </section>
+    );
+}

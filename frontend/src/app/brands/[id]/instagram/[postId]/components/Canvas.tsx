@@ -2,8 +2,10 @@ import React, {useContext, useEffect, useRef} from "react";
 import clsx from "clsx";
 import EditorContext from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
 import useToolEvents from "@/app/brands/[id]/instagram/[postId]/components/useToolEvents";
+import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
 
 export default function Canvas() {
+    const { brand } = useContext(BrandContext);
     const { post} = useContext(EditorContext);
     const container = useRef<HTMLDivElement>(null);
     const canvas = useRef<HTMLCanvasElement>(null);
@@ -36,7 +38,7 @@ export default function Canvas() {
         ctx.fillRect(0, 0, canvas.current.width, canvas.current.height);
 
         for (const shape of post.shapes) {
-            switch (shape.type) {
+            switch (shape.shape) {
                 case "rectangle":
                     ctx.fillStyle = shape.data.color;
                     ctx.fillRect(
@@ -61,6 +63,16 @@ export default function Canvas() {
             }
         }
     }, [post]);
+
+    useEffect(() => {
+        fetch(`/api/brands/${brand._id}/instagram/${post._id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(post)
+        });
+    }, [brand, post]);
 
     return (
         <section

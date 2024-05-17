@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export type Shape = {
-    type: "rectangle" | "circle";
+    shape: "rectangle" | "circle";
     data: {
         x: number;
         y: number;

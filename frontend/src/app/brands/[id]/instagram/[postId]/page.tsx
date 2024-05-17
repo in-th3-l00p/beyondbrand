@@ -40,10 +40,6 @@ export default function InstagramPost() {
             .finally(() => setLoading(false));
     }, [id, postId]);
 
-    useEffect(() => {
-        console.log(post);
-    }, [post]);
-
     if (loading)
         return (
             <Loading />

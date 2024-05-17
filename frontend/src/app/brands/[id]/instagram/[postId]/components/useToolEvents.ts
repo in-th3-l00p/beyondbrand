@@ -88,7 +88,7 @@ export default function useToolEvents(canvas: Canvas) {
 
                     const newPost = {...post};
                     newPost.shapes.push({
-                        type: "rectangle",
+                        shape: "rectangle",
                         data: rectangle
                     });
                     setPost(newPost);
@@ -118,7 +118,7 @@ export default function useToolEvents(canvas: Canvas) {
                     };
                     const newPost = {...post};
                     newPost.shapes.push({
-                        type: "circle",
+                        shape: "circle",
                         data: circle
                     });
                     setPost(newPost);

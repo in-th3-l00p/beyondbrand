@@ -80,8 +80,10 @@ function ColorPicker() {
                         "p-8 bg-ghost-white shadow-md border border-cyan rounded-md rounded-tl-none"
                     )}
                 >
-                    <HexColorPicker />
-
+                    <HexColorPicker
+                        color={color}
+                        onChange={setColor}
+                    />
                     <div className={"mt-4 pt-2 border-t"}>
                         <p>Brand colors:</p>
 
@@ -111,7 +113,7 @@ export default function Toolbox() {
         <div
             className={clsx(
                 "w-full bg-ghost-white rounded-md shadow-md p-2 px-4",
-                "flex flex-wrap items-center gap-4"
+                "flex flex-wrap items-center gap-4 mb-8"
             )}
         >
             <p>Tools:</p>

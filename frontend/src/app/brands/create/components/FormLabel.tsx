@@ -13,14 +13,14 @@ export function FormLabel({back, onBack, children}: {
         return (
             <div className="flex flex-wrap items-center gap-4 mb-4">
                 <button
-                    type={"button"} className={"btn"}
+                    type={"button"} className={"btn w-full md:w-auto"}
                     onClick={() => {
                         if (onBack)
                             onBack();
                         popStep();
                     }}
                 >
-                    <Icon.ArrowLeft/>
+                    <Icon.ArrowLeft className={"mx-auto"}/>
                 </button>
                 <p className={"form-label"}>{children}</p>
             </div>

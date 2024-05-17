@@ -40,11 +40,11 @@ export function ImproveSection() {
         );
 
     return (
-        <div className="flex flex-wrap justify-between items-center gap-4 mb-4">
+        <div className="flex flex-wrap justify-between md:items-center gap-4 mb-4">
             <p>Press the following button to get AI improvement:</p>
             <button
                 type={"button"}
-                className="btn"
+                className="btn w-full md:w-auto"
                 disabled={loading || !name || !description}
                 onClick={() => {
                     setLoading(true);

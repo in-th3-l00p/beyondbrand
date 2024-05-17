@@ -1,11 +1,13 @@
 import React, {useContext, useEffect, useRef} from "react";
 import clsx from "clsx";
 import EditorContext from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
+import useToolEvents from "@/app/brands/[id]/instagram/[postId]/components/useToolEvents";
 
 export default function Canvas() {
-    const { post } = useContext(EditorContext);
+    const { post, tool } = useContext(EditorContext);
     const container = useRef<HTMLDivElement>(null);
     const canvas = useRef<HTMLCanvasElement>(null);
+    useToolEvents(canvas, tool);
 
     useEffect(() => {
         if (!canvas.current || !container.current)
@@ -20,7 +22,8 @@ export default function Canvas() {
 
         ctx.fillStyle = "white";
         ctx.fillRect(0, 0, width, height);
-    }, [])
+    }, [post]);
+
 
     return (
         <section

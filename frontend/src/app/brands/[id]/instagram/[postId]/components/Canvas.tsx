@@ -3,6 +3,7 @@ import clsx from "clsx";
 import EditorContext from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
 import useToolEvents from "@/app/brands/[id]/instagram/[postId]/components/useToolEvents";
 import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
+import {panel} from "@/app/brands/[id]/instagram/[postId]/components/primitives";
 
 export default function Canvas() {
     const { brand } = useContext(BrandContext);
@@ -77,10 +78,7 @@ export default function Canvas() {
     return (
         <section
             ref={container}
-            className={clsx(
-                "bg-ghost-white w-full shadow-md rounded-md p-8",
-                "flex flex-grow justify-center items-center",
-            )}
+            className={clsx(panel(), "flex-grow flex justify-center items-center")}
         >
             <canvas
                 ref={canvas}

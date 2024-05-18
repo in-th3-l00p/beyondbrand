@@ -4,6 +4,41 @@ import EditorContext from "@/app/brands/[id]/instagram/[postId]/components/Edito
 import useToolEvents from "@/app/brands/[id]/instagram/[postId]/components/useToolEvents";
 import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
 import {panel} from "@/app/brands/[id]/instagram/[postId]/components/primitives";
+import {IInstagramPost} from "@/database/schema/instagramPost";
+
+export function renderContextPostShapes(
+    ctx: CanvasRenderingContext2D,
+    post: IInstagramPost,
+) {
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+    for (const shape of post.shapes) {
+        switch (shape.shape) {
+            case "rectangle":
+                ctx.fillStyle = shape.data.color;
+                ctx.fillRect(
+                    shape.data.x,
+                    shape.data.y,
+                    shape.data.width!,
+                    shape.data.height!
+                );
+                break;
+            case "circle":
+                ctx.fillStyle = shape.data.color;
+                ctx.beginPath();
+                ctx.arc(
+                    shape.data.x,
+                    shape.data.y,
+                    shape.data.radius!,
+                    0,
+                    2 * Math.PI
+                );
+                ctx.fill();
+                break;
+        }
+    }
+}
 
 export default function Canvas() {
     const { brand } = useContext(BrandContext);
@@ -35,34 +70,7 @@ export default function Canvas() {
         if (!ctx)
             return;
 
-        ctx.fillStyle = "white";
-        ctx.fillRect(0, 0, canvas.current.width, canvas.current.height);
-
-        for (const shape of post.shapes) {
-            switch (shape.shape) {
-                case "rectangle":
-                    ctx.fillStyle = shape.data.color;
-                    ctx.fillRect(
-                        shape.data.x,
-                        shape.data.y,
-                        shape.data.width!,
-                        shape.data.height!
-                    );
-                    break;
-                case "circle":
-                    ctx.fillStyle = shape.data.color;
-                    ctx.beginPath();
-                    ctx.arc(
-                        shape.data.x,
-                        shape.data.y,
-                        shape.data.radius!,
-                        0,
-                        2 * Math.PI
-                    );
-                    ctx.fill();
-                    break;
-            }
-        }
+        renderContextPostShapes(ctx, post);
     }, [post]);
 
     useEffect(() => {

@@ -23,5 +23,5 @@ export const panel = tv({
 });
 
 export const panelTitle = tv({
-    base: clsx("text-xl mb-2 border-b pb-2")
+    base: clsx("text-xl mb-2 border-b pb-2 break-all")
 });

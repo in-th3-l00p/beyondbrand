@@ -4,7 +4,7 @@ import {useContext, useEffect, useState} from "react";
 import Loading from "@/app/brands/create/components/Loading";
 import {useParams} from "next/navigation";
 import EditorContext from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
-import {IInstagramPost} from "@/database/schema/instagramPost";
+import {IInstagramPost, Shape} from "@/database/schema/instagramPost";
 import PageTitle from "@/components/PageTitle";
 import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
 import clsx from "clsx";
@@ -24,6 +24,7 @@ export default function InstagramPost() {
 
     const [tool, setTool] = useState<Tools>(Tools.SELECT);
     const [color, setColor] = useState<string>("#000000");
+    const [selectedShape, setSelectedShape] = useState<Shape | null>(null);
 
     // todo: better error handling
     useEffect(() => {
@@ -51,7 +52,8 @@ export default function InstagramPost() {
             value={{
                 tool, setTool,
                 post, setPost,
-                color, setColor
+                color, setColor,
+                selectedShape, setSelectedShape
             }}
         >
             <div className={clsx(pageContainer(), "flex-grow flex flex-col")}>

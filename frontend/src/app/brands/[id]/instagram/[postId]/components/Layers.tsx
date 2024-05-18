@@ -5,7 +5,7 @@ import clsx from "clsx";
 
 export default function Layers() {
     const WIDTH = 180;
-    const { post } = useContext(EditorContext);
+    const { post, selectedShape, setSelectedShape } = useContext(EditorContext);
 
     return (
          <section className={panel({ layouts: "properties" })}>
@@ -29,8 +29,17 @@ export default function Layers() {
                             "flex justify-center items-center",
                             `p-2 border-2 border-cyan rounded-md shadow-md`,
                             'hover:shadow-xl hover:bg-dark-cyan hover:text-white transition-all',
+                            selectedShape === shape && "bg-cyan text-white"
                         )}
                         style={{ width: WIDTH }}
+                        onClick={() => {
+                            if (selectedShape === shape) {
+                                setSelectedShape(null);
+                                return;
+                            }
+
+                            setSelectedShape(shape)
+                        }}
                     >
                         Layer {index}
                     </button>

@@ -13,6 +13,7 @@ import Toolbox from "@/app/brands/[id]/instagram/[postId]/components/Toolbox";
 import Canvas from "@/app/brands/[id]/instagram/[postId]/components/Canvas";
 import {Tools} from "@/app/brands/[id]/instagram/[postId]/components/tools";
 import Properties from "@/app/brands/[id]/instagram/[postId]/components/Properties";
+import Layers from "@/app/brands/[id]/instagram/[postId]/components/Layers";
 
 export default function InstagramPost() {
     const { id, postId } = useParams<{ id: string, postId: string }>();
@@ -57,7 +58,8 @@ export default function InstagramPost() {
                 <PageTitle back={"/brands/" + brand._id}>Instagram post: {post.name}</PageTitle>
                 <Toolbox />
 
-                <div className="flex-grow flex gap-8">
+                <div className="flex-grow flex gap-8 max-h-[750px]">
+                    <Layers />
                     <Canvas />
                     <Properties />
                 </div>

@@ -1,7 +1,6 @@
 "use client";
 
-import {panel} from "@/app/brands/[id]/instagram/[postId]/components/primitives";
-import clsx from "clsx";
+import {panel, panelTitle} from "@/app/brands/[id]/instagram/[postId]/components/primitives";
 import {button, input} from "@/components/primitives";
 import {useContext} from "react";
 import EditorContext from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
@@ -12,11 +11,8 @@ export default function Properties() {
     const { post, setPost } = useContext(EditorContext);
 
     return (
-        <section className={clsx(
-            panel({ layouts: "properties" }),
-            "max-w-fit"
-        )}>
-            <h2 className={"text-xl mb-2 border-b pb-2"}>Properties</h2>
+        <section className={panel({ layouts: "properties" })}>
+            <h2 className={panelTitle()}>Properties</h2>
 
             <div className="mb-auto">
                 <label

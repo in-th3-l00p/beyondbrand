@@ -14,7 +14,7 @@ export const panel = tv({
         layouts: {
             base: "flex justify-center items-center flex-grow",
             line: "flex flex-wrap items-center gap-4",
-            properties: "flex flex-col gap-4 flex-shrink"
+            properties: "flex flex-col gap-4 flex-shrink max-w-fit"
         },
         margin: {
             small: "mb-4"
@@ -22,3 +22,6 @@ export const panel = tv({
     }
 });
 
+export const panelTitle = tv({
+    base: clsx("text-xl mb-2 border-b pb-2")
+});

@@ -26,5 +26,5 @@ export const input = tv({
 });
 
 export const pageContainer = tv({
-    base: "container mx-auto py-8"
+    base: "container mx-auto py-8 responsive-px"
 });

@@ -4,6 +4,7 @@ import BrandContext from "@/app/brands/create/BrandContext";
 import LogoPreview from "@/components/logo/LogoPreview";
 import {useRouter} from "next/navigation";
 import {formContainer} from "@/components/form/primitives";
+import toast from "react-hot-toast";
 
 // todo show loading
 export default function Review() {
@@ -90,6 +91,7 @@ export default function Review() {
                                 router.push(`/brands/${data._id}`)
                             })
                             .finally(() => setLoading(false));
+                        toast.success("Brand generated successfully")
                     }}
                 >
                     Create

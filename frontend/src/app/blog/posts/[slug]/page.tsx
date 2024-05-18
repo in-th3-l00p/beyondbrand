@@ -1,3 +1,4 @@
+import { IPost } from "@/app/blog/components/Post";
 import Image from "next/image";
 import * as Icon from "react-feather";
 import Link from "next/link";

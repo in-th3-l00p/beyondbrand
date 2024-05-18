@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export interface IPost {
-    data:{
+    data: {
         id: string;
         attributes: {
             title: string;
@@ -21,17 +21,46 @@ export interface IPost {
     }
 }
 
+export interface IPostWOdata {
+    id: string;
+    attributes: {
+        title: string;
+        heading: string;
+        opening: string;
+        banner: {
+            data: {
+                attributes: {
+                    url: string;
+                };
+            };
+        };
+        subHeading: string;
+        content: string;
+        slug: string;
+    };
+}
+
 export interface IComment {
     data: {
         id: string;
         attributes: {
             name: string;
             content: string;
+            createdAt: string; // Ensure createdAt is here
         };
     }
 }
 
-export default function Post({post}: { post: IPost }) {
+export interface ICommentWOdata {
+    id: string;
+    attributes: {
+        name: string;
+        content: string;
+        createdAt: string; // Ensure createdAt is here
+    };
+}
+
+export default function Post({post}: { post: IPostWOdata }) {
     return (
         <Link href={"/blog/posts/" + post.attributes.slug}>
             <div className="py-2 max-w-7xl mx-auto">

@@ -3,15 +3,16 @@ import TextareaAutosize from "react-textarea-autosize";
 import {IComment, IPost} from "@/app/blog/components/Post";
 import {useEffect, useState} from "react";
 
-
+// todo sebi te rog eu din sufletul meu invata typescript ca sa moara si capra vecinului
+// daca mai vad erori de iti mai dau approve la vreun pr vreodata
 export default function CommentSection({post} : {post: IPost})  {
 
-    const [comments, setComments] = useState([]);
+    const [comments, setComments] = useState<{ data: IComment[] }>([]);
     const [TextAreaContent, setTextAreaContent] = useState('');
 
     async function fetchComments() {
         const commentsResponse = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL!}/api/comments?filters[post][$eq]=${post.id}&sort=id:desc`,{ cache: 'no-cache' });
-        const commentsData : IComment[] = await commentsResponse.json();
+        const commentsData: { data: IComment[] } = await commentsResponse.json();
         setComments(commentsData);
     }
 
@@ -20,7 +21,7 @@ export default function CommentSection({post} : {post: IPost})  {
     }, [post]);
 
 
-    const postComment = (event) => {
+    const postComment = (event: any) => {
         event?.preventDefault()
         try {
             const dataObject = {

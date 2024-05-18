@@ -8,6 +8,8 @@ interface IEditorContext {
 
     selectedShape: Shape | null;
     setSelectedShape: (shape: Shape | null) => void;
+    selectedIndex: number | null;
+    setSelectedIndex: (index: number | null) => void;
 
     tool: Tools;
     setTool: (tool: Tools) => void;

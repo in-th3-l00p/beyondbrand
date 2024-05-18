@@ -56,7 +56,11 @@ function PostProperties() {
 }
 
 function ShapeProperties() {
-    const {selectedShape} = useContext(EditorContext);
+    const {
+        post, setPost,
+        selectedShape, setSelectedShape,
+        selectedIndex, setSelectedIndex
+    } = useContext(EditorContext);
 
     if (!selectedShape)
         return <></>;
@@ -84,6 +88,14 @@ function ShapeProperties() {
                         name={"numeric"} id={"x"}
                         type="numeric" className={input()}
                         value={selectedShape.data.x}
+                        onChange={e => {
+                            if (selectedIndex === null)
+                                return;
+                            const newPost = {...post};
+                            newPost.shapes[selectedIndex].data.x =
+                                parseInt(e.target.value) || 0;
+                            setPost(newPost);
+                        }}
                     />
                 </div>
 
@@ -96,6 +108,14 @@ function ShapeProperties() {
                         name={"numeric"} id={"y"}
                         type="text" className={input()}
                         value={selectedShape.data.y}
+                        onChange={e => {
+                            if (selectedIndex === null)
+                                return;
+                            const newPost = {...post};
+                            newPost.shapes[selectedIndex].data.y =
+                                parseInt(e.target.value) || 0;
+                            setPost(newPost);
+                        }}
                     />
                 </div>
 
@@ -110,15 +130,73 @@ function ShapeProperties() {
                                 name={"numeric"} id={"width"}
                                 type="text" className={input()}
                                 value={selectedShape.data.width}
+                                onChange={e => {
+                                    if (selectedIndex === null)
+                                        return;
+                                    const newPost = {...post};
+                                    newPost.shapes[selectedIndex].data.width =
+                                        parseInt(e.target.value) || 0;
+                                    setPost(newPost);
+                                }}
+                            />
+                        </div>
+
+                        <div className="mb-auto">
+                            <label
+                                htmlFor={"height"}
+                                className={"block"}
+                            >Height:</label>
+                            <input
+                                name={"numeric"} id={"height"}
+                                type="text" className={input()}
+                                value={selectedShape.data.height}
+                                onChange={e => {
+                                    if (selectedIndex === null)
+                                        return;
+                                    const newPost = {...post};
+                                    newPost.shapes[selectedIndex].data.height =
+                                        parseInt(e.target.value) || 0;
+                                    setPost(newPost);
+                                }}
                             />
                         </div>
                     </>
+                )}
+
+                {selectedShape.shape === "circle" && (
+                    <div className="mb-auto">
+                        <label
+                            htmlFor={"radius"}
+                            className={"block"}
+                        >Radius:</label>
+                        <input
+                            name={"numeric"} id={"radius"}
+                            type="text" className={input()}
+                            value={selectedShape.data.radius}
+                            onChange={e => {
+                                if (selectedIndex === null)
+                                    return;
+                                const newPost = {...post};
+                                newPost.shapes[selectedIndex].data.radius =
+                                    parseInt(e.target.value) || 0;
+                                setPost(newPost);
+                            }}
+                        />
+                    </div>
                 )}
             </div>
 
             <button
                 type={"button"}
                 className={button({type: "danger"})}
+                onClick={() => {
+                    const newPost = {...post};
+                    newPost.shapes = post.shapes
+                        .filter((_, i) => i !== selectedIndex);
+                    setPost(newPost);
+                    setSelectedShape(null);
+                    setSelectedIndex(null);
+                }}
             >
                 Delete
             </button>

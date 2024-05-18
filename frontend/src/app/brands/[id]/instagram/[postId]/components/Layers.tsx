@@ -5,7 +5,7 @@ import clsx from "clsx";
 
 export default function Layers() {
     const WIDTH = 180;
-    const { post, selectedShape, setSelectedShape } = useContext(EditorContext);
+    const { post, selectedShape, setSelectedShape, setSelectedIndex } = useContext(EditorContext);
 
     return (
          <section className={panel({ layouts: "properties" })}>
@@ -35,10 +35,12 @@ export default function Layers() {
                         onClick={() => {
                             if (selectedShape === shape) {
                                 setSelectedShape(null);
+                                setSelectedIndex(null);
                                 return;
                             }
 
-                            setSelectedShape(shape)
+                            setSelectedShape(shape);
+                            setSelectedIndex(index);
                         }}
                     >
                         Layer {index}

@@ -25,6 +25,7 @@ export default function InstagramPost() {
     const [tool, setTool] = useState<Tools>(Tools.SELECT);
     const [color, setColor] = useState<string>("#000000");
     const [selectedShape, setSelectedShape] = useState<Shape | null>(null);
+    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
     // todo: better error handling
     useEffect(() => {
@@ -53,7 +54,8 @@ export default function InstagramPost() {
                 tool, setTool,
                 post, setPost,
                 color, setColor,
-                selectedShape, setSelectedShape
+                selectedShape, setSelectedShape,
+                selectedIndex, setSelectedIndex
             }}
         >
             <div className={clsx(pageContainer(), "flex-grow flex flex-col")}>

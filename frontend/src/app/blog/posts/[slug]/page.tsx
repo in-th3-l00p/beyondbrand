@@ -1,4 +1,3 @@
-import { IPost } from "@/app/blog/components/Post";
 import Image from "next/image";
 import * as Icon from "react-feather";
 import Link from "next/link";
@@ -33,7 +32,7 @@ export default async function Page({ params }: Props) {
             <div className="md:px-16 items-center">
                 <div className="flex flex-wrap justify-between items-center gap-4 mb-4">
                     <p className="text-4xl font-bold">{post.attributes.title}</p>
-                    <Link href="/blog/posts" className="btn w-full md:w-auto">
+                    <Link href="http://localhost:3000/blog/posts" className="btn w-full md:w-auto">
                         <Icon.ArrowLeft className="mx-auto" />
                     </Link>
                 </div>

@@ -27,12 +27,12 @@ export default function InformationGenerator({ colors, setColors }: {
             .then(response => response.json())
             .then((data: { colors?: string[] }) => {
                 setGeneratedColors(data.colors || []);
+                if(generatedColors!==null||generatedColors==='')
+                    toast.success("Colors regenerated successfully");
+                else
+                    toast.success("Colors generated successfully");
             })
             .finally(() => setLoading(false));
-        if(generatedColors!==null||generatedColors==='')
-            toast.success("Colors regenerated successfully");
-        else
-            toast.success("Colors generated successfully");
     }
 
     if (loading)

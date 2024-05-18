@@ -1,14 +1,15 @@
 'use client';
 import TextareaAutosize from "react-textarea-autosize";
-import { IPostWOdata, ICommentWOdata, IComment } from "@/app/blog/components/Post"; // Adjust the import path as needed
+import { IPost, ICommentWOdata, IComment } from "@/app/blog/components/Post"; // Adjust the import path as needed
 import { useEffect, useState } from "react";
 import toast from 'react-hot-toast';
+import React from "react";
 
 interface ICommentsResponse {
     data: IComment[];
 }
 
-export default function CommentSection({ post }: { post: IPostWOdata }) {
+export default function CommentSection({ post }: { post: IPost }) {
     const [comments, setComments] = useState<ICommentWOdata[]>([]);
     const [textAreaContent, setTextAreaContent] = useState('');
 
@@ -16,11 +17,11 @@ export default function CommentSection({ post }: { post: IPostWOdata }) {
         const commentsResponse = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL!}/api/comments?filters[post][$eq]=${post.id}&sort=id:desc`, { cache: 'no-cache' });
         const commentsData: ICommentsResponse = await commentsResponse.json();
         const transformedComments: ICommentWOdata[] = commentsData.data.map(comment => ({
-            id: comment.data.id,
+            id: comment.id.toString(),  // Ensure id is a string
             attributes: {
-                name: comment.data.attributes.name,
-                content: comment.data.attributes.content,
-                createdAt: comment.data.attributes.createdAt
+                name: comment.attributes.name,
+                content: comment.attributes.content,
+                createdAt: comment.attributes.createdAt
             }
         }));
         console.log(transformedComments);
@@ -28,7 +29,9 @@ export default function CommentSection({ post }: { post: IPostWOdata }) {
     }
 
     useEffect(() => {
-        fetchComments();
+        fetchComments().catch(error => {
+            console.error("Error fetching comments:", error);
+        });
     }, [post]);
 
     const postComment = async (event: React.FormEvent) => {
@@ -50,7 +53,7 @@ export default function CommentSection({ post }: { post: IPostWOdata }) {
             });
             setTextAreaContent('');
             toast.success('Comment submitted successfully');
-            fetchComments();
+            await fetchComments();
         } catch (error) {
             console.error("Error submitting comment:", error);
         }

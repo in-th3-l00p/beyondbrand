@@ -88,6 +88,7 @@ export default function useToolEvents(canvas: Canvas) {
 
                     const newPost = {...post};
                     newPost.shapes.push({
+                        _id: "",
                         shape: "rectangle",
                         data: rectangle
                     });
@@ -106,10 +107,10 @@ export default function useToolEvents(canvas: Canvas) {
                 setMouseUpCallback((ev: MouseEvent) => {
                     if (!circleStart.current)
                         return;
-                    const distance = Math.sqrt(
+                    const distance = Math.floor(Math.sqrt(
                         (ev.offsetX - circleStart.current.x) ** 2 +
                         (ev.offsetY - circleStart.current.y) ** 2
-                    );
+                    ));
                     const circle = {
                         x: circleStart.current.x,
                         y: circleStart.current.y,
@@ -118,6 +119,7 @@ export default function useToolEvents(canvas: Canvas) {
                     };
                     const newPost = {...post};
                     newPost.shapes.push({
+                        _id: "",
                         shape: "circle",
                         data: circle
                     });

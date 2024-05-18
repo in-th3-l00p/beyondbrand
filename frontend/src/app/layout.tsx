@@ -5,6 +5,7 @@ import React from "react";
 import Header from "@/app/layout/Header";
 import "@/database/mongoose";
 import NextAuthSessionProvider from "@/app/layout/NextAuthSessionProvider";
+import {Toaster} from "react-hot-toast";
 
 const inter = Tilt_Neon({subsets: ["latin"]});
 
@@ -23,6 +24,7 @@ export default function RootLayout({
             <body className={inter.className + " min-h-screen overflow-x-hidden flex flex-col"}>
                 <NextAuthSessionProvider>
                     <Header/>
+                    <Toaster/>
                     {children}
                 </NextAuthSessionProvider>
             </body>

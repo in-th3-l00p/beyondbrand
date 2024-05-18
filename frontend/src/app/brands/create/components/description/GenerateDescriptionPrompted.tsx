@@ -4,6 +4,7 @@ import React, {useContext, useState} from "react";
 import * as Icon from "react-feather";
 import BrandContext from "@/app/brands/create/BrandContext";
 import Loading from "@/app/brands/create/components/Loading";
+import toast from "react-hot-toast";
 
 export default function GenerateDescriptionPrompted() {
     const { name, setDescription } = useContext(BrandContext);
@@ -43,6 +44,7 @@ export default function GenerateDescriptionPrompted() {
                                 setGenerated(data.brandDescription || "");
                             })
                             .finally(() => setLoading(false));
+                        toast.success("Description generated successfully")
                     }}
                 >
                     Generate

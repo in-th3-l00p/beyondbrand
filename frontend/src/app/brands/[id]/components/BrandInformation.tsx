@@ -6,6 +6,7 @@ import {label, panel, PanelLoading, panelTitle} from "@/app/brands/[id]/componen
 import {z} from "zod";
 import FormError from "@/components/FormError";
 import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
+import toast from "react-hot-toast";
 
 export default function BrandInformation() {
     const { brand, setBrand } = useContext(BrandContext);
@@ -79,6 +80,7 @@ export default function BrandInformation() {
                                 });
                             })
                             .finally(() => setLoading(false));
+                        toast.success("Changes saved")
                     }}
                 >
                     Save
@@ -91,6 +93,7 @@ export default function BrandInformation() {
                     onClick={() => {
                         setName(brand.name);
                         setDescription(brand.description);
+                        toast.success("Changes discarded");
                     }}
                 >
                     Discard

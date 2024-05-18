@@ -41,6 +41,7 @@ export function renderContextPostShapes(
 }
 
 export default function Canvas() {
+    const CANVAS_PADDING = 40;
     const { brand } = useContext(BrandContext);
     const { post} = useContext(EditorContext);
     const container = useRef<HTMLDivElement>(null);
@@ -52,7 +53,7 @@ export default function Canvas() {
             return;
 
         const { width, height } = container.current.getBoundingClientRect();
-        canvas.current.width = canvas.current.height = Math.min(width, height);
+        canvas.current.width = canvas.current.height = Math.min(width, height) - CANVAS_PADDING * 2;
         container.current.addEventListener("resize", () => {
             if (!canvas.current || !container.current)
                 return;
@@ -86,7 +87,7 @@ export default function Canvas() {
     return (
         <section
             ref={container}
-            className={clsx(panel(), "flex-grow flex justify-center items-center")}
+            className={clsx(panel({ layouts: "canvas" }))}
         >
             <canvas
                 ref={canvas}

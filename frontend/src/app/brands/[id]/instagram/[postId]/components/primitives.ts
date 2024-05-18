@@ -12,7 +12,7 @@ export const panel = tv({
             small: "p-2 px-4",
         },
         layouts: {
-            base: "flex justify-center items-center flex-grow",
+            canvas: "flex justify-center items-center flex-grow p-0",
             line: "flex flex-wrap items-center gap-4",
             properties: "flex flex-col gap-4 flex-shrink max-w-fit"
         },

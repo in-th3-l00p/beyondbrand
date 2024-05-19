@@ -148,8 +148,6 @@ export default function ColorSchemeGenerator() {
             </div>
 
             <div className="w-full">
-                <h2 className={"text-lg"}>Generation</h2>
-                <p>Use AI powered tools to generate the colors of your brand</p>
                 <ColorGenerator
                     colors={colors}
                     setColors={setColors}

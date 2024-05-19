@@ -6,7 +6,7 @@ import {button} from "@/components/primitives";
 import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
 import clsx from "clsx";
 
-export default function NameGeneration() {
+export default function NameGenerator() {
     const [generatedName, setGeneratedName] = useState<string>("");
     const [query, setQuery]  = useState<string>("");
     const [loading, setLoading] = useState(false);

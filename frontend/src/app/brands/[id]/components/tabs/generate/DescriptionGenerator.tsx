@@ -66,7 +66,7 @@ export default function DescriptionGeneration() {
                     <div className="flex flex-wrap items-center gap-4">
                         <button
                             type={"button"} className={"btn mb-2"}
-                            title={"Accept generated description"}
+                            title={"Accept prompted description"}
                             disabled={loading}
                             onClick={() => {
                                 setGenerated(null);

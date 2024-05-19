@@ -63,7 +63,7 @@ export default function GenerateDescriptionPrompted() {
             <div className="text-center">
                 <button
                     type={"button"} className={"btn mb-2"}
-                    title={"Accept generated description"}
+                    title={"Accept prompted description"}
                     onClick={() => {
                         setGenerated(null);
                         setDescription(generated);

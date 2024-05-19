@@ -8,7 +8,7 @@ import TabContext, {
 } from "@/app/brands/[id]/components/tabs/TabContext/TabContext";
 import SettingsTab from "@/app/brands/[id]/components/tabs/SettingsTab";
 import SocialMediaTab from "@/app/brands/[id]/components/tabs/SocialMediaTab";
-import Generate from "@/app/brands/[id]/components/tabs/Generate";
+import GenerateTab from "@/app/brands/[id]/components/tabs/GenerateTab";
 
 function TabButton({ currentTab, order = "middle", children }: {
     currentTab: Tabs;
@@ -46,7 +46,7 @@ export function TabSelection() {
     if (tab === Tabs.SocialMedia)
         return <SocialMediaTab />
     if (tab === Tabs.Generate)
-        return <Generate />
+        return <GenerateTab />
     return <></>
 }
 

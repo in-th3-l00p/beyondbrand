@@ -42,9 +42,9 @@ export default function GenerateDescriptionPrompted() {
                             .then(response => response.json())
                             .then((data: { brandDescription?: string }) => {
                                 setGenerated(data.brandDescription || "");
+                                toast.success("Description generated successfully")
                             })
                             .finally(() => setLoading(false));
-                        toast.success("Description generated successfully")
                     }}
                 >
                     Generate

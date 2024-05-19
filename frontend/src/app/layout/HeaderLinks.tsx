@@ -48,6 +48,7 @@ export default function HeaderLinks({ windowWidthLimit }: {
                 <DesktopLink href={"/about"}>About</DesktopLink>
                 <DesktopLink href={"/contact"}>Contact</DesktopLink>
                 <DesktopLink href={"/blog/posts"}>Blog</DesktopLink>
+                <DesktopLink href={"/forum/posts"}>Forum</DesktopLink>
 
                 <div className="flex-grow" />
                 {session.status !== "loading" && (

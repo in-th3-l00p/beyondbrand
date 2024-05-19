@@ -22,9 +22,11 @@ export default function GenerateButton() {
                     method: "POST"
                 })
                     .then(resp => resp.json())
-                    .then((data: { b64_json: string }) => setLogo("data:image/jpeg;base64," + data.b64_json))
+                    .then((data: { b64_json: string }) => {
+                        setLogo("data:image/jpeg;base64," + data.b64_json)
+                        toast.success("Logo generated successfully");
+                    })
                     .finally(() => setLoading(false));
-                toast.success("Logo generated successfully");
             }}
         >
             Generate

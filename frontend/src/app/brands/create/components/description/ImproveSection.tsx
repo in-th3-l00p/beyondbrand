@@ -62,9 +62,9 @@ export function ImproveSection() {
                         .then(response => response.json())
                         .then((data: { brandDescription?: string }) => {
                             setImproved(data.brandDescription || "");
+                            toast.success("Description improved successfully")
                         })
                         .finally(() => setLoading(false));
-                    toast.success("Description improved successfully")
                 }}
             >
                 Improve

@@ -1,7 +1,7 @@
 import Post, {IPost} from "@/app/blog/components/Post";
 
 export default async function Page() {
-    const postsResponse = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL!}/api/posts`, { cache: 'no-cache' });
+    const postsResponse = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL!}/api/posts?populate=banner`, { cache: 'no-cache' });
     const posts: { data: IPost[] } = await postsResponse.json();
 
 

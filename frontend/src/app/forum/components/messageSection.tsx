@@ -17,6 +17,7 @@ export default function CommentSection({ post }: { post: IPost }) {
     async function fetchMessages(): Promise<IMessage[]> {
         const response = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL!}/api/forum-post-messages?filters[forum_post][$eq]=${post.id}&sort=id:desc`, { cache: 'no-cache' });
         const messagesData: IMessageResponse = await response.json();
+        await console.log(messagesData);
         return messagesData.data.map(message => ({
             id: message.id.toString(),
             attributes: {

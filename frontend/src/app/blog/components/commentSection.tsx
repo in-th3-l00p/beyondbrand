@@ -80,9 +80,7 @@ export default function CommentSection({ post }: { post: IPost }) {
                 )}
             </div>
             {comments.length === 0 ? (
-                <div className="flex flex-col gap-4 shadow-md my-4 p-4 shadow-gray-700 rounded-xl">
                     <p className="text-2xl">No comments yet</p>
-                </div>
             ) : (
                 comments.map(comment => (
                     <div key={comment.id} className="flex flex-col gap-4 shadow-md my-4 p-4 shadow-gray-700 rounded-xl">
@@ -97,7 +95,7 @@ export default function CommentSection({ post }: { post: IPost }) {
                             </div>
                         </div>
                         <hr className="w-full rounded-xl" style={{ border: "1px solid gray" }} />
-                        <p className="text-2xl">{comment.attributes.content}</p>
+                        <p className="indent-8 text-2xl">{comment.attributes.content}</p>
                     </div>
                 ))
             )}

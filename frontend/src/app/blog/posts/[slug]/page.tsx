@@ -37,14 +37,14 @@ export default async function Page({ params }: Props) {
                     </Link>
                 </div>
                 <p className="text-center mb-4 text-3xl">{post.attributes.heading}</p>
-                <div className="flex mb-4 gap-4 flex-col md:flex-row">
-                    <p className="text-left text-2xl text-justify">{post.attributes.opening}</p>
-                    <Image src={src} width={400} height={600} alt="post banner" />
+                <div className="flex mb-4 gap-16 flex-col md:flex-row">
+                    <p className="indent-8 text-left text-2xl text-justify">{post.attributes.opening}</p>
+                    <Image src={src} width={400} height={400} alt="post banner" className={"rounded-md"} />
                 </div>
                 <p className="text-center mb-4 text-2xl">{post.attributes.subHeading}</p>
-                <p className="text-left text-justify text-2xl">{post.attributes.content}</p>
+                <p className="indent-8 text-left text-justify text-2xl">{post.attributes.content}</p>
             </div>
-            <hr className="w-full rounded-xl my-4" style={{ border: "1px solid gray" }} />
+            <hr className="w-full rounded-xl my-16" style={{ border: "1px solid gray" }} />
             <CommentSection post={post} />
         </section>
     );

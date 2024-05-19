@@ -23,8 +23,8 @@ export default function Page() {
     };
 
     return (
-        <section className="my-12">
-            <div className="h-screen px-4">
+        <section className="my-12 ">
+            <div className="h-screen px-4 ">
                 <div className="text-center space-y-12">
                     <p className="text-2xl 2xl:text-4xl font-medium text-gray-500">About Us</p>
                     <h1 className="text-6xl 2xl:text-8xl font-extrabold">WE CHANGE THE WAY YOU DO <br /> BRANDING</h1>
@@ -76,7 +76,7 @@ export default function Page() {
                 </div>
             </div>
 
-            <div className="min-h-screen flex flex-col md:flex-row items-center bg-ghost-white py-16 px-24">
+            <div className="min-h-screen flex flex-col md:flex-row items-center py-16 px-24">
                 <div className="md:w-2/3 text-center md:text-left space-y-6">
                     <h1 className="text-4xl 2xl:text-6xl">
                         Our mission: to simplify all things about brand creation and management

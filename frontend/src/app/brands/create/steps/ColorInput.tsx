@@ -5,7 +5,7 @@ import React, {useContext, useEffect, useState} from "react";
 import FormNext from "@/app/brands/create/components/FormNext";
 import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
 import * as Icon from "react-feather";
-import InformationGenerator from "@/app/brands/create/components/colors/InformationGenerator";
+import ColorGenerator from "@/app/brands/create/components/colors/ColorGenerator";
 import {ColorVisualizer} from "@/components/colors/ColorVisualizer";
 import ColorCountSelect from "@/components/colors/ColorCountSelect";
 import {formContainer} from "@/components/form/primitives";
@@ -64,7 +64,7 @@ export default function ColorInput() {
             <div className="py-4 my-4 border-t border-b w-full">
                 <h2 className={"text-lg"}>Generation</h2>
                 <p>Use AI powered tools to generate the colors of your brand</p>
-                <InformationGenerator
+                <ColorGenerator
                     colors={colors}
                     setColors={setColors}
                 />

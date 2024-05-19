@@ -5,7 +5,7 @@ import Loading from "@/app/brands/create/components/Loading";
 import BrandContext from "@/app/brands/create/BrandContext";
 import {ColorVisualizer} from "@/components/colors/ColorVisualizer";
 
-export default function InformationGenerator({ colors, setColors }: {
+export default function ColorGenerator({ colors, setColors }: {
     colors: string[],
     setColors: (colors: string[]) => void
 }) {

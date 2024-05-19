@@ -20,7 +20,10 @@ export default function Layers() {
                 </div>
             )}
 
-            <div className={"flex flex-col gap-4 overflow-y-scroll overflow-x-hidden pe-4"}>
+            <div className={clsx(
+                "flex flex-col gap-4 pe-4",
+                "overflow-y-scroll overflow-x-hidden no-scrollbar"
+            )}>
                 {post.shapes.map((shape, index) => (
                     <button
                         type={"button"}

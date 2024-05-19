@@ -910,8 +910,7 @@ export interface ApiForumPostForumPost extends Schema.CollectionType {
       Attribute.SetMinMaxLength<{
         maxLength: 255;
       }>;
-    slug: Attribute.UID<'api::forum-post.forum-post', 'title'> &
-      Attribute.Required;
+    slug: Attribute.UID<'api::forum-post.forum-post', 'title'>;
     forum_post_messages: Attribute.Relation<
       'api::forum-post.forum-post',
       'oneToMany',

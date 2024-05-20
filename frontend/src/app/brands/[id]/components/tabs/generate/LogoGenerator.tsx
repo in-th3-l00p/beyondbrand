@@ -90,7 +90,7 @@ export default function LogoGenerator() {
 
                     <button
                         type={"button"}
-                        className={"btn mb-4"}
+                        className={"btn"}
                         onClick={() => {
                             setLoading(true);
                             fetch("/api/brands/generate/logo/prompted", {

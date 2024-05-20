@@ -28,13 +28,12 @@ export async function POST(req: Request) {
     }
 
     const response = await openai.images.generate({
-        model: "dall-e-2",
+        model: "dall-e-3",
         quality: "hd",
         style: "natural",
         n: 1,
         response_format: "b64_json",
-        size: "256x256",
-        prompt: `Design a realistic logo for a company with the name of ${body.data.name}, the company is about ${body.data.description} using the colors ${body.data.colors.join(", ")}, the logo should contain items from the company's description. The logo should not have any letters on it.`,
+        prompt: `Design a realistic logo for a company with the name of ${body.data.name}, the company is about ${body.data.description} using the colors ${body.data.colors.join(", ")}. The generation should have only one grpahic in the center. The logo should not have any letters on it. Center the logo. Make it a simple vectorial graphics. Make sure it is only one graphic per generation, only one logo on image.`,
     });
 
     return NextResponse.json(response.data[0]);

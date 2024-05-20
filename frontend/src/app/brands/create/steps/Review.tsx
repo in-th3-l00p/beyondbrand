@@ -88,10 +88,10 @@ export default function Review() {
                                 localStorage.removeItem("brand.create.colors");
                                 localStorage.removeItem("brand.create.logo");
                                 localStorage.removeItem("brand.create.stepStack");
+                                toast.success("Brand generated successfully")
                                 router.push(`/brands/${data._id}`)
                             })
                             .finally(() => setLoading(false));
-                        toast.success("Brand generated successfully")
                     }}
                 >
                     Create

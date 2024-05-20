@@ -1,5 +1,6 @@
 export enum Tools {
     SELECT = 'select',
     RECTANGLE = 'rectangle',
-    CIRCLE = 'circle'
+    CIRCLE = 'circle',
+    PICTURE = 'picture',
 }

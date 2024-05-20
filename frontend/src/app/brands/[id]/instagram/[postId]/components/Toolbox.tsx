@@ -136,6 +136,12 @@ export default function Toolbox() {
                 icon={"/icons/toolbox/circle.svg"}
             />
 
+            <Tool
+                tool={Tools.PICTURE}
+                title={"Picture"}
+                icon={"/icons/toolbox/picture.svg"}
+            />
+
             <p className={"ms-4"}>Color:</p>
             <ColorPicker />
         </section>

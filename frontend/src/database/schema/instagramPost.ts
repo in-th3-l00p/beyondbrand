@@ -3,13 +3,14 @@ import mongoose from "mongoose";
 export type Shape = {
     _id: string;
     name?: string;
-    shape: "rectangle" | "circle";
+    shape: "rectangle" | "circle" | "picture";
     data: {
         x: number;
         y: number;
         width?: number;
         height?: number;
         radius?: number;
+        src?: string;
         color: string;
     }
 
@@ -37,6 +38,10 @@ const shapeSchema = new mongoose.Schema({
         },
         radius: {
             type: Number,
+            required: false
+        },
+        src: {
+            type: String,
             required: false
         },
         color: String

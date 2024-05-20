@@ -128,6 +128,36 @@ export default function useToolEvents(canvas: Canvas) {
                     circleStart.current = null;
                 });
                 break;
+            case Tools.PICTURE:
+                setMouseDownCallback((ev: MouseEvent) => {
+                    rectangleStart.current = {
+                        x: ev.offsetX,
+                        y: ev.offsetY
+                    }
+                });
+
+                setMouseUpCallback((ev: MouseEvent) => {
+                    if (!rectangleStart.current)
+                        return;
+                    const image = {
+                        x: rectangleStart.current.x,
+                        y: rectangleStart.current.y,
+                        width: ev.offsetX - rectangleStart.current.x,
+                        height: ev.offsetY - rectangleStart.current.y,
+                        color: "#000000"
+                    };
+
+                    const newPost = {...post};
+                    newPost.shapes.push({
+                        _id: "",
+                        shape: "picture",
+                        data: image
+                    });
+                    setPost(newPost);
+
+                    rectangleStart.current = null;
+                });
+                break;
         }
     }, [canvas, tool, color, post, setPost]);
 }

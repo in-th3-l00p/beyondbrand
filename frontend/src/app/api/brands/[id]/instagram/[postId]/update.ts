@@ -7,14 +7,15 @@ const bodySchema = z.object({
     name: z.string().max(255).min(1),
     shapes: z.array(z.object({
         name: z.string().max(255).min(1).optional(),
-        shape: z.enum(["rectangle", "circle"]),
+        shape: z.enum(["rectangle", "circle", "picture"]),
         data: z.object({
             x: z.number(),
             y: z.number(),
             width: z.number().optional(),
             height: z.number().optional(),
             radius: z.number().optional(),
-            color: z.string().min(1).max(255)
+            color: z.string().min(1).max(255),
+            src: z.string().optional()
         })
     }))
 });

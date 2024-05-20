@@ -36,6 +36,30 @@ export function renderContextPostShapes(
                 );
                 ctx.fill();
                 break;
+            case "picture":
+                if (!shape.data.src) {
+                    ctx.fillStyle = "black";
+                    ctx.fillRect(
+                        shape.data.x * ratio,
+                        shape.data.y * ratio,
+                        shape.data.width! * ratio,
+                        shape.data.height! * ratio
+                    );
+                    break;
+                }
+
+                const img = new Image();
+                img.src = shape.data.src;
+                img.onload = () => {
+                    ctx.drawImage(
+                        img,
+                        shape.data.x * ratio,
+                        shape.data.y * ratio,
+                        shape.data.width! * ratio,
+                        shape.data.height! * ratio
+                    );
+                };
+                break;
         }
     }
 }

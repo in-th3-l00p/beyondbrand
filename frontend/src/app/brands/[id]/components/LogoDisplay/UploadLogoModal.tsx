@@ -1,14 +1,14 @@
 import React, {useContext, useState} from "react";
-import TabContext from "@/app/brands/[id]/components/tabs/TabContext/TabContext";
 import Modal, {modalFooter} from "@/components/Modal";
 import UploadRegion from "@/components/logo/UploadRegion";
 import Loading from "@/app/brands/create/components/Loading";
+import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
 
 export function UploadLogoModal({show, setShow}: {
     show: boolean;
     setShow: (show: boolean) => void;
 }) {
-    const {brand, setBrand} = useContext(TabContext);
+    const {brand, setBrand} = useContext(BrandContext);
     const [logo, setLogo] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
 

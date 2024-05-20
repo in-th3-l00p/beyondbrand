@@ -4,9 +4,10 @@ import "./uploadRegion.scss";
 import BrandContext from "@/app/brands/create/BrandContext";
 import LogoPreview from "@/components/logo/LogoPreview";
 
-export default function UploadRegion({ b64Logo, setB64Logo }: {
+export default function UploadRegion({ b64Logo, setB64Logo, noPreview }: {
     b64Logo?: string;
     setB64Logo?: (b64: string) => void
+    noPreview?: boolean;
 }) {
     const FILE_SIZE = 1024 * 1024 * 2; // 2MB
     const { setLogo } = useContext(BrandContext);
@@ -56,7 +57,7 @@ export default function UploadRegion({ b64Logo, setB64Logo }: {
                 <p>Max file size: {FILE_SIZE / (1024 * 1024)} MB</p>
             </div>
 
-            <LogoPreview logo={b64Logo} setLogo={setB64Logo} />
+            {!noPreview && <LogoPreview logo={b64Logo} setLogo={setB64Logo} />}
         </section>
     );
 }

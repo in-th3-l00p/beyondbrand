@@ -2,10 +2,11 @@
 
 import {panel, panelTitle} from "@/app/brands/[id]/instagram/[postId]/components/primitives";
 import {button, input} from "@/components/primitives";
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import EditorContext from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
 import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
 import {tv} from "tailwind-variants";
+import UploadRegion from "@/components/logo/UploadRegion";
 
 const propertiesContainer = tv({
     base: "flex-grow flex flex-col justify-between items-center"
@@ -62,6 +63,28 @@ function ShapeProperties() {
         selectedIndex, setSelectedIndex
     } = useContext(EditorContext);
 
+    const {brand} = useContext(BrandContext);
+    const [b64Logo, setB64Logo] = useState<string>("");
+
+    useEffect(() => {
+        if (!selectedShape || selectedShape.shape !== "picture" || !b64Logo)
+            return;
+
+        fetch(`/api/brands/${brand._id}/instagram/${post._id}/picture`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                index: selectedIndex,
+                postId: post._id,
+                picture: b64Logo
+            })
+        })
+            .then(resp => resp.json())
+            .then(post => setPost(post));
+    }, [b64Logo])
+
     if (!selectedShape)
         return <></>;
     return (
@@ -102,6 +125,14 @@ function ShapeProperties() {
                         Center V
                     </button>
                 </div>
+
+                {selectedShape.shape === "picture" && (
+                    <UploadRegion
+                        b64Logo={b64Logo}
+                        setB64Logo={setB64Logo}
+                        noPreview={true}
+                    />
+                )}
 
                 <div className="mb-auto">
                     <label
@@ -162,7 +193,7 @@ function ShapeProperties() {
                     />
                 </div>
 
-                {selectedShape.shape === "rectangle" && (
+                {(selectedShape.shape === "rectangle" || selectedShape.shape === "picture") && (
                     <>
                         <div className="mb-auto">
                             <label

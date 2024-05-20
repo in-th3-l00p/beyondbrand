@@ -5,6 +5,7 @@ import {button, input} from "@/components/primitives";
 import {useContext, useEffect, useState} from "react";
 import EditorContext from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
 import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
+import toast from "react-hot-toast";
 import {tv} from "tailwind-variants";
 import UploadRegion from "@/components/logo/UploadRegion";
 
@@ -48,6 +49,7 @@ function PostProperties() {
                         method: "DELETE"
                     })
                         .then(() => window.location.href = `/brands/${brand._id}`)
+                        toast.success("Post deleted successfully")
                 }}
             >
                 Delete

@@ -2,6 +2,7 @@ import React, {useContext, useState} from "react";
 import BrandContext from "@/app/brands/create/BrandContext";
 import * as Icon from "react-feather";
 import Loading from "@/app/brands/create/components/Loading";
+import toast from "react-hot-toast";
 
 export function ImproveSection() {
     const [improved, setImproved] = useState<string | null>(null);
@@ -61,6 +62,7 @@ export function ImproveSection() {
                         .then(response => response.json())
                         .then((data: { brandDescription?: string }) => {
                             setImproved(data.brandDescription || "");
+                            toast.success("Description improved successfully")
                         })
                         .finally(() => setLoading(false));
                 }}

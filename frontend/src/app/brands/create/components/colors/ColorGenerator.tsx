@@ -4,6 +4,7 @@ import React, {useContext, useState} from "react";
 import Loading from "@/app/brands/create/components/Loading";
 import BrandContext from "@/app/brands/create/BrandContext";
 import {ColorVisualizer} from "@/components/colors/ColorVisualizer";
+import toast from "react-hot-toast";
 
 export default function ColorGenerator({ colors, setColors }: {
     colors: string[],
@@ -26,6 +27,10 @@ export default function ColorGenerator({ colors, setColors }: {
             .then(response => response.json())
             .then((data: { colors?: string[] }) => {
                 setGeneratedColors(data.colors || []);
+                if(generatedColors!==null||generatedColors==='')
+                    toast.success("Colors regenerated successfully");
+                else
+                    toast.success("Colors generated successfully");
             })
             .finally(() => setLoading(false));
     }

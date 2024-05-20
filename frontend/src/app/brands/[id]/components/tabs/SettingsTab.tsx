@@ -3,6 +3,7 @@ import {button, input} from "@/components/primitives";
 import {useContext, useState} from "react";
 import {useRouter} from "next/navigation";
 import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
+import toast from "react-hot-toast";
 
 export default function SettingsTab() {
     const router = useRouter();
@@ -40,6 +41,7 @@ export default function SettingsTab() {
                                     }
                                 })
                                     .then(() => router.push("/"));
+                                toast.success("Brand deleted successfully");
                             }}
                         >
                             Submit

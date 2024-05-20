@@ -6,6 +6,7 @@ import {ColorVisualizer} from "@/components/colors/ColorVisualizer";
 import {button} from "@/components/primitives";
 import ColorCountSelect from "@/components/colors/ColorCountSelect";
 import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
+import toast from "react-hot-toast";
 
 export default function BrandColorScheme() {
     const { brand, setBrand } = useContext(BrandContext);
@@ -74,6 +75,7 @@ export default function BrandColorScheme() {
                                 .then(resp => resp.json())
                                 .then(brand => setBrand(brand))
                                 .finally(() => setLoading(false));
+                            toast.success("Changes saved")
                         }}
                     >
                         Save
@@ -85,6 +87,7 @@ export default function BrandColorScheme() {
                         disabled={!checkChanges()}
                         onClick={() => {
                             setColors(() => brand.colors);
+                            toast.success("Changes discarded")
                         }}
                     >
                         Discard

@@ -32,19 +32,19 @@ export default async function Page({ params }: Props) {
             <div className="md:px-16 items-center">
                 <div className="flex flex-wrap justify-between items-center gap-4 mb-4">
                     <p className="text-4xl font-bold">{post.attributes.title}</p>
-                    <Link href="/blog/posts" className="btn w-full md:w-auto">
+                    <Link href="http://localhost:3000/blog/posts" className="btn w-full md:w-auto">
                         <Icon.ArrowLeft className="mx-auto" />
                     </Link>
                 </div>
                 <p className="text-center mb-4 text-3xl">{post.attributes.heading}</p>
-                <div className="flex mb-4 gap-4 flex-col md:flex-row">
-                    <p className="text-left text-2xl text-justify">{post.attributes.opening}</p>
-                    <Image src={src} width={400} height={600} alt="post banner" />
+                <div className="flex mb-4 gap-16 flex-col md:flex-row">
+                    <p className="indent-8 text-left text-2xl text-justify">{post.attributes.opening}</p>
+                    <Image src={src} width={400} height={400} alt="post banner" className={"rounded-md"} />
                 </div>
                 <p className="text-center mb-4 text-2xl">{post.attributes.subHeading}</p>
-                <p className="text-left text-justify text-2xl">{post.attributes.content}</p>
+                <p className="indent-8 text-left text-justify text-2xl">{post.attributes.content}</p>
             </div>
-            <hr className="w-full rounded-xl my-4" style={{ border: "1px solid gray" }} />
+            <hr className="w-full rounded-xl my-16" style={{ border: "1px solid gray" }} />
             <CommentSection post={post} />
         </section>
     );

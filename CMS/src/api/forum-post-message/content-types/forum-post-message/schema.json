@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "forum_post_messages",
+  "info": {
+    "singularName": "forum-post-message",
+    "pluralName": "forum-post-messages",
+    "displayName": "Forum Post Message",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "string",
+      "maxLength": 255,
+      "required": true
+    },
+    "content": {
+      "type": "text",
+      "maxLength": 10000,
+      "required": true
+    },
+    "forum_post": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::forum-post.forum-post",
+      "inversedBy": "forum_post_messages"
+    }
+  }
+}

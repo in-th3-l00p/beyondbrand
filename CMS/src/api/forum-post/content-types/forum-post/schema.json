@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "forum_posts",
+  "info": {
+    "singularName": "forum-post",
+    "pluralName": "forum-posts",
+    "displayName": "Forum Post",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 255
+    },
+    "content": {
+      "type": "text",
+      "required": true,
+      "maxLength": 10000
+    },
+    "user": {
+      "type": "string",
+      "required": true,
+      "maxLength": 255
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": false
+    },
+    "forum_post_messages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::forum-post-message.forum-post-message",
+      "mappedBy": "forum_post"
+    }
+  }
+}

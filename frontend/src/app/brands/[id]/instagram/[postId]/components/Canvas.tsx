@@ -1,8 +1,7 @@
-import React, {useContext, useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect, useRef} from "react";
 import clsx from "clsx";
 import EditorContext from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
 import useToolEvents from "@/app/brands/[id]/instagram/[postId]/components/useToolEvents";
-import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
 import {panel} from "@/app/brands/[id]/instagram/[postId]/components/primitives";
 import {IInstagramPost} from "@/database/schema/instagramPost";
 
@@ -42,9 +41,7 @@ export function renderContextPostShapes(
 
 export default function Canvas() {
     const CANVAS_PADDING = 40;
-    const { brand } = useContext(BrandContext);
-    const { post, setPost } = useContext(EditorContext);
-    const [ passUpdate, setPassUpdate ] = useState(false);
+    const { post} = useContext(EditorContext);
     const container = useRef<HTMLDivElement>(null);
     const canvas = useRef<HTMLCanvasElement>(null);
 
@@ -74,26 +71,6 @@ export default function Canvas() {
 
         renderContextPostShapes(ctx, post);
     }, [post]);
-
-    useEffect(() => {
-        if (passUpdate) {
-            setPassUpdate(false);
-            return;
-        }
-
-        fetch(`/api/brands/${brand._id}/instagram/${post._id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(post)
-        })
-            .then(resp => resp.json())
-            .then(post => {
-                setPost(post);
-                setPassUpdate(true);
-            });
-    }, [brand, post]);
 
     return (
         <section

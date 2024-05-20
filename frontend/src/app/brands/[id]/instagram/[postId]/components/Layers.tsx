@@ -46,7 +46,7 @@ export default function Layers() {
                             setSelectedIndex(index);
                         }}
                     >
-                        Layer {index}
+                        {shape.name ? shape.name : `Layer ${index}`}
                     </button>
                 ))}
             </div>

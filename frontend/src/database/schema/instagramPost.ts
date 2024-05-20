@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 export type Shape = {
     _id: string;
+    name?: string;
     shape: "rectangle" | "circle";
     data: {
         x: number;
@@ -15,6 +16,10 @@ export type Shape = {
 }
 
 const shapeSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: false
+    },
     shape: {
         type: String,
         required: true

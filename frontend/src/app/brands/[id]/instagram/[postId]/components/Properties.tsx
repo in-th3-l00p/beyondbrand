@@ -75,7 +75,14 @@ function ShapeProperties() {
                     <input
                         name={"name"} id={"name"}
                         type="text" className={input()}
-                        value={selectedShape._id}
+                        value={selectedShape.name || ""}
+                        onChange={(e) => {
+                            if (selectedIndex === null)
+                                return;
+                            const newPost = {...post};
+                            newPost.shapes[selectedIndex].name = e.target.value;
+                            setPost(newPost);
+                        }}
                     />
                 </div>
 
@@ -205,11 +212,9 @@ function ShapeProperties() {
 }
 
 export default function Properties() {
-    const { selectedShape } = useContext(EditorContext);
-
     return (
         <section className={panel({ layouts: "properties" }) + " max-w-[300px]"}>
-            <h2 className={panelTitle()}>Properties{selectedShape ? ` - ${selectedShape._id}` : ""}</h2>
+            <h2 className={panelTitle()}>Properties</h2>
 
             <PostProperties />
             <ShapeProperties />

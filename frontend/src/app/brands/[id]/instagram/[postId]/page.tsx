@@ -44,6 +44,18 @@ export default function InstagramPost() {
             .finally(() => setLoading(false));
     }, [id, postId]);
 
+    useEffect(() => {
+        fetch(`/api/brands/${brand._id}/instagram/${post._id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(post)
+        })
+            .then(resp => resp.json());
+    }, [brand, post]);
+
+
     if (loading)
         return (
             <Loading />

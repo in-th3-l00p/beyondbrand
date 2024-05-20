@@ -6,6 +6,7 @@ import InstagramPost from "@/database/schema/instagramPost";
 const bodySchema = z.object({
     name: z.string().max(255).min(1),
     shapes: z.array(z.object({
+        name: z.string().max(255).min(1).optional(),
         shape: z.enum(["rectangle", "circle"]),
         data: z.object({
             x: z.number(),

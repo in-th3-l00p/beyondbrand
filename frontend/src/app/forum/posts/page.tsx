@@ -13,9 +13,14 @@ export default async function Page() {
                 <h1 className="font-bold text-left text-4xl mb-4">Forum</h1>
                 <Link href={"http://localhost:3000/forum/posts/create"} className={"btn"}><Icon.Plus/></Link>
             </div>
-            {posts.data.map(item => (
-                <Post post={item}/>
-            ))}
+
+            {posts.data && (
+                <>
+                    {posts.data.reverse().map(item => (
+                        <Post post={item}/>
+                    ))}
+                </>
+            )}
         </section>
     )
 }

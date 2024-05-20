@@ -40,8 +40,11 @@ export default function SettingsTab() {
                                         "Content-Type": "application/json"
                                     }
                                 })
-                                    .then(() => router.push("/"));
-                                toast.success("Brand deleted successfully");
+                                    .then(() => {
+                                        toast.success("Brand deleted successfully");
+                                        router.push("/brands");
+                                        router.refresh();
+                                    });
                             }}
                         >
                             Submit

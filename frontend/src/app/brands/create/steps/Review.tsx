@@ -12,6 +12,16 @@ export default function Review() {
     const { name, description, colors, logo} = useContext(BrandContext);
     const [loading, setLoading] = useState(false);
 
+    if (loading)
+        return (
+            <form className={formContainer()}>
+                <FormLabel back>Review your brand</FormLabel>
+
+                <div className="flex flex-col gap-8 w-full">
+                    <h3>Loading...</h3>
+                </div>
+            </form>
+        );
     return (
         <form className={formContainer()}>
             <FormLabel back>Review your brand</FormLabel>

@@ -34,7 +34,7 @@ export async function POST(req: Request) {
         style: "natural",
         n: 1,
         response_format: "b64_json",
-        prompt: `Design a realistic logo using the following prompt: ${body.data.prompt} the colors used in the logo should be these ones ${body.data.colors.join(", ")}. The logo should not have any letters on it. Center the logo. Make it a simple vectorial graphics. It should only contain one logo`,
+        prompt: `Generate a logo using the following prompt: "${body.data.prompt}", and using the colors ${body.data.colors.join(", ")}. No letters, and only one iteration.`,
     });
 
     return NextResponse.json(response.data[0]);

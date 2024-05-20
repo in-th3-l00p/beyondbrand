@@ -161,8 +161,8 @@ function ShapeProperties() {
                         className={"block"}
                     >X:</label>
                     <input
-                        name={"numeric"} id={"x"}
-                        type="numeric" className={input()}
+                        name={"text"} id={"x"}
+                        type="text" className={input()}
                         value={selectedShape.data.x}
                         onChange={e => {
                             if (selectedIndex === null)
@@ -181,7 +181,7 @@ function ShapeProperties() {
                         className={"block"}
                     >Y:</label>
                     <input
-                        name={"numeric"} id={"y"}
+                        name={"text"} id={"y"}
                         type="text" className={input()}
                         value={selectedShape.data.y}
                         onChange={e => {
@@ -203,7 +203,7 @@ function ShapeProperties() {
                                 className={"block"}
                             >Width:</label>
                             <input
-                                name={"numeric"} id={"width"}
+                                name={"text"} id={"width"}
                                 type="text" className={input()}
                                 value={selectedShape.data.width}
                                 onChange={e => {
@@ -223,7 +223,7 @@ function ShapeProperties() {
                                 className={"block"}
                             >Height:</label>
                             <input
-                                name={"numeric"} id={"height"}
+                                name={"text"} id={"height"}
                                 type="text" className={input()}
                                 value={selectedShape.data.height}
                                 onChange={e => {
@@ -246,7 +246,7 @@ function ShapeProperties() {
                             className={"block"}
                         >Radius:</label>
                         <input
-                            name={"numeric"} id={"radius"}
+                            name={"text"} id={"radius"}
                             type="text" className={input()}
                             value={selectedShape.data.radius}
                             onChange={e => {

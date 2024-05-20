@@ -33,7 +33,7 @@ export async function POST(req: Request) {
         style: "natural",
         n: 1,
         response_format: "b64_json",
-        prompt: `Design a realistic logo for a company with the name of ${body.data.name}, the company is about ${body.data.description} using the colors ${body.data.colors.join(", ")}. The generation should have only one grpahic in the center. The logo should not have any letters on it. Center the logo. Make it a simple vectorial graphics. Make sure it is only one graphic per generation, only one logo on image.`,
+        prompt: `Generate a logo for ${body.data.name}, the company is about ${body.data.description} using the colors ${body.data.colors.join(", ")}. No letters, and only one iteration.`,
     });
 
     return NextResponse.json(response.data[0]);

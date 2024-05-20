@@ -40,10 +40,10 @@ export default function CreatePost() {
                     })
                         .then(resp => resp.json())
                         .then(brand => {
+                            toast.success("Post created successfully")
                             router.push(`/brands/${id}/instagram/${brand._id}`);
                         })
                         .finally(() => setLoading(false));
-                    toast.success("Post created successfully")
                 }}
             >
                 <h2 className={formLabel() + " mb-4"}>Post information:</h2>

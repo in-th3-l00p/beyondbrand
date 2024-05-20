@@ -2,7 +2,6 @@
 
 import React, {useContext, useState} from "react";
 import style from "@/app/brands/[id]/components/LogoDisplay/style.module.scss";
-import Image from "next/image";
 import Link from "next/link";
 import * as Icon from "react-feather";
 import {tv} from "tailwind-variants";
@@ -69,7 +68,7 @@ export default function LogoDisplay() {
                         style.logoContainer
                     }
                 >
-                    <Image
+                    <img
                         src={brand.logo}
                         alt={"logo"}
                         width={300}

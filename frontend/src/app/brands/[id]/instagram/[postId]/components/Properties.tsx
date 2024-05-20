@@ -12,7 +12,7 @@ const propertiesContainer = tv({
 });
 
 const fieldsContainer = tv({
-    base: "flex flex-col gap-4 w-full"
+    base: "flex flex-col gap-4 w-full h-[500px] overflow-y-scroll no-scrollbar"
 });
 
 function PostProperties() {
@@ -67,6 +67,42 @@ function ShapeProperties() {
     return (
         <div className={propertiesContainer()}>
             <div className={fieldsContainer()}>
+                <div className={"flex flex-col gap-4 items-center justify-center"}>
+                    <button
+                        type={"button"}
+                        className={button()}
+                        onClick={() => {
+                            const newPost = {...post};
+                            let size = 0;
+                            if (selectedShape.shape === "rectangle")
+                                size = selectedShape.data.width!;
+                            else if (selectedShape.shape === "circle")
+                                size = selectedShape.data.radius! * 2;
+                            newPost.shapes[selectedIndex!].data.x = 1080 / 2 - size / 2;
+                            setPost(newPost);
+                        }}
+                    >
+                        Center H
+                    </button>
+
+                    <button
+                        type={"button"}
+                        className={button()}
+                        onClick={() => {
+                            const newPost = {...post};
+                            let size = 0;
+                            if (selectedShape.shape === "rectangle")
+                                size = selectedShape.data.height!;
+                            else if (selectedShape.shape === "circle")
+                                size = selectedShape.data.radius! * 2;
+                            newPost.shapes[selectedIndex!].data.y = 1080 / 2 - size / 2;
+                            setPost(newPost);
+                        }}
+                    >
+                        Center V
+                    </button>
+                </div>
+
                 <div className="mb-auto">
                     <label
                         htmlFor={"name"}
@@ -186,6 +222,27 @@ function ShapeProperties() {
                                 const newPost = {...post};
                                 newPost.shapes[selectedIndex].data.radius =
                                     parseInt(e.target.value) || 0;
+                                setPost(newPost);
+                            }}
+                        />
+                    </div>
+                )}
+
+                {(selectedShape.shape === "rectangle" || selectedShape.shape === "circle") && (
+                    <div className="mb-auto">
+                        <label
+                            htmlFor={"color"}
+                            className={"block"}
+                        >Color:</label>
+                        <input
+                            name={"color"} id={"color"}
+                            type="color" className={"w-full mb-4"}
+                            value={selectedShape.data.color}
+                            onChange={e => {
+                                if (selectedIndex === null)
+                                    return;
+                                const newPost = {...post};
+                                newPost.shapes[selectedIndex].data.color = e.target.value;
                                 setPost(newPost);
                             }}
                         />

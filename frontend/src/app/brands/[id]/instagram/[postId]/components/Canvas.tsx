@@ -11,25 +11,26 @@ export function renderContextPostShapes(
 ) {
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    const ratio = ctx.canvas.width / 1080;
 
     for (const shape of post.shapes) {
         switch (shape.shape) {
             case "rectangle":
                 ctx.fillStyle = shape.data.color;
                 ctx.fillRect(
-                    shape.data.x,
-                    shape.data.y,
-                    shape.data.width!,
-                    shape.data.height!
+                    shape.data.x * ratio,
+                    shape.data.y * ratio,
+                    shape.data.width! * ratio,
+                    shape.data.height! * ratio
                 );
                 break;
             case "circle":
                 ctx.fillStyle = shape.data.color;
                 ctx.beginPath();
                 ctx.arc(
-                    shape.data.x,
-                    shape.data.y,
-                    shape.data.radius!,
+                    shape.data.x * ratio,
+                    shape.data.y * ratio,
+                    shape.data.radius! * ratio,
                     0,
                     2 * Math.PI
                 );

@@ -10,7 +10,6 @@ const updateBodySchema = z.object({
     image: z.string().optional(),
 });
 
-// todo codu e prost rau de tot sa muara familia mea ca reprezinta o vulnerabilitate pentru toata aplicatia
 export async function PUT(req: Request){
     let body;
     try {
@@ -41,10 +40,7 @@ export async function PUT(req: Request){
         user.name = body.data.name;
     if(body.data.email)
         user.email = body.data.email;
-    if(body.data.image)
-        user.image = body.data.image;
 
     await user.save();
     return NextResponse.json(user);
-    // return NextResponse.json( await user.save());
 }

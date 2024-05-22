@@ -17,6 +17,12 @@ const UserSchema = new mongoose.Schema({
     image: {
         type: String,
         required: false
+    },
+    subscription: {
+        type: String,
+        enum: ['free', 'pro', 'business'],
+        required: true,
+        default: 'free',
     }
 });
 

@@ -28,28 +28,15 @@ export default function Register() {
                 className={"max-w-2xl w-full"}
                 action={submitAction}
             >
-                <div className="grid grid-cols-1 gap-4 mb-4 md:grid-cols-2">
-                    <div>
-                        <label htmlFor={"firstName"}>First name</label>
+                <div className="mb-4">
+                        <label htmlFor={"name"}>Name</label>
                         <input
                             type={"text"}
-                            name={"firstName"}
-                            id={"firstName"}
+                            name={"name"}
+                            id={"name"}
                             className={"input"}
                         />
-                        <FormError errors={errors.errors} name={"firstName"} />
-                    </div>
-
-                    <div>
-                        <label htmlFor={"lastName"}>Last name</label>
-                        <input
-                            type={"text"}
-                            name={"lastName"}
-                            id={"lastName"}
-                            className={"input"}
-                        />
-                        <FormError errors={errors.errors} name={"lastName"} />
-                    </div>
+                        <FormError errors={errors.errors} name={"name"} />
                 </div>
 
                 <div className={"mb-4"}>
@@ -79,6 +66,8 @@ export default function Register() {
                     />
                     <FormError errors={errors.errors} name={"confirmPassword"} />
                 </div>
+
+                <input type={"text"} name={"subscription"} id={"subscription"} value={"free"} className={"hidden"}/>
 
                 <div className="flex justify-center">
                     <button type={"submit"} className={"btn"}>

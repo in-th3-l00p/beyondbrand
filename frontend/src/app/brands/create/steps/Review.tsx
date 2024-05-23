@@ -5,6 +5,7 @@ import LogoPreview from "@/components/logo/LogoPreview";
 import {useRouter} from "next/navigation";
 import {formContainer} from "@/components/form/primitives";
 import toast from "react-hot-toast";
+import Loading from "@/app/brands/create/components/Loading";
 
 // todo show loading
 export default function Review() {
@@ -17,9 +18,7 @@ export default function Review() {
             <form className={formContainer()}>
                 <FormLabel back>Review your brand</FormLabel>
 
-                <div className="flex flex-col gap-8 w-full">
-                    <h3>Loading...</h3>
-                </div>
+                <Loading />
             </form>
         );
     return (

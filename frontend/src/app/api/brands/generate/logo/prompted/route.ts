@@ -2,6 +2,7 @@ import {z} from "zod";
 // @ts-ignore
 import openai from "@/utils/openai";
 import {NextResponse} from "next/server";
+import isAuthenticated from "@/app/api/utils/isAuthenticated";
 
 const BodySchema = z.object({
     prompt: z.string().max(500),
@@ -18,6 +19,9 @@ export async function POST(req: Request) {
             {status: 400}
         );
     }
+
+    const { error} = await isAuthenticated();
+    if (error) return error;
 
     const body = BodySchema.safeParse(jsonBody);
     if (!body.success) {

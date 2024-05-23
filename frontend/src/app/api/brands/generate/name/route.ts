@@ -1,6 +1,7 @@
 import {z} from "zod";
 import openai from "@/utils/openai";
 import {NextResponse} from "next/server";
+import isAuthenticated from "@/app/api/utils/isAuthenticated";
 
 const bodySchema = z.object({
     description: z.string().max(500).min(10)
@@ -23,6 +24,9 @@ export async function POST(req: Request) {
             {status: 400}
         );
     }
+
+    const { error} = await isAuthenticated();
+    if (error) return error;
 
     const response = await openai.chat.completions.create({
         model: "gpt-3.5-turbo-0125",

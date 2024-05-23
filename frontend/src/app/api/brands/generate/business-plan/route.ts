@@ -2,6 +2,7 @@ import {z} from "zod";
 import Brand from "@/database/schema/brand";
 import openai from "@/utils/openai";
 import {NextResponse} from "next/server";
+import isAuthenticated from "@/app/api/utils/isAuthenticated";
 
 const schema = z.object({
     _id: z.string(),
@@ -16,8 +17,11 @@ export async function POST(req: Request) {
         return new Response(
             JSON.stringify({errors: "Invalid JSON jsonBody."}),
             {status: 400}
-        );
+       );
     }
+
+    const { error} = await isAuthenticated();
+    if (error) return error;
 
     const body = schema.safeParse(jsonBody);
     if (!body.success) {

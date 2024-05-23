@@ -14,7 +14,6 @@ export const authOptions : AuthOptions = {
     callbacks: {
         // Using the `...rest` parameter to be able to narrow down the type based on `trigger`
         jwt({ token, trigger, session }) {
-            console.log(session)
             if (trigger === "update" && session?.name)
                 token.name = session.name
             if (trigger === "update" && session?.email)

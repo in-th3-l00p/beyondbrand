@@ -80,7 +80,7 @@ export default function CreateBrand() {
     }, [name, description, stepStack, colors, logo]);
 
     return (
-        <section className={clsx(pageContainer(), "flex-grow flex flex-col")}>
+        <section className={pageContainer({ layout: "create" })}>
             <PageTitle>Create brand</PageTitle>
 
             <BrandContext.Provider

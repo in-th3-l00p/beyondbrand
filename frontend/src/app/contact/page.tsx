@@ -4,7 +4,7 @@ import ContactForm from "@/app/contact/components/form";
 
 export default function Page() {
  return (
-     <section className={"responsive-px py-32 min-h-screen"}>
+     <section className={"container mx-auto py-24 min-h-screen"}>
          <div className={"flex flex-col md:flex-row gap-8"}>
              <div className={"w-full md:w-1/2 flex flex-col justify-between"}>
                  <h1 className="font-bold text-left text-6xl mb-16 ">Contact us</h1>

@@ -26,7 +26,7 @@ export default async function Header() {
         <header className={"py-4 bg-ghost-white shadow-md"}>
             <div className="container mx-auto flex items-center">
                 <Branding />
-                <HeaderLinks windowWidthLimit={768} />
+                <HeaderLinks windowWidthLimit={1024} />
             </div>
         </header>
     )

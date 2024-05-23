@@ -11,7 +11,7 @@ function Brand({ brand }: { brand: IBrand }) {
         <Link
             href={"/brands/" + brand._id}
             className={clsx(
-                "flex gap-8 rounded-md p-4 bg-ghost-white rounded-md shadow-md",
+                "flex flex-col md:flex-row gap-8 rounded-md p-4 bg-ghost-white rounded-md shadow-md",
                 "hover:shadow-xl hover:scale-105 transition-all w-full"
             )}
         >

@@ -13,7 +13,7 @@ export default function BrandDisplay() {
     return (
         <TabContextProvider>
             <section className={pageContainer()}>
-                <PageTitle back={"/"}>Brand {`"${brand.name}"`}</PageTitle>
+                <PageTitle back={"/brands"}>Brand {`"${brand.name}"`}</PageTitle>
                 <TabsShifter />
                 <TabSelection />
             </section>

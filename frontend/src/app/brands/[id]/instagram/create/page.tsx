@@ -1,28 +1,25 @@
 "use client";
 
-import Link from "next/link";
-import * as Icon from "react-feather";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import PageTitle from "@/components/PageTitle";
 import {formContainer, formLabel} from "@/components/form/primitives";
-import {button, input} from "@/components/primitives";
+import {button, input, pageContainer} from "@/components/primitives";
 import {useParams, useRouter} from "next/navigation";
 import toast from "react-hot-toast";
+import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
 
 export default function CreatePost() {
+    const { brand } = useContext(BrandContext);
     const router = useRouter();
     const { id } = useParams<{ id: string; }>();
     const [loading, setLoading] = useState(false);
 
     // todo: error handling
     return (
-        <div className={"py-8 container mx-auto flex-grow"}>
-            <div className="flex flex-wrap responsive-px items-center gap-4 mb-8">
-                <Link href={"/"} className="btn">
-                    <Icon.ArrowLeft />
-                </Link>
-                <PageTitle>Create an Instagram post</PageTitle>
-            </div>
+        <section className={pageContainer({ layout: "create" })}>
+            <PageTitle back={"/brands/" + brand._id}>
+                Create an Instagram post
+            </PageTitle>
 
             <form
                 className={formContainer()}
@@ -40,10 +37,10 @@ export default function CreatePost() {
                     })
                         .then(resp => resp.json())
                         .then(brand => {
+                            toast.success("Post created successfully")
                             router.push(`/brands/${id}/instagram/${brand._id}`);
                         })
                         .finally(() => setLoading(false));
-                    toast.success("Post created successfully")
                 }}
             >
                 <h2 className={formLabel() + " mb-4"}>Post information:</h2>
@@ -61,6 +58,6 @@ export default function CreatePost() {
                     Create post
                 </button>
             </form>
-        </div>
+        </section>
     );
 }

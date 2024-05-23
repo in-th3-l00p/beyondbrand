@@ -1,5 +1,4 @@
 import Image from "next/image";
-import wp from "../../../../public/wp.png";
 
 export default function Card(props: {
     cv: string,
@@ -21,7 +20,7 @@ export default function Card(props: {
                 >
                     <div className="absolute inset-0">
                         <Image
-                            src={wp}
+                            src={props.image}
                             alt=""
                             layout="fill"
                             objectFit="cover"

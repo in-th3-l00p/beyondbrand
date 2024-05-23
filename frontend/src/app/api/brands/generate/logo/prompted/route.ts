@@ -29,13 +29,12 @@ export async function POST(req: Request) {
     }
 
     const response = await openai.images.generate({
-        model: "dall-e-2",
+        model: "dall-e-3",
         quality: "hd",
         style: "natural",
         n: 1,
         response_format: "b64_json",
-        size: "256x256",
-        prompt: `Design a realistic logo using the following prompt: ${body.data.prompt} using the colors ${body.data.colors.join(", ")}. The logo should not have any letters on it.`,
+        prompt: `Generate a logo using the following prompt: "${body.data.prompt}", and using the colors ${body.data.colors.join(", ")}. No letters, and only one iteration.`,
     });
 
     return NextResponse.json(response.data[0]);

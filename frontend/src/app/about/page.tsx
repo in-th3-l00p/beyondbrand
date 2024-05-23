@@ -24,6 +24,7 @@ export default function Page() {
         setShowPopup(false);
     };
 
+    // todo codul asta e groaznic
     return (
         <section className="my-12">
             <div className="h-screen px-4">

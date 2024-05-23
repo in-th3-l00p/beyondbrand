@@ -50,7 +50,7 @@ export default function UploadRegion({ b64Logo, setB64Logo, noPreview }: {
     }, [acceptedFiles, setLogo, setB64Logo]);
 
     return (
-        <section className="container">
+        <section className="uploadRegionContainer">
             <div {...getRootProps({className: 'dropzone'})}>
                 <input {...getInputProps({  })} />
                 <h2 className={"text-lg"}>Drag your logo here, or click to select it</h2>

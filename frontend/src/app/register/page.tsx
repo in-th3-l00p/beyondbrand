@@ -67,6 +67,8 @@ export default function Register() {
                     <FormError errors={errors.errors} name={"confirmPassword"} />
                 </div>
 
+                <input type={"text"} name={"subscription"} id={"subscription"} value={"free"} className={"hidden"}/>
+
                 <div className="flex justify-center">
                     <button type={"submit"} className={"btn"}>
                         Register

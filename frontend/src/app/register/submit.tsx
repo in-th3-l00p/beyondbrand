@@ -9,6 +9,7 @@ const userSchema = z.object({
     email: z.string().email(),
     name: z.string().min(1).max(255),
     password: z.string().min(8).max(255),
+    subscription: z.enum(['free', 'pro', 'business']),
     confirmPassword: z.string().min(8).max(255),
 })
 
@@ -44,6 +45,7 @@ export default async function submit(
         await User.create({
             email: user.data.email,
             name: user.data.name,
+            subscription: 'free',
             password: await bcrypt.hash(user.data.password, 10)
         });
     } catch (e) {

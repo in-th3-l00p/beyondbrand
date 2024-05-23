@@ -2,7 +2,7 @@
 
 import {useContext, useEffect, useState} from "react";
 import Loading from "@/app/brands/create/components/Loading";
-import {useParams} from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 import EditorContext from "@/app/brands/[id]/instagram/[postId]/components/EditorContext";
 import {IInstagramPost, Shape} from "@/database/schema/instagramPost";
 import PageTitle from "@/components/PageTitle";
@@ -14,13 +14,16 @@ import Canvas from "@/app/brands/[id]/instagram/[postId]/components/Canvas";
 import {Tools} from "@/app/brands/[id]/instagram/[postId]/components/tools";
 import Properties from "@/app/brands/[id]/instagram/[postId]/components/Properties";
 import Layers from "@/app/brands/[id]/instagram/[postId]/components/Layers";
+import {useSession} from "next-auth/react";
 
 export default function InstagramPost() {
+    const router = useRouter();
     const { id, postId } = useParams<{ id: string, postId: string }>();
     const [loading, setLoading] = useState(true);
 
+    const session = useSession();
     const { brand } = useContext(BrandContext);
-    const [post, setPost] = useState<IInstagramPost>({} as IInstagramPost);
+    const [post, setPost] = useState<IInstagramPost | null>(null);
 
     const [tool, setTool] = useState<Tools>(Tools.SELECT);
     const [color, setColor] = useState<string>("#000000");
@@ -29,22 +32,32 @@ export default function InstagramPost() {
 
     // todo: better error handling
     useEffect(() => {
+        if (session.status === "loading")
+            return;
+
         const load = async () => {
             const postResponse = await fetch(`/api/brands/${id}/instagram/${postId}`, {
                 cache: "no-cache"
             });
-            if (!postResponse.ok)
-                console.error("error");
+            if (!postResponse.ok) {
+                router.push("/brands/" + id);
+                return;
+            }
             const post = await postResponse.json();
+            if (!post) {
+                router.push("/brands/" + id);
+                return;
+            }
             setPost(post);
         }
 
         load()
-            .catch(console.error)
             .finally(() => setLoading(false));
-    }, [id, postId]);
+    }, [id, postId, session]);
 
     useEffect(() => {
+        if (!brand || !post)
+            return;
         fetch(`/api/brands/${brand._id}/instagram/${post._id}`, {
             method: "PUT",
             headers: {
@@ -56,7 +69,7 @@ export default function InstagramPost() {
     }, [brand, post]);
 
 
-    if (loading)
+    if (loading || !post || !brand)
         return (
             <Loading />
         )

@@ -43,14 +43,14 @@ export default function HeaderLinks({ windowWidthLimit }: {
 
     if (windowWidthLimit && windowWidth > windowWidthLimit)
         return (
-            <div className={"flex items-center gap-4 text-xl w-full ps-8"}>
+            <div className={"flex items-center gap-4 text-xl ps-8 flex-grow"}>
                 <DesktopLink href={"/"}>Home</DesktopLink>
                 <DesktopLink href={"/about"}>About</DesktopLink>
                 <DesktopLink href={"/contact"}>Contact</DesktopLink>
                 <DesktopLink href={"/blog/posts"}>Blog</DesktopLink>
                 <DesktopLink href={"/forum/posts"}>Forum</DesktopLink>
 
-                <div className="flex-grow" />
+                <div className="flex-grow ms-auto" />
                 {session.status !== "loading" && (
                     <>
                         {session.status === "unauthenticated" ? (

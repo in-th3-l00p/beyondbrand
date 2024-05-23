@@ -1,4 +1,5 @@
 import Post, {IPost} from "@/app/blog/components/Post";
+import PageTitle from "@/components/PageTitle";
 
 export default async function Page() {
     const postsResponse = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL!}/api/posts?populate=banner`, {cache: 'no-cache'});
@@ -6,9 +7,7 @@ export default async function Page() {
 
     return (
         <section className="py-8 container mx-auto h-screen">
-            <div className="items-center">
-                <h1 className="font-bold responsive-px text-left text-4xl mb-4">Blog Posts</h1>
-            </div>
+            <PageTitle back={"/"}>Blog posts:</PageTitle>
             {posts.data && (
                 <>
                     {posts.data.map(item => (

@@ -10,6 +10,33 @@ services:
     networks:
       - mongo-network
     restart: always
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - mongo-network
+    restart: always
+
+  generation:
+    container_name: generation
+    restart: always
+    build:
+      context: ./generation-service
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3001"
+    volumes:
+      - ./generation-service:/app
+      - /app/node_modules
+    networks:
+      - mongo-network
+    environment:
+      - MONGO_URI=mongodb://mongo:27017
+      - RABBITMQ_URI=amqp://rabbitmq:5672
 networks:
   mongo-network:
     driver: bridge

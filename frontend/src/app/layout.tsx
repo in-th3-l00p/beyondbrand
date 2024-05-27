@@ -6,6 +6,7 @@ import Header from "@/app/layout/Header";
 import "@/database/mongoose";
 import NextAuthSessionProvider from "@/app/layout/NextAuthSessionProvider";
 import {Toaster} from "react-hot-toast";
+import Footer from "@/app/layout/Footer";
 
 const inter = Tilt_Neon({subsets: ["latin"]});
 
@@ -26,6 +27,7 @@ export default function RootLayout({
                     <Header/>
                     <Toaster/>
                     {children}
+                    <Footer/>
                 </NextAuthSessionProvider>
             </body>
         </html>

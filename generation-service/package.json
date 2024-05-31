@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/amqplib": "^0.10.5",
     "@types/express": "^4.17.21",
     "@types/morgan": "^1.9.9",
     "@types/node": "^20.12.12",
@@ -20,13 +19,13 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "amqplib": "^0.10.4",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-validator": "^7.1.0",
     "mongoose": "^8.4.0",
     "morgan": "^1.10.0",
     "openai": "^4.47.1",
-    "winston": "^3.13.0"
+    "winston": "^3.13.0",
+    "streaming": "../shared/streaming"
   }
 }

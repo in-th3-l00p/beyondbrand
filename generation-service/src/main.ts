@@ -5,6 +5,7 @@ require("dotenv").config();
 
 import NameRouter from "./routes/name";
 import DescriptionRouter from "./routes/description";
+import ColorsRouter from "./routes/colors";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(morgan("combined", {
 app.use(json());
 app.use("/api/generation/name", NameRouter);
 app.use("/api/generation/description", DescriptionRouter);
+app.use("/api/generation/colors", ColorsRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

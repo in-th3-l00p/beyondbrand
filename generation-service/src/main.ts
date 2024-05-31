@@ -6,6 +6,7 @@ require("dotenv").config();
 import NameRouter from "./routes/name";
 import DescriptionRouter from "./routes/description";
 import ColorsRouter from "./routes/colors";
+import LogoRouter from "./routes/logo";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(json());
 app.use("/api/generation/name", NameRouter);
 app.use("/api/generation/description", DescriptionRouter);
 app.use("/api/generation/colors", ColorsRouter);
+app.use("/api/generation/logo", LogoRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -39,7 +39,7 @@ services:
       context: ./generation-service
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3001:3001"
     volumes:
       - ./generation-service:/app
       - /app/node_modules
@@ -51,6 +51,7 @@ services:
     environment:
       - MONGO_URI=mongodb://mongo:27017
       - RABBITMQ_URI=amqp://rabbitmq:5672
+      - PORT=3001
 networks:
   app:
     driver: bridge

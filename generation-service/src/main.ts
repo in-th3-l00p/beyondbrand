@@ -4,6 +4,7 @@ import morgan from "morgan";
 require("dotenv").config();
 
 import NameRouter from "./routes/name";
+import DescriptionRouter from "./routes/description";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(morgan("combined", {
 }));
 app.use(json());
 app.use("/api/generation/name", NameRouter);
+app.use("/api/generation/description", DescriptionRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

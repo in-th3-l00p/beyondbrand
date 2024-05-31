@@ -70,6 +70,7 @@ router.post(
             ]
         });
 
+        logger.info(`Name generation with ${response.usage?.total_tokens}`);
         return res.json(
             JSON.parse(response.choices[0].message.content!)
         );

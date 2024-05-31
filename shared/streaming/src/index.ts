@@ -108,7 +108,7 @@ export default class Amqp {
         const url = process.env.RABBITMQ_URI;
         const appName = process.env.APP_NAME;
         if (!url || !appName)
-            throw new Error("AMQP_URL and APP_NAME must be set.");
+            throw new Error("RABBITMQ_URI and APP_NAME must be set.");
         return this.initialize(url, appName, logger);
     }
 

@@ -23,7 +23,7 @@ export function Branding() {
 
 export default async function Header() {
     return (
-        <header className={"py-4 bg-ghost-white shadow-md"}>
+        <header className={"p-4 w-screen bg-light-gray shadow-md"}>
             <div className="container mx-auto flex items-center">
                 <Branding />
                 <HeaderLinks windowWidthLimit={1024} />

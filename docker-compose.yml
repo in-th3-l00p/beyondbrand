@@ -52,7 +52,7 @@ services:
       - rabbitmq
     environment:
       - APP_NAME=generation-service
-      - MONGO_URI=mongodb://mongo:27017
+      - MONGO_URI=mongodb://mongo:27017/generation-service
       - RABBITMQ_URI=amqp://rabbitmq:5672
       - PORT=3001
 networks:

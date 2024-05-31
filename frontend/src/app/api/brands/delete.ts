@@ -38,7 +38,7 @@ export async function DELETE(req: Request) {
     if (!Amqp.isInitialized())
         await Amqp.initializeFromEnv(logger);
     Amqp.getInstance().publish({
-        type: EventType.BRAND_UPDATED,
+        type: EventType.BRAND_DELETED,
         data: brand
     });
     return NextResponse.json({});

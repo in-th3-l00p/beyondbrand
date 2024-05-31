@@ -11,7 +11,7 @@ import User from "@/app/interfaces/User";
 
 
 export default function Sidebar() {
-    const {data: session, status, update} = useSession();
+    const {data: session, status} = useSession();
 
     if (status === "loading" || !session)
         return <Loading/>

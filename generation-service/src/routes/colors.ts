@@ -9,7 +9,7 @@ const router = Router();
 router.post(
     "/",
     body("name").isString().isLength({min: 1, max: 255}).optional(),
-    body("description").isString().isLength({min: 1, max: 255}).optional(),
+    body("description").isString().isLength({min: 1, max: 500}).optional(),
     query("colors").isInt({ min: 1, max: 6 }),
     validate,
     async (req, res) => {

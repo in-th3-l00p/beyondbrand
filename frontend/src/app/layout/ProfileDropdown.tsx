@@ -72,7 +72,7 @@ export default function ProfileDropdown() {
                     className={"absolute z-50 bottom-0 translate-y-full left-0 w-full shadow-lg rounded-b-md"}
                 >
                     <ProfileDropdownLink href={"/profile"}>Profile</ProfileDropdownLink>
-                    <ProfileDropdownLink href={"/settings"}>Settings</ProfileDropdownLink>
+                    <ProfileDropdownLink href={"/settings/account"}>Settings</ProfileDropdownLink>
                     <ProfileDropdownButton onClick={() => signOut()} order={"last"}>Logout</ProfileDropdownButton>
                 </div>
             )}

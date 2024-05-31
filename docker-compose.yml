@@ -1,60 +1,87 @@
 # todo: add wait-for-it.sh
 version: '3.8'
 services:
-  nginx-proxy:
-    image: nginx:1.25.3-alpine
-    volumes:
-      - ./proxy/nginx.conf:/etc/nginx/conf.d/default.conf
-    ports:
-      - "8000:80"
-    depends_on:
-      - generation-service
-    networks:
-      - app
+    nginx-proxy:
+        image: nginx:1.25.3-alpine
+        volumes:
+            - ./proxy/nginx.conf:/etc/nginx/conf.d/default.conf
+        ports:
+            - "8000:80"
+        depends_on:
+            - generation-service
+        networks:
+            - app
 
-  mongo:
-    image: mongo:latest
-    container_name: mongo
-    ports:
-      - "27017:27017"
-    volumes:
-      - ./data:/data/db
-    networks:
-      - app
-    restart: always
+    mongo:
+        image: mongo:latest
+        container_name: mongo
+        ports:
+            - "27017:27017"
+        volumes:
+            - ./data:/data/db
+        networks:
+            - app
+        restart: always
 
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: rabbitmq
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    networks:
-      - app
-    restart: always
+    rabbitmq:
+        image: rabbitmq:3-management
+        container_name: rabbitmq
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        networks:
+            - app
+        restart: always
 
-  generation-service:
-    container_name: generation-service
-    restart: always
-    build:
-      context: ./generation-service
-      dockerfile: Dockerfile
-    ports:
-      - "3001:3001"
-    volumes:
-      - ./generation-service:/app
-      - ./shared:/shared
-      - /app/node_modules
-    networks:
-      - app
-    depends_on:
-      - mongo
-      - rabbitmq
-    environment:
-      - APP_NAME=generation-service
-      - MONGO_URI=mongodb://mongo:27017/generation-service
-      - RABBITMQ_URI=amqp://rabbitmq:5672
-      - PORT=3001
+    next:
+        container_name: next
+        restart: always
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./frontend:/app
+            - /app/node_modules
+            - /app/.next
+            - ./shared:/shared
+        networks:
+            - app
+        depends_on:
+            - generation-service
+            - nginx-proxy
+            - mongo
+            - rabbitmq
+        environment:
+            - APP_NAME=next
+            - RABBITMQ_URI=amqp://rabbitmq:5672
+            - MONGO_URI=mongodb://mongo:27017/next
+            - API_URL=http://generation-service:3001
+            - NEXT_PUBLIC_CMS_URL=http://localhost:1337
+
+    generation-service:
+        container_name: generation-service
+        restart: always
+        build:
+            context: ./generation-service
+            dockerfile: Dockerfile
+        ports:
+            - "3001:3001"
+        volumes:
+            - ./generation-service:/app
+            - ./shared:/shared
+            - /app/node_modules
+        networks:
+            - app
+        depends_on:
+            - mongo
+            - rabbitmq
+        environment:
+            - APP_NAME=generation-service
+            - MONGO_URI=mongodb://mongo:27017/generation-service
+            - RABBITMQ_URI=amqp://rabbitmq:5672
+            - PORT=3001
 networks:
-  app:
-    driver: bridge
+    app:
+        driver: bridge

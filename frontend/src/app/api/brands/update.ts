@@ -6,6 +6,9 @@ import Brand from "@/database/schema/brand";
 import mime from "mime-types";
 import s3 from "@/utils/s3";
 import {DeleteObjectCommand, PutObjectCommand} from "@aws-sdk/client-s3";
+import Amqp from "streaming";
+import logger from "@/utils/logger";
+import {EventType} from "streaming/src/event";
 
 const updateBodySchema = z.object({
     _id: z.string().length(24),
@@ -86,5 +89,11 @@ export async function PUT(req: Request) {
             }));
     }
 
+    if (!Amqp.isInitialized())
+        await Amqp.initializeFromEnv(logger);
+    Amqp.getInstance().publish({
+        type: EventType.BRAND_UPDATED,
+        data: brand
+    });
     return NextResponse.json(await brand.save());
 }

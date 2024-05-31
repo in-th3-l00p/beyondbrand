@@ -17,6 +17,7 @@ const config: Config = {
         "dark-gray": "#050401",
         "dark-cyan": "#2697be",
         "dark-tomato": "#bd3d24",
+        "light-gray": "#EDF0F7",
       }
     },
   },

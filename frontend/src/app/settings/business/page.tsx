@@ -73,7 +73,7 @@ export default function Page() {
 
     return (
         <Container>
-            <Modal setShow={setEmailModal} show={emailModal} title={"Email Usage"}>
+            <Modal setShow={setEmailModal} show={emailModal} title={"Email Usage"} showX={false}>
 
             </Modal>
             <PageTitle title={"Your Business"}/>
@@ -131,7 +131,7 @@ export default function Page() {
                                         )
                                     }
                                 </div>
-                                <button className={button()} onClick={setEmailModal}>Edit</button>
+                                <button className={button()} onClick={() => setEmailModal(true)}>Edit</button>
                             </>
                             :
                             <>

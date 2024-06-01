@@ -10,7 +10,7 @@ router.post(
     "/",
     body("description")
         .notEmpty()
-        .isLength({ min: 10, max: 500 }),
+        .isLength({ max: 500 }),
     validate,
     async (req, res) => {
         const body = matchedData(req);
@@ -46,7 +46,7 @@ router.post(
     "/prompted",
     body("prompt")
         .notEmpty()
-        .isLength({ min: 10, max: 500 }),
+        .isLength({ min: 1, max: 500 }),
     validate,
     async (req, res) => {
         const { prompt } = matchedData(req);

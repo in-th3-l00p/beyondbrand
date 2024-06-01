@@ -1,8 +1,7 @@
 import express, {json} from "express";
 import logger from "./utils/logger";
 import morgan from "morgan";
-require("dotenv").config();
-
+import cors from "cors";
 import initializeAmqp from "./utils/amqp";
 import initializeMongoose from "./utils/mongoose";
 
@@ -12,8 +11,13 @@ import ColorsRouter from "./routes/colors";
 import LogoRouter from "./routes/logo";
 import BusinessPlanRouter from "./routes/businessPlan";
 
+require("dotenv").config();
+
 const app = express();
 
+app.use(cors({
+    origin: "*"
+}));
 app.use(morgan("combined", {
     "stream": {
         write: (message) => {

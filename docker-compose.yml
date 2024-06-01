@@ -57,7 +57,7 @@ services:
             - APP_NAME=next
             - RABBITMQ_URI=amqp://rabbitmq:5672
             - MONGO_URI=mongodb://mongo:27017/next
-            - API_URL=http://generation-service:3001
+            - NEXT_PUBLIC_API_URL=http://localhost:8000
             - NEXT_PUBLIC_CMS_URL=http://strapi:1337
 
     strapi:

@@ -5,6 +5,8 @@ import Loading from "@/app/brands/create/components/Loading";
 import BrandContext from "@/app/brands/create/BrandContext";
 import {ColorVisualizer} from "@/components/colors/ColorVisualizer";
 import toast from "react-hot-toast";
+import generationService from "@/service/generationService";
+import {button} from "@/components/primitives";
 
 export default function ColorGenerator({ colors, setColors }: {
     colors: string[],
@@ -16,15 +18,7 @@ export default function ColorGenerator({ colors, setColors }: {
 
     const generateColors = () => {
         setLoading(true);
-        fetch("/api/brands/generate/colors?colors=" + colors.length, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ name, description }),
-            cache: "no-cache"
-        })
-            .then(response => response.json())
+        generationService.colors(colors.length, name, description)
             .then((data: { colors?: string[] }) => {
                 setGeneratedColors(data.colors || []);
                 if(generatedColors!==null||generatedColors==='')
@@ -56,7 +50,7 @@ export default function ColorGenerator({ colors, setColors }: {
 
                 <div className="flex flex-wrap gap-4 justify-center">
                     <button
-                        type={"button"} className={"btn"}
+                        type={"button"} className={button()}
                         onClick={() => {
                             setColors(generatedColors);
                             setGeneratedColors(null);
@@ -66,7 +60,7 @@ export default function ColorGenerator({ colors, setColors }: {
                     </button>
 
                     <button
-                        type={"button"} className={"btn"}
+                        type={"button"} className={button()}
                         onClick={generateColors}
                     >
                         Regenerate colors
@@ -78,7 +72,7 @@ export default function ColorGenerator({ colors, setColors }: {
         <div className={"my-4 text-center"}>
             <p>Generate using brand information:</p>
             <button
-                type={"button"} className={"btn"}
+                type={"button"} className={button()}
                 onClick={generateColors}
             >
                 Generate colors

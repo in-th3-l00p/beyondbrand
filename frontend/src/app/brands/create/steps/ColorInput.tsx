@@ -9,6 +9,7 @@ import ColorGenerator from "@/app/brands/create/components/colors/ColorGenerator
 import {ColorVisualizer} from "@/components/colors/ColorVisualizer";
 import ColorCountSelect from "@/components/colors/ColorCountSelect";
 import {formContainer} from "@/components/form/primitives";
+import {button} from "@/components/primitives";
 
 export default function ColorInput() {
     const [colorCount, setColorCount] = useState<number>(3);
@@ -49,12 +50,12 @@ export default function ColorInput() {
             <div>
                 <div className="flex gap-4">
                     <button
-                        type={"button"} className={"btn"}
+                        type={"button"} className={button()}
                         onClick={() => setColorCount(colorCount - 1)}
                         disabled={colorCount === 1}
                     ><Icon.Minus /></button>
                     <button
-                        type={"button"} className={"btn"}
+                        type={"button"} className={button()}
                         onClick={() => setColorCount(colorCount + 1)}
                         disabled={colorCount === 6}
                     ><Icon.Plus /></button>

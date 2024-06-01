@@ -44,7 +44,7 @@ router.post(
 router.post(
     "/prompted",
     body("name").optional().isString().isLength({max: 255}),
-    body("prompt").isString().isLength({min: 10, max: 500}),
+    body("prompt").isString().isLength({min: 1, max: 500}),
     validate,
     async (req, res) => {
         const {name, prompt} = matchedData(req);

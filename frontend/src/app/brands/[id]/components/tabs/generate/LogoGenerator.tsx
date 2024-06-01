@@ -4,6 +4,7 @@ import LogoPreview from "@/components/logo/LogoPreview";
 import clsx from "clsx";
 import {button, input} from "@/components/primitives";
 import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
+import generationService from "@/service/generationService";
 
 export default function LogoGenerator() {
     const { brand } = useContext(BrandContext);
@@ -90,14 +91,11 @@ export default function LogoGenerator() {
 
                     <button
                         type={"button"}
-                        className={"btn"}
+                        className={button()}
+                        disabled={!prompt || !brand.colors.length || loading}
                         onClick={() => {
                             setLoading(true);
-                            fetch("/api/brands/generate/logo/prompted", {
-                                body: JSON.stringify({ prompt, colors: brand.colors }),
-                                method: "POST"
-                            })
-                                .then(resp => resp.json())
+                            generationService.logoPrompted(prompt, brand.colors)
                                 .then((data: { b64_json: string }) => setLogo("data:image/jpeg;base64," + data.b64_json))
                                 .finally(() => setLoading(false));
                         }}

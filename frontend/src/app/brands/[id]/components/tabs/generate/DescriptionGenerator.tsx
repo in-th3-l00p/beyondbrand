@@ -6,6 +6,7 @@ import clsx from "clsx";
 import {button, input} from "@/components/primitives";
 import * as Icon from "react-feather";
 import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
+import generationService from "@/service/generationService";
 
 export default function DescriptionGeneration() {
     const { brand, setBrand } = useContext(BrandContext);
@@ -29,18 +30,10 @@ export default function DescriptionGeneration() {
                 <button
                     type={"button"}
                     className={button()}
-                    disabled={!prompt && loading || prompt.length < 10}
+                    disabled={!prompt || loading}
                     onClick={() => {
                         setLoading(true);
-                        fetch("/api/brands/generate/description/prompted", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({ name, prompt }),
-                            cache: "no-cache"
-                        })
-                            .then(response => response.json())
+                        generationService.descriptionPrompted(prompt)
                             .then((data: { brandDescription?: string }) => {
                                 setGenerated(data.brandDescription || "");
                             })

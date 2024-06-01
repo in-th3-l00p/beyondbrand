@@ -3,6 +3,8 @@ import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
 import {FormLabel} from "@/app/brands/create/components/FormLabel";
 import FormNext from "@/app/brands/create/components/FormNext";
 import {formContainer} from "@/components/form/primitives";
+import {input} from "@/components/primitives";
+import clsx from "clsx";
 
 export function NameInput() {
     const {name, setName} = useContext(BrandContext);
@@ -15,7 +17,7 @@ export function NameInput() {
 
             <input
                 type={"text"}
-                className={"input mb-4"}
+                className={clsx(input(), "mb-4")}
                 placeholder={"Brand name"}
                 value={name}
                 onChange={(e) => setName(e.target.value)}

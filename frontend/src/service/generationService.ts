@@ -1,9 +1,9 @@
-const API = process.env.API_URL!;
+const API = "http://localhost:8000";
 
 class GenerationService {
-    async nameGeneration(description: string) {
-        if (description.length < 10 || description.length > 500)
-            throw new Error("Description must be between 10 and 500 characters.");
+    async name(description: string) {
+        if (description.length < 1 || description.length > 500)
+            throw new Error("Description must be between 1 and 500 characters.");
 
         const resp = await fetch(`${API}/api/generation/name`, {
             method: "POST",
@@ -18,9 +18,9 @@ class GenerationService {
         return resp.json();
     }
 
-    async namePromptedGeneration(prompt: string) {
-        if (prompt.length < 10 || prompt.length > 500)
-            throw new Error("Prompt must be between 10 and 500 characters.");
+    async namePrompted(prompt: string) {
+        if (prompt.length < 1 || prompt.length > 500)
+            throw new Error("Prompt must be between 1 and 500 characters.");
 
         const resp = await fetch(`${API}/api/generation/name/prompted`, {
             method: "POST",
@@ -35,7 +35,7 @@ class GenerationService {
         return resp.json();
     }
 
-    async descriptionGeneration(name: string, description?: string) {
+    async description(name: string, description?: string) {
         if (name.length < 1 || name.length > 255)
             throw new Error("Name must be between 1 and 255 characters.");
         if (description && (description.length < 1 || description.length > 500))
@@ -54,11 +54,11 @@ class GenerationService {
         return resp.json();
     }
 
-    async descriptionPromptedGeneration(prompt: string, name?: string) {
+    async descriptionPrompted(prompt: string, name?: string) {
         if (name && (name.length < 1 || name.length > 255))
             throw new Error("Name must be between 1 and 255 characters.");
-        if (prompt.length < 10 || prompt.length > 500)
-            throw new Error("Prompt must be between 10 and 500 characters.");
+        if (prompt.length < 1 || prompt.length > 500)
+            throw new Error("Prompt must be between 1 and 500 characters.");
 
         const resp = await fetch(`${API}/api/generation/description/prompted`, {
             method: "POST",
@@ -73,7 +73,7 @@ class GenerationService {
         return resp.json();
     }
 
-    async colorsGeneration(
+    async colors(
         colors: number,
         name?: string,
         description?: string
@@ -97,7 +97,7 @@ class GenerationService {
         return resp.json();
     }
 
-    async colorsPromptedGeneration(
+    async colorsPrompted(
         colors: number,
         prompt: string,
         name?: string,
@@ -107,8 +107,8 @@ class GenerationService {
             throw new Error("Name must be between 1 and 255 characters.");
         if (description && (description.length < 1 || description.length > 500))
             throw new Error("Description must be between 1 and 500 characters.");
-        if (prompt.length < 10 || prompt.length > 500)
-            throw new Error("Prompt must be between 10 and 500 characters.");
+        if (prompt.length < 1 || prompt.length > 500)
+            throw new Error("Prompt must be between 1 and 500 characters.");
 
         const resp = await fetch(`${API}/api/generation/colors/prompted?colors=${colors}`, {
             method: "POST",
@@ -123,15 +123,15 @@ class GenerationService {
         return resp.json();
     }
 
-    async logoGeneration(
+    async logo(
         name: string,
         description: string,
         colors: string[]
     ) {
         if (name.length < 1 || name.length > 255)
             throw new Error("Name must be between 1 and 255 characters.");
-        if (description.length < 10 || description.length > 500)
-            throw new Error("Description must be between 10 and 500 characters.");
+        if (description.length < 1 || description.length > 500)
+            throw new Error("Description must be between 1 and 500 characters.");
         if (colors.length < 1 || colors.length > 6)
             throw new Error("Colors must be between 1 and 6.");
 
@@ -148,12 +148,12 @@ class GenerationService {
         return resp.json();
     }
 
-    async logoPromptedGeneration(
+    async logoPrompted(
         prompt: string,
         colors: string[]
     ) {
-        if (prompt.length < 10 || prompt.length > 500)
-            throw new Error("Prompt must be between 10 and 500 characters.");
+        if (prompt.length < 1 || prompt.length > 500)
+            throw new Error("Prompt must be between 1 and 500 characters.");
         if (colors.length < 1 || colors.length > 6)
             throw new Error("Colors must be between 1 and 6.");
 
@@ -170,7 +170,7 @@ class GenerationService {
         return resp.json();
     }
 
-    async businessPlanGeneration(
+    async businessPlan(
         id: string,
         prompt?: string
     ) {
@@ -190,3 +190,6 @@ class GenerationService {
         return resp.json();
     }
 }
+
+const generationService = new GenerationService();
+export default generationService;

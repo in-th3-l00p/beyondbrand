@@ -21,8 +21,8 @@ export default function Sidebar() {
 
     return (
         path === "/settings" ?
-            <nav className={"flex flex-col gap-2 w-screen items-center"}>
-                <div id={"minimal-account-info"} className={"flex gap-4 items-center p-2"}>
+            <nav className={"flex flex-col h-[85vh] gap-2 w-screen items-start md:items-center "}>
+                <div id={"minimal-account-info"} className={"flex gap-4 items-center p-2 h-full"}>
                     {user.image &&
                         <Image src={user.image} alt={"profile"} width={50} height={50}
                                className={"rounded-full"}/>}
@@ -33,37 +33,37 @@ export default function Sidebar() {
                     </div>
                 </div>
                 <div
-                    className={path.includes("account") ? "flex gap-4 p-2 rounded-md bg-light-gray" : "flex gap-4 p-2"}>
-                    <Icon.User/>
-                    <Link href={"/settings/account"}>
+                    className={path.includes("account") ? "flex gap-4 p-2 rounded-md bg-light-gray h-full items-center" : "flex gap-4 p-2 h-full items-center"}>
+                    <Icon.User size={40}/>
+                    <Link href={"/settings/account"} className={"text-2xl"}>
                         Your Account
                     </Link>
                 </div>
                 <div
-                    className={path.includes("business") ? "flex gap-4 p-2 rounded-md bg-light-gray" : "flex gap-4 p-2"}>
-                    <Icon.Briefcase/>
-                    <Link href={"/settings/business"}>
+                    className={path.includes("business") ? "flex gap-4 p-2 rounded-md bg-light-gray h-full items-center" : "flex gap-4 p-2 h-full items-center"}>
+                    <Icon.Briefcase size={40}/>
+                    <Link href={"/settings/business"} className={"text-2xl"}>
                         Your Business
                     </Link>
                 </div>
                 <div
-                    className={path.includes("security") ? "flex gap-4 p-2 rounded-md bg-light-gray" : "flex gap-4 p-2"}>
-                    <Icon.Lock/>
-                    <Link href={"/settings/security"}>
+                    className={path.includes("security") ? "flex gap-4 p-2 rounded-md bg-light-gray h-full items-center" : "flex gap-4 p-2 h-full items-center"}>
+                    <Icon.Lock size={40}/>
+                    <Link href={"/settings/security"} className={"text-2xl"}>
                         Login & Security
                     </Link>
                 </div>
                 <div
-                    className={path.includes("notifications") ? "flex gap-4 p-2 rounded-md bg-light-gray" : "flex gap-4 p-2"}>
-                    <Icon.Mail/>
-                    <Link href={"/settings/notifications"}>
+                    className={path.includes("notifications") ? "flex gap-4 p-2 rounded-md bg-light-gray h-full items-center" : "flex gap-4 p-2 h-full items-center"}>
+                    <Icon.Mail size={40}/>
+                    <Link href={"/settings/notifications"} className={"text-2xl"}>
                         Notifications Preferences
                     </Link>
                 </div>
                 <div
-                    className={path.includes("privacy") ? "flex gap-4 p-2 rounded-md bg-light-gray" : "flex gap-4 p-2"}>
-                    <Icon.Lock/>
-                    <Link href={"/settings/privacy"}>
+                    className={path.includes("privacy") ? "flex gap-4 p-2 rounded-md bg-light-gray h-full items-center" : "flex gap-4 p-2 h-full items-center"}>
+                    <Icon.Lock size={40}/>
+                    <Link href={"/settings/privacy"} className={"text-2xl"}>
                         Privacy Settings
                     </Link>
                 </div>

@@ -16,7 +16,7 @@ const modal = tv({
 });
 
 const modalHeader = tv({
-    base: "flex justify-between items-center w-full flex-grow gap-4 pb-4 mb-4 border-b"
+    base: "flex justify-between items-center w-full flex-grow gap-4 pb-4 mb-4 border-b border-black"
 });
 
 export const modalFooter = tv({

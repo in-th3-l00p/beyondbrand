@@ -27,32 +27,34 @@ const modalTitle = tv({
     base: "text-2xl"
 });
 
-function ModalHeader({ title, setShow }: {
+function ModalHeader({ title, setShow,showX=true }: {
     title?: string;
     setShow?: (show: boolean) => void;
+    showX?: boolean;
 }) {
     if (!title && !setShow)
         return <></>;
     return (
         <div className={modalHeader()}>
             {title && <h2 className={modalTitle()}>{title}</h2>}
-            {setShow  && (
+            {showX && setShow && (
+
                 <button
                     className={button({ type: "danger" })}
                     onClick={() => setShow(false)}
                 >
-                    <Icon.X />
                 </button>
             )}
         </div>
     );
 }
 
-export default function Modal({ title, show, setShow, children }: {
+export default function Modal({ title, show, setShow, children,showX=true }: {
     title?: string;
     show?: boolean;
     setShow?: (show: boolean) => void;
     children?: React.ReactNode;
+    showX?: boolean;
 }) {
     if (!show && show !== undefined)
         return <></>;
@@ -69,6 +71,7 @@ export default function Modal({ title, show, setShow, children }: {
                 <ModalHeader
                     title={title}
                     setShow={setShow}
+                    showX={showX}
                 />
                 {children}
             </div>

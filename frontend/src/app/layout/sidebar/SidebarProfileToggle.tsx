@@ -23,7 +23,6 @@ export function SidebarProfileToggle() {
 
             {open && (
                 <>
-                    <SidebarLink href={"/profile"}>Profile</SidebarLink>
                     <SidebarLink href={"/settings"}>Settings</SidebarLink>
                     <button
                         type={"button"}

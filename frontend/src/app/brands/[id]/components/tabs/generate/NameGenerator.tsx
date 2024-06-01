@@ -5,6 +5,7 @@ import React, {useContext, useState} from "react";
 import {button} from "@/components/primitives";
 import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
 import clsx from "clsx";
+import generationService from "@/service/generationService";
 
 export default function NameGenerator() {
     const [generatedName, setGeneratedName] = useState<string>("");
@@ -30,18 +31,10 @@ export default function NameGenerator() {
 
                 <button
                     type={"button"} className={clsx(button(), "mb-4")}
-                    disabled={!query && query.length < 10 && loading}
+                    disabled={!query || query.length < 1 || loading}
                     onClick={() => {
                         setLoading(true);
-                        fetch("/api/brands/generate/name", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({description: query}),
-                            cache: "no-cache"
-                        })
-                            .then(response => response.json())
+                        generationService.name(query)
                             .then((data: { brandName?: string }) => {
                                 setGeneratedName(data.brandName || "");
                             })

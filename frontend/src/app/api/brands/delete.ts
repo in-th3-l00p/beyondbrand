@@ -2,6 +2,9 @@ import isAuthenticated from "@/app/api/utils/isAuthenticated";
 import getUser from "@/app/api/utils/getUser";
 import Brand from "@/database/schema/brand";
 import {NextResponse} from "next/server";
+import Amqp from "streaming";
+import logger from "@/utils/logger";
+import {EventType} from "streaming/src/event";
 
 export async function DELETE(req: Request) {
     const { searchParams } = new URL(req.url);
@@ -32,5 +35,11 @@ export async function DELETE(req: Request) {
         );
 
     await brand.deleteOne();
+    if (!Amqp.isInitialized())
+        await Amqp.initializeFromEnv(logger);
+    Amqp.getInstance().publish({
+        type: EventType.BRAND_DELETED,
+        data: brand
+    });
     return NextResponse.json({});
 }

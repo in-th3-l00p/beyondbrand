@@ -1,0 +1,20 @@
+{
+  "name": "streaming",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {},
+  "keywords": [],
+  "author": "intheloop",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/amqplib": "^0.10.4",
+    "@types/node": "^20.11.20",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.3"
+  }
+}

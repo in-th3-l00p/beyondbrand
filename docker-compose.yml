@@ -1,15 +1,116 @@
+# todo: add wait-for-it.sh
 version: '3.8'
 services:
-  mongo:
-    image: mongo:latest
-    container_name: mongo
-    ports:
-      - "27017:27017"
-    volumes:
-      - ./data:/data/db
-    networks:
-      - mongo-network
-    restart: always
+    nginx-proxy:
+        image: nginx:1.25.3-alpine
+        volumes:
+            - ./proxy/nginx.conf:/etc/nginx/conf.d/default.conf
+        ports:
+            - "8000:80"
+        depends_on:
+            - generation-service
+        networks:
+            - app
+
+    mongo:
+        image: mongo:latest
+        container_name: mongo
+        ports:
+            - "27017:27017"
+        volumes:
+            - ./data:/data/db
+        networks:
+            - app
+        restart: always
+
+    rabbitmq:
+        image: rabbitmq:3-management
+        container_name: rabbitmq
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        networks:
+            - app
+        restart: always
+
+    next:
+        container_name: next
+        restart: always
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./frontend:/app
+            - /app/node_modules
+            - /app/.next
+            - ./shared:/shared
+        networks:
+            - app
+        depends_on:
+            - generation-service
+            - nginx-proxy
+            - mongo
+            - rabbitmq
+        environment:
+            - APP_NAME=next
+            - RABBITMQ_URI=amqp://rabbitmq:5672
+            - MONGO_URI=mongodb://mongo:27017/next
+            - NEXT_PUBLIC_API_URL=http://localhost:8000
+            - NEXT_PUBLIC_CMS_URL=http://strapi:1337
+
+    strapi:
+        container_name: strapi
+        restart: always
+        build:
+            context: ./CMS
+            dockerfile: Dockerfile
+        ports:
+            - "1337:1337"
+        volumes:
+            - ./CMS:/app
+            - /app/node_modules
+            - /app/.strapi
+        networks:
+            - app
+        depends_on:
+            - mongo
+            - rabbitmq
+        environment:
+            - APP_NAME=strapi
+            - HOST=0.0.0.0
+            - PORT=1337
+            - APP_KEYS=BdbfLOioGbkCX10tTGPxFA==,GVWJohjsU22L9JlYntQ3Qg==,1Ey4veB0FI64xM6gGLKnAw==,2tFMhZSvImOl7f/njrDtAg==
+            - API_TOKEN_SALT=d8NbmVcguV7ftIdWhSJtiA==
+            - ADMIN_JWT_SECRET=0yAVHm7hRZmv9zMWkUbgFQ==
+            - TRANSFER_TOKEN_SALT=wK/quRXVnBzdtYvNJjZCQQ==
+            - DATABASE_CLIENT=sqlite
+            - DATABASE_FILENAME=.tmp/data.db
+            - JWT_SECRET=By1V88oEfanIuhZim9699g==
+
+    generation-service:
+        container_name: generation-service
+        restart: always
+        build:
+            context: ./generation-service
+            dockerfile: Dockerfile
+        ports:
+            - "3001:3001"
+        volumes:
+            - ./generation-service:/app
+            - ./shared:/shared
+            - /app/node_modules
+        networks:
+            - app
+        depends_on:
+            - mongo
+            - rabbitmq
+        environment:
+            - APP_NAME=generation-service
+            - MONGO_URI=mongodb://mongo:27017/generation-service
+            - RABBITMQ_URI=amqp://rabbitmq:5672
+            - PORT=3001
 networks:
-  mongo-network:
-    driver: bridge
+    app:
+        driver: bridge

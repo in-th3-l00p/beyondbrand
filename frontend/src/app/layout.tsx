@@ -6,6 +6,8 @@ import Header from "@/app/layout/Header";
 import "@/database/mongoose";
 import NextAuthSessionProvider from "@/app/layout/NextAuthSessionProvider";
 import {Toaster} from "react-hot-toast";
+import Amqp from "streaming";
+import logger from "@/utils/logger";
 
 const inter = Tilt_Neon({subsets: ["latin"]});
 
@@ -14,11 +16,13 @@ export const metadata: Metadata = {
     description: "Branding generator webapp",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    if (!Amqp.isInitialized())
+        await Amqp.initializeFromEnv(logger);
     return (
         <html lang="en">
             <body className={inter.className + " min-h-screen overflow-x-hidden flex flex-col"}>

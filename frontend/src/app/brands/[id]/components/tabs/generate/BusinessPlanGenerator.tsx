@@ -7,6 +7,7 @@ import clsx from "clsx";
 import {button, input} from "@/components/primitives";
 import {marked} from "marked";
 import "./business-plan-generator.scss";
+import generationService from "@/service/generationService";
 
 export default function BusinessPlanGenerator() {
     const [generatedBusinessPlan, setGeneratedBusinessPlan] = useState<string>("");
@@ -36,15 +37,7 @@ export default function BusinessPlanGenerator() {
                     disabled={!prompt && prompt.length < 10 && loading}
                     onClick={() => {
                         setLoading(true);
-                        fetch("/api/brands/generate/business-plan", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({ _id: brand._id, prompt }),
-                            cache: "no-cache"
-                        })
-                            .then(response => response.json())
+                        generationService.businessPlan(brand._id.toString(), prompt)
                             .then(async (data: { businessPlan?: string }) => {
                                 setGeneratedBusinessPlan(data.businessPlan || "");
                                 setHtml(await marked(data.businessPlan || ""));

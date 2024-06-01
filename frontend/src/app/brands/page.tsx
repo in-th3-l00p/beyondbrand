@@ -1,12 +1,14 @@
-import brandService from "@/service/brandService";
 import Link from "next/link";
 import PageTitle from "@/components/PageTitle";
-import {IBrand} from "@/database/schema/brand";
+import Brand, {IBrand} from "@/database/schema/brand";
 import Image from "next/image";
 import {pageContainer} from "@/components/primitives";
 import clsx from "clsx";
+import {getServerSession} from "next-auth";
+import {redirect} from "next/navigation";
+import {authOptions} from "@/app/api/auth/[...nextauth]/route";
 
-function Brand({ brand }: { brand: IBrand }) {
+function BrandDisplay({ brand }: { brand: IBrand }) {
     return (
         <Link
             href={"/brands/" + brand._id}
@@ -29,7 +31,13 @@ function Brand({ brand }: { brand: IBrand }) {
 }
 
 export default async function Page() {
-    const brands = await brandService.getAll();
+    const session = await getServerSession(authOptions);
+    if (session === null)
+        return redirect("/login");
+
+    const brands = await Brand.find({
+        owner: session.user.id
+    });
 
     return (
         <section className={pageContainer()}>
@@ -40,7 +48,7 @@ export default async function Page() {
 
             <div className="flex flex-col gap-8 items-center justify-between">
                 {brands.map(brand => (
-                    <Brand
+                    <BrandDisplay
                         key={brand._id}
                         brand={brand}
                     />

@@ -3,9 +3,10 @@ import {ColorVisualizer} from "@/components/colors/ColorVisualizer";
 import * as Icon from "react-feather";
 import React, {useContext, useState} from "react";
 import Loading from "@/app/brands/create/components/Loading";
-import {input} from "@/components/primitives";
+import {button, input} from "@/components/primitives";
 import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
 import clsx from "clsx";
+import generationService from "@/service/generationService";
 
 function ColorGenerator({ colors, setColors }: {
     colors: string[],
@@ -17,15 +18,7 @@ function ColorGenerator({ colors, setColors }: {
 
     const generateColors = () => {
         setLoading(true);
-        fetch("/api/brands/generate/colors/prompted?colors=" + colors.length, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ description }),
-            cache: "no-cache"
-        })
-            .then(response => response.json())
+        generationService.colorsPrompted(colors.length, description)
             .then((data: { colors?: string[] }) => {
                 setGeneratedColors(data.colors || []);
             })
@@ -53,7 +46,7 @@ function ColorGenerator({ colors, setColors }: {
 
                 <div className="flex flex-wrap gap-4 justify-center">
                     <button
-                        type={"button"} className={"btn"}
+                        type={"button"} className={button()}
                         onClick={() => {
                             setColors(generatedColors);
                             setGeneratedColors(null);
@@ -63,7 +56,8 @@ function ColorGenerator({ colors, setColors }: {
                     </button>
 
                     <button
-                        type={"button"} className={"btn"}
+                        type={"button"} className={button()}
+                        disabled={loading || !description}
                         onClick={generateColors}
                     >
                         Regenerate colors
@@ -84,7 +78,8 @@ function ColorGenerator({ colors, setColors }: {
             </div>
 
             <button
-                type={"button"} className={"btn"}
+                type={"button"} className={button()}
+                disabled={loading || !description}
                 onClick={generateColors}
             >
                 Generate colors
@@ -128,7 +123,7 @@ export default function ColorSchemeGenerator() {
 
             <div className="flex gap-4 justify-center">
                 <button
-                    type={"button"} className={"btn"}
+                    type={"button"} className={button()}
                     onClick={() => {
                         setColors(Array
                             .from({length: colors.length - 1})
@@ -137,7 +132,7 @@ export default function ColorSchemeGenerator() {
                     disabled={colors.length === 1}
                 ><Icon.Minus /></button>
                 <button
-                    type={"button"} className={"btn"}
+                    type={"button"} className={button()}
                     onClick={() => {
                         setColors(Array
                             .from({length: colors.length + 1})

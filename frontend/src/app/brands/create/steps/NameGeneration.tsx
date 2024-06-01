@@ -5,6 +5,9 @@ import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
 import {FormLabel} from "@/app/brands/create/components/FormLabel";
 import FormNext from "@/app/brands/create/components/FormNext";
 import {formContainer} from "@/components/form/primitives";
+import generationService from "@/service/generationService";
+import clsx from "clsx";
+import {button} from "@/components/primitives";
 
 export function NameGeneration() {
     const {
@@ -25,18 +28,10 @@ export function NameGeneration() {
             />
 
             <button
-                type={"button"} className={"btn mb-4"}
+                type={"button"} className={clsx(button(), "mb-4")}
                 disabled={!description}
                 onClick={() => {
-                    fetch("/api/brands/generate/name", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({description: description}),
-                        cache: "no-cache"
-                    })
-                        .then(response => response.json())
+                    generationService.name(description)
                         .then((data: { brandName?: string }) => {
                             setName(data.brandName || "");
                         })

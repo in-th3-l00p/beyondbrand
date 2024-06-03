@@ -6,7 +6,6 @@ import Header from "@/app/layout/Header";
 import "@/database/mongoose";
 import NextAuthSessionProvider from "@/app/layout/NextAuthSessionProvider";
 import {Toaster} from "react-hot-toast";
-import Footer from "@/app/layout/Footer";
 import Amqp from "streaming";
 import logger from "@/utils/logger";
 
@@ -31,7 +30,6 @@ export default async function RootLayout({
             <Header/>
             <Toaster/>
             {children}
-            <Footer/>
         </NextAuthSessionProvider>
         </body>
         </html>

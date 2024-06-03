@@ -8,6 +8,7 @@ import NextAuthSessionProvider from "@/app/layout/NextAuthSessionProvider";
 import {Toaster} from "react-hot-toast";
 import Amqp from "streaming";
 import logger from "@/utils/logger";
+import Footer from "@/app/layout/Footer";
 
 const inter = Tilt_Neon({subsets: ["latin"]});
 
@@ -28,6 +29,7 @@ export default async function RootLayout({ children }: Readonly<{
             <Header/>
             <Toaster/>
             {children}
+            <Footer />
         </NextAuthSessionProvider>
         </body>
         </html>

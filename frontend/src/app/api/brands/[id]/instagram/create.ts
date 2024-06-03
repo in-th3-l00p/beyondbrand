@@ -2,12 +2,16 @@ import {z} from "zod";
 import {NextResponse} from "next/server";
 import InstagramPost from "@/database/schema/instagramPost";
 import {Params} from "@/app/api/brands/[id]/instagram/types";
+import isAuthenticated from "@/app/api/utils/isAuthenticated";
 
 const schema = z.object({
     name: z.string().max(255).min(1)
 })
 
 export default async function POST(req: Request, { params }: Params) {
+    const { error} = await isAuthenticated();
+    if (error) return error;
+
     const body = await req.json();
     const parsed = schema.safeParse(body);
     if (!parsed.success)

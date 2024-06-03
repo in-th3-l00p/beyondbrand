@@ -4,7 +4,7 @@ import {Tools} from "@/app/brands/[id]/instagram/[postId]/components/tools";
 
 interface IEditorContext {
     post: IInstagramPost;
-    setPost: React.Dispatch<React.SetStateAction<IInstagramPost>>;
+    setPost: React.Dispatch<React.SetStateAction<IInstagramPost | null>>;
 
     selectedShape: Shape | null;
     setSelectedShape: (shape: Shape | null) => void;

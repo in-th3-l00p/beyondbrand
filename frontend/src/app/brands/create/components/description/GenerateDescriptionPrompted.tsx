@@ -5,6 +5,9 @@ import * as Icon from "react-feather";
 import BrandContext from "@/app/brands/create/BrandContext";
 import Loading from "@/app/brands/create/components/Loading";
 import toast from "react-hot-toast";
+import generationService from "@/service/generationService";
+import {button, input} from "@/components/primitives";
+import clsx from "clsx";
 
 export default function GenerateDescriptionPrompted() {
     const { name, setDescription } = useContext(BrandContext);
@@ -20,26 +23,18 @@ export default function GenerateDescriptionPrompted() {
                 <p>Prompt:</p>
                 <textarea
                     name="improved"
-                    id="improved" className={"input flex-grow"}
+                    id="improved" className={clsx(input(), "flex-grow")}
                     rows={2}
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
                 />
                 <button
                     type={"button"}
-                    className={"btn"}
+                    className={button()}
                     disabled={!prompt}
                     onClick={() => {
                         setLoading(true);
-                        fetch("/api/brands/generate/description/prompted", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({ name, prompt }),
-                            cache: "no-cache"
-                        })
-                            .then(response => response.json())
+                        generationService.descriptionPrompted(name, prompt)
                             .then((data: { brandDescription?: string }) => {
                                 setGenerated(data.brandDescription || "");
                                 toast.success("Description generated successfully")
@@ -57,14 +52,14 @@ export default function GenerateDescriptionPrompted() {
                 <p>AI Generated description:</p>
                 <textarea
                     name="generated"
-                    id="generated" className={"input w-full resize-none"}
+                    id="generated" className={clsx(input(), "w-full resize-none")}
                     rows={6}
                     defaultValue={generated}
                 />
             </div>
             <div className="text-center">
                 <button
-                    type={"button"} className={"btn mb-2"}
+                    type={"button"} className={clsx(button(), "mb-2")}
                     title={"Accept prompted description"}
                     onClick={() => {
                         setGenerated(null);

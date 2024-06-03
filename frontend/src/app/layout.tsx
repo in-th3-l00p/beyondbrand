@@ -16,9 +16,7 @@ export const metadata: Metadata = {
     description: "Branding generator webapp",
 };
 
-export default async function RootLayout({
-                                             children,
-                                         }: Readonly<{
+export default async function RootLayout({ children }: Readonly<{
     children: React.ReactNode;
 }>) {
     if (!Amqp.isInitialized())

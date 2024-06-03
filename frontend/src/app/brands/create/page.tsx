@@ -14,7 +14,8 @@ import LogoUpload from "@/app/brands/create/steps/LogoUpload";
 import Review from "@/app/brands/create/steps/Review";
 import {formContainer} from "@/components/form/primitives";
 import {pageContainer} from "@/components/primitives";
-import clsx from "clsx";
+import {useSession} from "next-auth/react";
+import {useRouter} from "next/navigation";
 
 function CreateForm() {
     const { stepStack, addStep} = useContext(BrandContext);
@@ -55,6 +56,9 @@ function CreateForm() {
 }
 
 export default function CreateBrand() {
+    const router = useRouter();
+    const session = useSession();
+
     const [name, setName] = useState<string>(
         localStorage?.getItem("brand.create.name") || ""
     );
@@ -70,6 +74,11 @@ export default function CreateBrand() {
     const [logo, setLogo] = useState<string>(
         localStorage?.getItem("brand.create.logo") || ""
     );
+
+    useEffect(() => {
+        if (session.status === "unauthenticated")
+            router.push("/login");
+    }, [session]);
 
     useEffect(() => {
         localStorage.setItem("brand.create.name", name);

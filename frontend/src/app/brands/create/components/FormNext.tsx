@@ -2,6 +2,7 @@
 
 import BrandContext, {FormStep} from "@/app/brands/create/BrandContext";
 import React, {useContext} from "react";
+import {button} from "@/components/primitives";
 
 export default function FormNext({
     disabled, next
@@ -15,7 +16,7 @@ export default function FormNext({
         <button
             type={"submit"}
             disabled={disabled}
-            className={"btn"}
+            className={button()}
             onClick={() => {
                 addStep(next);
             }}

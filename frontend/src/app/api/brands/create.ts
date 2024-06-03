@@ -6,6 +6,9 @@ import isAuthenticated from "@/app/api/utils/isAuthenticated";
 import s3 from "@/utils/s3";
 import {PutObjectCommand} from "@aws-sdk/client-s3";
 import mime from "mime-types";
+import Amqp from "streaming";
+import {EventType} from "streaming/src/event";
+import logger from "@/utils/logger";
 
 const bodySchema = z.object({
     name: z.string().max(255).min(1),
@@ -55,6 +58,13 @@ export async function POST(req: Request) {
         colors: body.data.colors,
         logo: `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/brands/${user._id}/${body.data.name}.${mime.extension(logoHeader.split(":")[1])}`,
         owner: user._id
+    });
+
+    if (!Amqp.isInitialized())
+        await Amqp.initializeFromEnv(logger);
+    Amqp.getInstance().publish({
+        type: EventType.BRAND_CREATED,
+        data: brand
     });
 
     return NextResponse.json(brand);

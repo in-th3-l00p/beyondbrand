@@ -12,14 +12,17 @@ import bcrypt from "bcrypt";
 export const authOptions : AuthOptions = {
     adapter: MongoDBAdapter(clientPromise) as Adapter,
     callbacks: {
-        // Using the `...rest` parameter to be able to narrow down the type based on `trigger`
-        jwt({ token, trigger, session }) {
+        jwt({ token, trigger, session}) {
             if (trigger === "update" && session?.name)
                 token.name = session.name
             if (trigger === "update" && session?.email)
                 token.email = session.email
             return token
-        }
+        },
+        session: ({ session, token }) => {
+            session.user.id = token.sub!;
+            return session;
+        },
     },
     session: {
         strategy: "jwt"

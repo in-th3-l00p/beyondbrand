@@ -3,6 +3,9 @@ import BrandContext from "@/app/brands/create/BrandContext";
 import * as Icon from "react-feather";
 import Loading from "@/app/brands/create/components/Loading";
 import toast from "react-hot-toast";
+import generationService from "@/service/generationService";
+import clsx from "clsx";
+import {button, input} from "@/components/primitives";
 
 export function ImproveSection() {
     const [improved, setImproved] = useState<string | null>(null);
@@ -18,7 +21,7 @@ export function ImproveSection() {
                     <p>Improved AI generated description:</p>
                     <textarea
                         name="improved"
-                        id="improved" className={"input w-full resize-none"}
+                        id="improved" className={clsx(input(), "w-full resize-none")}
                         rows={6}
                         value={improved}
                         readOnly
@@ -26,7 +29,7 @@ export function ImproveSection() {
                 </div>
                 <div className="text-center">
                     <button
-                        type={"button"} className={"btn mb-2"}
+                        type={"button"} className={clsx(button(), "mb-2")}
                         title={"Accept improved description"}
                         onClick={() => {
                             setImproved(null);
@@ -45,21 +48,11 @@ export function ImproveSection() {
             <p>Press the following button to get AI improvement:</p>
             <button
                 type={"button"}
-                className="btn w-full md:w-auto"
+                className={clsx(button(), "w-full md:w-auto")}
                 disabled={loading || !name || !description}
                 onClick={() => {
                     setLoading(true);
-                    fetch("/api/brands/generate/description", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            name, description
-                        }),
-                        cache: "no-cache"
-                    })
-                        .then(response => response.json())
+                    generationService.descriptionPrompted(name, description)
                         .then((data: { brandDescription?: string }) => {
                             setImproved(data.brandDescription || "");
                             toast.success("Description improved successfully")

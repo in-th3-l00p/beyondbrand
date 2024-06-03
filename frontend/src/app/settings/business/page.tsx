@@ -11,6 +11,7 @@ import {useSession} from "next-auth/react";
 import Loading from "@/app/brands/create/components/Loading";
 import User from "@/app/interfaces/User";
 import Modal from "@/components/Modal";
+import * as Icon from "react-feather";
 
 export default function Page() {
     const {data: session, status, update} = useSession();
@@ -73,16 +74,43 @@ export default function Page() {
 
     return (
         <Container>
-            <Modal setShow={setEmailModal} show={emailModal} title={"Email Usage"} showX={false}>
+            <Modal setShow={setEmailModal} show={emailModal} title={"Email Usage"} showHeader={false}>
+                <div className={"w-full flex justify-between items-end gap-4"}>
+                    <div className={"flex justify-between w-full p-4 border-b border-black"}>
+                        <h1 className={"text-2xl"}>Email</h1>
+                        <h1 className={"text-2xl"}>Usage</h1>
+                    </div>
+                    <div className={"flex justify-between w-full p-4 border-b border-black"}>
+                        <p>
+                            Edit
+                        </p>
+                        <Icon.Plus/>
+                    </div>
+                </div>
+                <div className={"w-full flex justify-between items-end gap-4 border-b border-black"}>
+                    <div className={"flex flex-col w-full p-4"}>
+                        {
+                            user.business?.emails.map(email =>
+                                <div className={"flex justify-between gap-4"}>
+                                    <p className={"text-center md:text-left mb-4 md:mb-0"}>{email.address}</p>
+                                    <p className={"text-center md:text-left mb-4 md:mb-0"}>{email.usage}</p>
+                                </div>
+                            )
+                        }
+                    </div>
+                    <div className={"flex w-full p-4"}>
 
+                    </div>
+                </div>
             </Modal>
             <PageTitle title={"Your Business"}/>
             <SectionTitle title={"Your Logo"}/>
             <SectionContainer>
                 <div
                     className={"flex md:flex-row flex-col w-full items-center md:items-start gap-4 md:gap-0 md:justify-between mb-4"}>
-                    {user.business?.logo ? <Image src={user.business.logo} alt={"profile picture"} width={100} height={100}
-                                             className={"rounded-full"}/>
+                    {user.business?.logo ?
+                        <Image src={user.business.logo} alt={"profile picture"} width={100} height={100}
+                               className={"rounded-full"}/>
                         :
                         <div className={"w-20 h-20 rounded-full bg-gray-300"}></div>}
                     <div className={"flex gap-4 md:gap-8 items-center my-auto"}>
@@ -135,7 +163,8 @@ export default function Page() {
                             </>
                             :
                             <>
-                                <p className={"text-center md:text-left mb-4 md:mb-0"}>You don't have any emails saved</p>
+                                <p className={"text-center md:text-left mb-4 md:mb-0"}>You don't have any emails
+                                    saved</p>
                                 <button className={button()}>Add Name</button>
                             </>
                     }

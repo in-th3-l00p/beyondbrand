@@ -27,34 +27,34 @@ const modalTitle = tv({
     base: "text-2xl"
 });
 
-function ModalHeader({ title, setShow,showX=true }: {
+function ModalHeader({ title, setShow }: {
     title?: string;
     setShow?: (show: boolean) => void;
-    showX?: boolean;
 }) {
     if (!title && !setShow)
         return <></>;
     return (
         <div className={modalHeader()}>
             {title && <h2 className={modalTitle()}>{title}</h2>}
-            {showX && setShow && (
+            {setShow && (
 
                 <button
                     className={button({ type: "danger" })}
                     onClick={() => setShow(false)}
                 >
+                    <Icon.X />
                 </button>
             )}
         </div>
     );
 }
 
-export default function Modal({ title, show, setShow, children,showX=true }: {
+export default function Modal({ title, show, setShow, children,showHeader=true }: {
     title?: string;
     show?: boolean;
     setShow?: (show: boolean) => void;
     children?: React.ReactNode;
-    showX?: boolean;
+    showHeader?: boolean;
 }) {
     if (!show && show !== undefined)
         return <></>;
@@ -68,11 +68,12 @@ export default function Modal({ title, show, setShow, children,showX=true }: {
             className={modalContainer()}
         >
             <div className={modal()}>
-                <ModalHeader
-                    title={title}
-                    setShow={setShow}
-                    showX={showX}
-                />
+                {
+                    showHeader && <ModalHeader
+                        title={title}
+                        setShow={setShow}
+                    />
+                }
                 {children}
             </div>
         </div>

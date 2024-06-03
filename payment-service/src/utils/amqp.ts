@@ -1,26 +1,26 @@
 import Amqp from "streaming";
 import logger from "./logger";
 import {EventType} from "streaming/src/event";
-import Brand from "../models/brand";
+import User from "../models/user";
 
 export default async function initializeAmqp() {
     await Amqp.initializeFromEnv(logger);
+
     Amqp.getInstance().addConsumer(
-        EventType.BRAND_CREATED,
+        EventType.USER_CREATED,
         async (event) => {
-            const brand = await Brand.create(event.data);
-            logger.info(`Brand created: ${brand._id}`);
+            const user = await User.create(event.data);
+            logger.info(`User created: ${user._id}.`);
         });
+
     Amqp.getInstance().addConsumer(
-        EventType.BRAND_UPDATED,
+        EventType.USER_UPDATED,
         async (event) => {
-            const brand = await Brand.findByIdAndUpdate(event.data._id, event.data, {new: true});
-            logger.info(`Brand updated: ${brand._id}`);
-        });
-    Amqp.getInstance().addConsumer(
-        EventType.BRAND_DELETED,
-        async (event) => {
-            await Brand.findByIdAndDelete(event.data._id);
-            logger.info(`Brand deleted: ${event.data._id}`);
+            const user = await User.findByIdAndUpdate(event.data.id, event.data, {new: true});
+            if (!user) {
+                logger.error(`User not found when update event was published: ${event}.`);
+                return;
+            }
+            logger.info(`User updated: ${user._id}.`);
         });
 }

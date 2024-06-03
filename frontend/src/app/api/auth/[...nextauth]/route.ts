@@ -8,6 +8,9 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import User from "@/database/schema/user";
 import bcrypt from "bcrypt";
+import Amqp from "streaming";
+import {EventType} from "streaming/src/event";
+import logger from "@/utils/logger";
 
 export const authOptions : AuthOptions = {
     adapter: MongoDBAdapter(clientPromise) as Adapter,
@@ -53,7 +56,23 @@ export const authOptions : AuthOptions = {
                 return user;
             }
         })
-    ]
+    ],
+    events: {
+        createUser: (user) => {
+            logger.info(`User ${user.user.id} created.`);
+            Amqp.getInstance().publish({
+                type: EventType.USER_CREATED,
+                data: user.user
+            });
+        },
+        updateUser: (user) => {
+            logger.info(`User ${user.user.id} updated.`);
+            Amqp.getInstance().publish({
+                type: EventType.USER_UPDATED,
+                data: user.user
+            });
+        }
+    }
 };
 
 export const handler = NextAuth(authOptions);

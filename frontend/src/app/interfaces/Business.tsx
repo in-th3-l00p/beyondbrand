@@ -13,6 +13,10 @@ interface Email {
     address: string;
     usage: string;
 }
+interface Phone {
+    number: string;
+    usage: string;
+}
 
 export default interface Business {
     id: number;
@@ -21,7 +25,7 @@ export default interface Business {
     logo: string;
     worldwide: boolean;
     countries?: string[];
-    phones: string[];
+    phones: Phone[];
     website: string;
     metrics: Metric[];
 }

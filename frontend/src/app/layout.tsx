@@ -16,22 +16,20 @@ export const metadata: Metadata = {
     description: "Branding generator webapp",
 };
 
-export default async function RootLayout({
-    children,
-}: Readonly<{
+export default async function RootLayout({ children }: Readonly<{
     children: React.ReactNode;
 }>) {
     if (!Amqp.isInitialized())
         await Amqp.initializeFromEnv(logger);
     return (
         <html lang="en">
-            <body className={inter.className + " min-h-screen overflow-x-hidden flex flex-col"}>
-                <NextAuthSessionProvider>
-                    <Header/>
-                    <Toaster/>
-                    {children}
-                </NextAuthSessionProvider>
-            </body>
+        <body className={inter.className + " min-h-screen overflow-x-hidden flex flex-col"}>
+        <NextAuthSessionProvider>
+            <Header/>
+            <Toaster/>
+            {children}
+        </NextAuthSessionProvider>
+        </body>
         </html>
     );
 }

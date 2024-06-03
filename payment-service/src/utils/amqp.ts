@@ -9,6 +9,7 @@ export default async function initializeAmqp() {
     Amqp.getInstance().addConsumer(
         EventType.USER_CREATED,
         async (event) => {
+            event.data._id = event.data.id;
             const user = await User.create(event.data);
             logger.info(`User created: ${user._id}.`);
         });

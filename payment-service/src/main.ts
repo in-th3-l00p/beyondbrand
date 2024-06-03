@@ -1,11 +1,11 @@
+require("dotenv").config();
+
 import express, {json} from "express";
 import logger from "./utils/logger";
 import morgan from "morgan";
 import cors from "cors";
 import initializeAmqp from "./utils/amqp";
 import initializeMongoose from "./utils/mongoose";
-
-require("dotenv").config();
 
 const app = express();
 

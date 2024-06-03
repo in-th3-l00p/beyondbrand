@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 import express, {json} from "express";
 import logger from "./utils/logger";
 import morgan from "morgan";
@@ -10,8 +12,6 @@ import DescriptionRouter from "./routes/description";
 import ColorsRouter from "./routes/colors";
 import LogoRouter from "./routes/logo";
 import BusinessPlanRouter from "./routes/businessPlan";
-
-require("dotenv").config();
 
 const app = express();
 

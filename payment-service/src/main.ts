@@ -1,3 +1,5 @@
+import {initializeStripe} from "./utils/stripe";
+
 require("dotenv").config();
 
 import express, {json} from "express";
@@ -24,6 +26,7 @@ app.use(json());
 (async () => {
     await initializeMongoose();
     await initializeAmqp();
+    await initializeStripe();
 
     const PORT = process.env.PORT || 3002;
     app.listen(() => {

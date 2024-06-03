@@ -7,7 +7,7 @@ export default function SettingLayout({children,}: Readonly<{ children: React.Re
             <div className={"md:w-max"}>
                 <Sidebar/>
             </div>
-            <div className={"w-screen overflow-x-hidden"}>
+            <div className={"w-screen md:w-full overflow-x-hidden"}>
                 {children}
             </div>
         </div>

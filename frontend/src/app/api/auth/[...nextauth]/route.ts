@@ -30,6 +30,7 @@ export const authOptions : AuthOptions = {
     session: {
         strategy: "jwt"
     },
+    secret: process.env.JWT_SECRET!,
     providers: [
         GithubProvider({
             clientId: process.env.GITHUB_ID!,

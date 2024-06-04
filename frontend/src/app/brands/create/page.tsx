@@ -88,6 +88,12 @@ export default function CreateBrand() {
         localStorage.setItem("brand.create.logo", logo || "");
     }, [name, description, stepStack, colors, logo]);
 
+    useEffect(() => {
+        fetch("http://localhost:8000/api/payment/customers", {
+            credentials: "include"
+        });
+    }, []);
+
     return (
         <section className={pageContainer({ layout: "create" })}>
             <PageTitle>Create brand</PageTitle>

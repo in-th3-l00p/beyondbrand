@@ -59,35 +59,8 @@ services:
             - MONGO_URI=mongodb://mongo:27017/next
             - NEXT_PUBLIC_API_URL=http://localhost:8000
             - NEXT_PUBLIC_CMS_URL=http://strapi:1337
-
-    strapi:
-        container_name: strapi
-        restart: always
-        build:
-            context: ./CMS
-            dockerfile: Dockerfile
-        ports:
-            - "1337:1337"
-        volumes:
-            - ./CMS:/app
-            - /app/node_modules
-            - /app/.strapi
-        networks:
-            - app
-        depends_on:
-            - mongo
-            - rabbitmq
-        environment:
-            - APP_NAME=strapi
-            - HOST=0.0.0.0
-            - PORT=1337
-            - APP_KEYS=BdbfLOioGbkCX10tTGPxFA==,GVWJohjsU22L9JlYntQ3Qg==,1Ey4veB0FI64xM6gGLKnAw==,2tFMhZSvImOl7f/njrDtAg==
-            - API_TOKEN_SALT=d8NbmVcguV7ftIdWhSJtiA==
-            - ADMIN_JWT_SECRET=0yAVHm7hRZmv9zMWkUbgFQ==
-            - TRANSFER_TOKEN_SALT=wK/quRXVnBzdtYvNJjZCQQ==
-            - DATABASE_CLIENT=sqlite
-            - DATABASE_FILENAME=.tmp/data.db
-            - JWT_SECRET=By1V88oEfanIuhZim9699g==
+        env_file:
+            - ".env"
 
     generation-service:
         container_name: generation-service
@@ -111,6 +84,8 @@ services:
             - MONGO_URI=mongodb://mongo:27017/generation-service
             - RABBITMQ_URI=amqp://rabbitmq:5672
             - PORT=3001
+        env_file:
+            - ".env"
 
     payment-service:
         container_name: payment-service
@@ -134,6 +109,9 @@ services:
             - MONGO_URI=mongodb://mongo:27017/payment-service
             - RABBITMQ_URI=amqp://rabbitmq:5672
             - PORT=3002
+        env_file:
+            - ".env"
+
 networks:
     app:
         driver: bridge

@@ -1,4 +1,4 @@
-# todo: add wait-for-it.sh
+# todo: implement wait-for-it.sh
 version: '3.8'
 services:
     nginx-proxy:

@@ -1,20 +1,14 @@
 "use client";
 
 import * as Icon from "react-feather";
-import {signOut, useSession} from "next-auth/react";
 import React, {useEffect, useRef, useState} from "react";
 import Link from "next/link";
+import {useUser} from "@auth0/nextjs-auth0/client";
 
 interface ProfileDropdownLinkProps {
     order?: "first" | "last";
     href: string;
     children: React.ReactNode;
-}
-
-interface ProfileDropdownButtonProps {
-    order?: "first" | "last";
-    children: React.ReactNode;
-    onClick: () => void;
 }
 
 function getProfileDropdownLinkClasses(order?: "first" | "last") {
@@ -35,21 +29,10 @@ function ProfileDropdownLink({ order, href, children }: ProfileDropdownLinkProps
     );
 }
 
-function ProfileDropdownButton({ onClick, order, children }: ProfileDropdownButtonProps) {
-    return (
-        <button
-            onClick={onClick}
-            className={getProfileDropdownLinkClasses(order)}
-        >
-            {children}
-        </button>
-    );
-}
-
 export default function ProfileDropdown() {
     const dropdownRef = useRef<HTMLDivElement | null>(null);
-    const session = useSession();
     const [open, setOpen] = useState<boolean>(false);
+    const { user} = useUser();
 
     useEffect(() => {
         const handleClick = (e: MouseEvent) => {
@@ -71,9 +54,22 @@ export default function ProfileDropdown() {
                 <div
                     className={"absolute z-50 bottom-0 translate-y-full left-0 w-full shadow-lg rounded-b-md"}
                 >
-                    <ProfileDropdownLink href={"/profile"}>Profile</ProfileDropdownLink>
-                    <ProfileDropdownLink href={"/settings"}>Settings</ProfileDropdownLink>
-                    <ProfileDropdownButton onClick={() => signOut()} order={"last"}>Logout</ProfileDropdownButton>
+                    <ProfileDropdownLink
+                        href={"/profile"}
+                    >
+                        Profile
+                    </ProfileDropdownLink>
+                    <ProfileDropdownLink
+                        href={"/settings"}
+                    >
+                        Settings
+                    </ProfileDropdownLink>
+                    <ProfileDropdownLink
+                        href={"/api/auth/logout"}
+                        order={"last"}
+                    >
+                        Logout
+                    </ProfileDropdownLink>
                 </div>
             )}
 
@@ -87,7 +83,7 @@ export default function ProfileDropdown() {
                 onClick={() => setOpen(!open)}
             >
                 <Icon.User />
-                <div>{session.data?.user?.name}</div>
+                <div>{user?.name}</div>
                 {!open ? <Icon.ChevronDown /> : <Icon.ChevronUp />}
             </button>
         </div>

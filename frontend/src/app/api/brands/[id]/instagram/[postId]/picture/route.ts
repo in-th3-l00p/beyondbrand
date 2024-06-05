@@ -5,9 +5,8 @@ import s3 from "@/utils/s3";
 import {PutObjectCommand} from "@aws-sdk/client-s3";
 import mime from "mime-types";
 import {Params} from "@/app/api/brands/[id]/instagram/[postId]/route";
-import isAuthenticated from "@/app/api/utils/isAuthenticated";
-import getUser from "@/app/api/utils/getUser";
 import Brand from "@/database/schema/brand";
+import {getSession} from "@auth0/nextjs-auth0";
 
 const schema = z.object({
     index: z.number(),
@@ -17,9 +16,12 @@ const schema = z.object({
 
 export async function PUT(req: Request, { params }: Params) {
     const { id} = params;
-    const { error, session } = await isAuthenticated();
-    if (error) return error;
-    const user = await getUser(session);
+    const session = await getSession();
+    if (!session)
+        return NextResponse.json(
+            { error: "Unauthorized" },
+            { status: 401 }
+        );
 
     let brand;
     try {
@@ -36,7 +38,7 @@ export async function PUT(req: Request, { params }: Params) {
             {error: "Brand not found"},
             {status: 404}
         );
-    if (!brand.owner.equals(user._id))
+    if (brand.owner !== session.user.sub)
         return NextResponse.json(
             {error: "Unauthorized"},
             {status: 403}

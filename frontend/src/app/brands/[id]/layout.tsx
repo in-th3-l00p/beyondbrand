@@ -2,8 +2,7 @@ import React from "react";
 import Brand from "@/database/schema/brand";
 import BrandContextProvider from "@/app/brands/[id]/components/BrandContext/BrandContextProvider";
 import {redirect} from "next/navigation";
-import {getServerSession} from "next-auth";
-import {authOptions} from "@/app/api/auth/[...nextauth]/route";
+import {getSession} from "@auth0/nextjs-auth0";
 
 export default async function BrandLayout(
     { children, params }: {
@@ -11,7 +10,7 @@ export default async function BrandLayout(
         params: { id: string; };
     }
 ) {
-    const session = await getServerSession(authOptions);
+    const session = await getSession();
     let brand;
     try {
         brand = await Brand.findById(params.id);
@@ -20,7 +19,7 @@ export default async function BrandLayout(
     }
     if (!brand) // not found
         redirect("/brands");
-    if (!session || !brand.owner.equals(session.user.id)) // unauthorized
+    if (!session || brand.owner !== session.user.sub) // unauthorized
         redirect("/brands");
 
     return (

@@ -2,14 +2,16 @@ import {Params} from "@/app/api/brands/[id]/instagram/types";
 import {NextResponse} from "next/server";
 import InstagramPost from "@/database/schema/instagramPost";
 import Brand from "@/database/schema/brand";
-import isAuthenticated from "@/app/api/utils/isAuthenticated";
-import getUser from "@/app/api/utils/getUser";
+import {getSession} from "@auth0/nextjs-auth0";
 
 // todo security
 export default async function GET(req: Request, { params }: Params) {
-    const { error, session } = await isAuthenticated();
-    if (error) return error;
-    const user = await getUser(session);
+    const session = await getSession();
+    if (!session)
+        return NextResponse.json(
+            { error: "Unauthorized" },
+            { status: 401 }
+        );
 
     const { id } = params;
     let brand;
@@ -27,7 +29,7 @@ export default async function GET(req: Request, { params }: Params) {
             {error: "Brand not found"},
             {status: 404}
         );
-    if (!brand.owner.equals(user._id))
+    if (brand.owner !== session.user.sub)
         return NextResponse.json(
             {error: "Unauthorized"},
             {status: 403}

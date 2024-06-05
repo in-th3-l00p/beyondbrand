@@ -1,15 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
-import {getServerSession} from "next-auth";
 import {tv} from "tailwind-variants";
+import {getSession} from "@auth0/nextjs-auth0";
 
 const gradientText = tv({
     base: "bg-clip-text bg-gradient-to-br from-cyan to-tomato text-transparent"
 })
 
 async function Hero() {
-    const session = await getServerSession();
+    const session = await getSession();
     return (
         <div className={"grid grid-rows-2 grid-cols-1 md:grid-rows-1 md:grid-cols-2 gap-8 py-24"}>
             <Image

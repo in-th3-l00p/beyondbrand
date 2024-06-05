@@ -1,7 +1,5 @@
 import {z} from "zod";
 import {NextResponse} from "next/server";
-import isAuthenticated from "@/app/api/utils/isAuthenticated";
-import getUser from "@/app/api/utils/getUser";
 import Brand from "@/database/schema/brand";
 import mime from "mime-types";
 import s3 from "@/utils/s3";
@@ -9,6 +7,7 @@ import {DeleteObjectCommand, PutObjectCommand} from "@aws-sdk/client-s3";
 import Amqp from "streaming";
 import logger from "@/utils/logger";
 import {EventType} from "streaming/src/event";
+import {getSession} from "@auth0/nextjs-auth0";
 
 const updateBodySchema = z.object({
     _id: z.string().length(24),
@@ -33,9 +32,13 @@ export async function PUT(req: Request) {
             {status: 400}
         );
 
-    const {error, session} = await isAuthenticated();
-    if (error) return error;
-    const user = await getUser(session);
+    const session = await getSession();
+    if (!session)
+        return NextResponse.json(
+            { error: "Unauthorized" },
+            { status: 401 }
+        );
+
     let brand;
     try {
         brand = await Brand.findById(body.data._id);
@@ -51,7 +54,7 @@ export async function PUT(req: Request) {
             {error: "Brand not found"},
             {status: 404}
         );
-    if (!brand.owner.equals(user._id))
+    if (brand.owner !== session.user.sub)
         return NextResponse.json(
             {error: "Unauthorized"},
             {status: 403}
@@ -67,7 +70,7 @@ export async function PUT(req: Request) {
         let logoHeader, logoData, path;
         try {
             [logoHeader, logoData] = body.data.logo.split(";");
-            path = "brands/" + user._id + "/" + `${brand.name}.${mime.extension(logoHeader.split(":")[1])}`;
+            path = "brands/" + session.user.sub + "/" + `${brand.name}.${mime.extension(logoHeader.split(":")[1])}`;
             await s3.send(new PutObjectCommand({
                 Bucket: process.env.AWS_S3_BUCKET!,
                 Key: path,

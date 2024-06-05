@@ -2,15 +2,19 @@ import {z} from "zod";
 import {NextResponse} from "next/server";
 import InstagramPost from "@/database/schema/instagramPost";
 import {Params} from "@/app/api/brands/[id]/instagram/types";
-import isAuthenticated from "@/app/api/utils/isAuthenticated";
+import {getSession} from "@auth0/nextjs-auth0";
 
 const schema = z.object({
     name: z.string().max(255).min(1)
 })
 
 export default async function POST(req: Request, { params }: Params) {
-    const { error} = await isAuthenticated();
-    if (error) return error;
+    const session = await getSession();
+    if (!session)
+        return NextResponse.json(
+            { error: "Unauthorized" },
+            { status: 401 }
+        );
 
     const body = await req.json();
     const parsed = schema.safeParse(body);

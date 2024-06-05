@@ -2,10 +2,10 @@
 
 import React, {useEffect, useState} from "react";
 import * as Icon from "react-feather";
-import Sidebar from "@/app/layout/sidebar/Sidebar";
+import Sidebar from "@/components/layout/sidebar/Sidebar";
 import Link from "next/link";
-import {useSession} from "next-auth/react";
-import ProfileDropdown from "@/app/layout/ProfileDropdown";
+import ProfileDropdown from "@/components/layout/ProfileDropdown";
+import {useUser} from "@auth0/nextjs-auth0/client";
 
 function DesktopLink({ href, children }: {
     href: string;
@@ -25,8 +25,8 @@ export default function HeaderLinks({ windowWidthLimit }: {
     windowWidthLimit?: number;
 }) {
     const [windowWidth, setWindowWidth] = useState(0);
-    const session = useSession();
     const [opened, setOpened] = useState(false);
+    const { user, isLoading } = useUser();
 
     useEffect(() => {
         setWindowWidth(window.innerWidth);
@@ -51,12 +51,11 @@ export default function HeaderLinks({ windowWidthLimit }: {
                 <DesktopLink href={"/forum/posts"}>Forum</DesktopLink>
 
                 <div className="flex-grow ms-auto" />
-                {session.status !== "loading" && (
+                {!isLoading && (
                     <>
-                        {session.status === "unauthenticated" ? (
+                        {!user ? (
                             <>
-                                <DesktopLink href={"/login"}>Login</DesktopLink>
-                                <DesktopLink href={"/register"}>Register</DesktopLink>
+                                <DesktopLink href={"/api/auth/login"}>Login</DesktopLink>
                             </>
                         ) : (
                             <div className="flex gap-4 items-center">

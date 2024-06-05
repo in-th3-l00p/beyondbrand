@@ -1,15 +1,15 @@
 import React from "react";
-import {Branding} from "@/app/layout/Header";
+import {Branding} from "@/components/layout/Header";
 import * as Icon from "react-feather";
-import {useSession} from "next-auth/react";
 import "./sidebar.scss";
-import {SidebarProfileToggle} from "@/app/layout/sidebar/SidebarProfileToggle";
-import {SidebarLink} from "@/app/layout/sidebar/SidebarLink";
+import {SidebarProfileToggle} from "@/components/layout/sidebar/SidebarProfileToggle";
+import {SidebarLink} from "@/components/layout/sidebar/SidebarLink";
+import {useUser} from "@auth0/nextjs-auth0/client";
 
 export default function Sidebar({ setOpened }: {
     setOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-    const session = useSession();
+    const { user, isLoading } = useUser();
 
     return (
         <div className={
@@ -42,15 +42,18 @@ export default function Sidebar({ setOpened }: {
                     <SidebarLink href={"/blog/posts"}>Blog</SidebarLink>
                     <div className="flex-grow" />
 
-                    {(session && session.status === "authenticated") ? (
+                    {!isLoading && (
                         <>
-                            <SidebarLink href={"/brands"}>Your brands</SidebarLink>
-                            <SidebarProfileToggle />
-                        </>
-                    ): (
-                        <>
-                            <SidebarLink href={"/login"}>Login</SidebarLink>
-                            <SidebarLink href={"/register"}>Register</SidebarLink>
+                            {!!user ? (
+                                <>
+                                    <SidebarLink href={"/brands"}>Your brands</SidebarLink>
+                                    <SidebarProfileToggle />
+                                </>
+                            ): (
+                                <>
+                                    <SidebarLink href={"/api/auth/login"}>Login</SidebarLink>
+                                </>
+                            )}
                         </>
                     )}
                 </div>

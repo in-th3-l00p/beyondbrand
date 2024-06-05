@@ -1,5 +1,5 @@
 import Image from "next/image";
-import HeaderLinks from "@/app/layout/HeaderLinks";
+import HeaderLinks from "@/components/layout/HeaderLinks";
 import Link from "next/link";
 
 export function Branding() {

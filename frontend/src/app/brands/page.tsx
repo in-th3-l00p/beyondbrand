@@ -4,9 +4,8 @@ import Brand, {IBrand} from "@/database/schema/brand";
 import Image from "next/image";
 import {pageContainer} from "@/components/primitives";
 import clsx from "clsx";
-import {getServerSession} from "next-auth";
 import {redirect} from "next/navigation";
-import {authOptions} from "@/app/api/auth/[...nextauth]/route";
+import {getSession} from "@auth0/nextjs-auth0";
 
 function BrandDisplay({ brand }: { brand: IBrand }) {
     return (
@@ -31,12 +30,12 @@ function BrandDisplay({ brand }: { brand: IBrand }) {
 }
 
 export default async function Page() {
-    const session = await getServerSession(authOptions);
-    if (session === null)
+    const session = await getSession();
+    if (!session)
         return redirect("/login");
 
     const brands = await Brand.find({
-        owner: session.user.id
+        owner: session.user.sub
     });
 
     return (

@@ -1,19 +1,21 @@
-import isAuthenticated from "@/app/api/utils/isAuthenticated";
-import getUser from "@/app/api/utils/getUser";
 import Brand from "@/database/schema/brand";
 import {NextResponse} from "next/server";
 import Amqp from "streaming";
 import logger from "@/utils/logger";
 import {EventType} from "streaming/src/event";
+import {getSession} from "@auth0/nextjs-auth0";
 
 export async function DELETE(req: Request) {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("_id");
 
-    const {error, session} = await isAuthenticated();
-    if (error)
-        return error;
-    const user = await getUser(session);
+    const session = await getSession();
+    if (!session)
+        return NextResponse.json(
+            { error: "Unauthorized" },
+            { status: 401 }
+        );
+
     let brand;
     try {
         brand = await Brand.findById(id);
@@ -28,7 +30,7 @@ export async function DELETE(req: Request) {
             {error: "Brand not found"},
             {status: 404}
         );
-    if (!brand.owner.equals(user._id))
+    if (brand.owner !== session.user.sub)
         return NextResponse.json(
             {error: "Unauthorized"},
             {status: 403}

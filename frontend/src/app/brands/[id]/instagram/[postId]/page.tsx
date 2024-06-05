@@ -14,14 +14,14 @@ import Canvas from "@/app/brands/[id]/instagram/[postId]/components/Canvas";
 import {Tools} from "@/app/brands/[id]/instagram/[postId]/components/tools";
 import Properties from "@/app/brands/[id]/instagram/[postId]/components/Properties";
 import Layers from "@/app/brands/[id]/instagram/[postId]/components/Layers";
-import {useSession} from "next-auth/react";
+import {useUser} from "@auth0/nextjs-auth0/client";
 
 export default function InstagramPost() {
     const router = useRouter();
     const { id, postId } = useParams<{ id: string, postId: string }>();
     const [loading, setLoading] = useState(true);
 
-    const session = useSession();
+    const { user, isLoading } = useUser();
     const { brand } = useContext(BrandContext);
     const [post, setPost] = useState<IInstagramPost | null>(null);
 
@@ -32,7 +32,7 @@ export default function InstagramPost() {
 
     // todo: better error handling
     useEffect(() => {
-        if (session.status === "loading")
+        if (isLoading)
             return;
 
         const load = async () => {
@@ -53,7 +53,7 @@ export default function InstagramPost() {
 
         load()
             .finally(() => setLoading(false));
-    }, [id, postId, session]);
+    }, [id, postId, isLoading]);
 
     useEffect(() => {
         if (!brand || !post)

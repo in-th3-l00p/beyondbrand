@@ -2,13 +2,13 @@ import type {Metadata} from "next";
 import {Tilt_Neon} from "next/font/google";
 import "./globals.scss";
 import React from "react";
-import Header from "@/app/layout/Header";
+import Header from "@/components/layout/Header";
 import "@/database/mongoose";
-import NextAuthSessionProvider from "@/app/layout/NextAuthSessionProvider";
 import {Toaster} from "react-hot-toast";
 import Amqp from "streaming";
 import logger from "@/utils/logger";
-import Footer from "@/app/layout/Footer";
+import Footer from "@/components/layout/Footer";
+import {UserProvider} from "@auth0/nextjs-auth0/client";
 
 const inter = Tilt_Neon({subsets: ["latin"]});
 
@@ -24,14 +24,14 @@ export default async function RootLayout({ children }: Readonly<{
         await Amqp.initializeFromEnv(logger);
     return (
         <html lang="en">
-        <body className={inter.className + " min-h-screen overflow-x-hidden flex flex-col"}>
-        <NextAuthSessionProvider>
-            <Header/>
-            <Toaster/>
-            {children}
-            <Footer />
-        </NextAuthSessionProvider>
-        </body>
+            <body className={inter.className + " min-h-screen overflow-x-hidden flex flex-col"}>
+                <UserProvider>
+                    <Header/>
+                    <Toaster/>
+                    {children}
+                    <Footer />
+                </UserProvider>
+            </body>
         </html>
     );
 }

@@ -1,12 +1,15 @@
-import {signOut, useSession} from "next-auth/react";
+"use client";
+
 import React, {useState} from "react";
 import * as Icon from "react-feather";
-import {SidebarLink} from "@/app/layout/sidebar/SidebarLink";
+import {SidebarLink} from "@/components/layout/sidebar/SidebarLink";
+import {useUser} from "@auth0/nextjs-auth0/client";
 
 export function SidebarProfileToggle() {
-    const session = useSession();
+    const { user, isLoading } = useUser();
     const [open, setOpen] = useState(false);
 
+    if (isLoading) return null;
     return (
         <div>
             <button
@@ -18,20 +21,16 @@ export function SidebarProfileToggle() {
                 onClick={() => setOpen(!open)}
             >
                 <Icon.User/>
-                {session.data?.user?.name}
+                {user?.name}
             </button>
 
             {open && (
                 <>
                     <SidebarLink href={"/profile"}>Profile</SidebarLink>
                     <SidebarLink href={"/settings"}>Settings</SidebarLink>
-                    <button
-                        type={"button"}
-                        className={"sidebar-link"}
-                        onClick={() => signOut()}
-                    >
+                    <SidebarLink href={"/api/auth/logout"}>
                         Logout
-                    </button>
+                    </SidebarLink>
                 </>
             )}
         </div>

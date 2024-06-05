@@ -7,19 +7,19 @@ import {button, input, pageContainer} from "@/components/primitives";
 import {useParams, useRouter} from "next/navigation";
 import toast from "react-hot-toast";
 import BrandContext from "@/app/brands/[id]/components/BrandContext/BrandContext";
-import {useSession} from "next-auth/react";
+import {useUser} from "@auth0/nextjs-auth0/client";
 
 export default function CreatePost() {
-    const session = useSession();
+    const { user, isLoading } = useUser();
     const { brand } = useContext(BrandContext);
     const router = useRouter();
     const { id } = useParams<{ id: string; }>();
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (!session)
-            router.push("/auth/signin");
-    }, [session]);
+        if (!isLoading && !user)
+            router.push("/api/auth/login");
+    }, [isLoading]);
 
     // todo: error handling
     return (

@@ -4,7 +4,6 @@ import express, {json} from "express";
 import logger from "./utils/logger";
 import morgan from "morgan";
 import cors from "cors";
-import cookieParser from "cookie-parser";
 
 import initializeAmqp from "./utils/amqp";
 import initializeMongoose from "./utils/mongoose";
@@ -14,7 +13,6 @@ import CustomersRouter from "./routes/customers";
 
 const app = express();
 
-app.use(cookieParser());
 app.use(cors({
     origin: "http://localhost:3000",
     credentials: true

@@ -9,6 +9,7 @@ import Amqp from "streaming";
 import logger from "@/utils/logger";
 import Footer from "@/components/layout/Footer";
 import {UserProvider} from "@auth0/nextjs-auth0/client";
+import {getAccessToken} from "@auth0/nextjs-auth0";
 
 const inter = Tilt_Neon({subsets: ["latin"]});
 
@@ -20,6 +21,17 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const { accessToken } = await getAccessToken();
+    const resp = await fetch(
+        `http://nginx-proxy/api/payment/customers`,
+        {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            }
+        }
+    );
+
     if (!Amqp.isInitialized())
         await Amqp.initializeFromEnv(logger);
     return (

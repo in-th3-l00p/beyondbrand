@@ -24,11 +24,13 @@ export default async function RootLayout({ children }: Readonly<{
         await Amqp.initializeFromEnv(logger);
     return (
         <html lang="en">
-            <body className={inter.className + " min-h-screen overflow-x-hidden flex flex-col"}>
+            <body className={inter.className}>
                 <UserProvider>
-                    <Header/>
-                    <Toaster/>
-                    {children}
+                    <div className={"min-h-screen overflow-x-hidden flex flex-col"}>
+                        <Header/>
+                        <Toaster/>
+                        {children}
+                    </div>
                     <Footer />
                 </UserProvider>
             </body>

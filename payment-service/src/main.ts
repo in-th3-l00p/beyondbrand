@@ -7,7 +7,6 @@ import cors from "cors";
 
 import initializeAmqp from "./utils/amqp";
 import initializeMongoose from "./utils/mongoose";
-import {initializeStripe} from "./utils/stripe";
 
 import CustomersRouter from "./routes/customers";
 
@@ -30,7 +29,6 @@ app.use("/api/payment/customers", CustomersRouter);
 (async () => {
     await initializeMongoose();
     await initializeAmqp();
-    await initializeStripe();
 
     const PORT = process.env.PORT || 3002;
     app.listen(PORT, () => {

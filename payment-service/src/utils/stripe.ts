@@ -1,15 +1,5 @@
-import {loadStripe} from "@stripe/stripe-js";
-import logger from "./logger";
+import Stripe from "stripe";
 
-let stripe;
-export async function initializeStripe() {
-    try {
-        stripe = await loadStripe(process.env.STRIPE_PUBLIC_KEY!);
-        logger.debug("Stripe initialized.");
-    } catch (e) {
-        logger.error("Error initializing Stripe: " + e + ".");
-    }
-
-}
+let stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export default stripe;

@@ -4,14 +4,12 @@ import express, {json} from "express";
 import logger from "./utils/logger";
 import morgan from "morgan";
 import cors from "cors";
+
 import initializeAmqp from "./utils/amqp";
 import initializeMongoose from "./utils/mongoose";
+import {initializeStripe} from "./utils/stripe";
 
-import NameRouter from "./routes/name";
-import DescriptionRouter from "./routes/description";
-import ColorsRouter from "./routes/colors";
-import LogoRouter from "./routes/logo";
-import BusinessPlanRouter from "./routes/businessPlan";
+import CustomersRouter from "./routes/customers";
 
 const app = express();
 
@@ -27,19 +25,15 @@ app.use(morgan("combined", {
     }
 }));
 app.use(json());
-app.use("/api/generation/name", NameRouter);
-app.use("/api/generation/description", DescriptionRouter);
-app.use("/api/generation/colors", ColorsRouter);
-app.use("/api/generation/logo", LogoRouter);
-app.use("/api/generation/business-plan", BusinessPlanRouter);
+app.use("/api/payment/customers", CustomersRouter);
 
 (async () => {
     await initializeMongoose();
     await initializeAmqp();
+    await initializeStripe();
 
-    // executing the express app
-    const PORT = process.env.PORT || 3000;
+    const PORT = process.env.PORT || 3002;
     app.listen(PORT, () => {
         logger.info("Server started on port " + PORT + ".");
-    });
+    })
 })();

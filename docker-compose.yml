@@ -59,6 +59,8 @@ services:
             - MONGO_URI=mongodb://mongo:27017/next
             - NEXT_PUBLIC_API_URL=http://localhost:8000
             - NEXT_PUBLIC_CMS_URL=http://strapi:1337
+        env_file:
+            - ".env"
 
     generation-service:
         container_name: generation-service
@@ -82,6 +84,34 @@ services:
             - MONGO_URI=mongodb://mongo:27017/generation-service
             - RABBITMQ_URI=amqp://rabbitmq:5672
             - PORT=3001
+        env_file:
+            - ".env"
+
+    payment-service:
+        container_name: payment-service
+        restart: always
+        build:
+            context: ./payment-service
+            dockerfile: Dockerfile
+        ports:
+            - "3002:3002"
+        volumes:
+            - ./payment-service:/app
+            - ./shared:/shared
+            - /app/node_modules
+        networks:
+            - app
+        depends_on:
+            - mongo
+            - rabbitmq
+        environment:
+            - APP_NAME=payment-service
+            - MONGO_URI=mongodb://mongo:27017/payment-service
+            - RABBITMQ_URI=amqp://rabbitmq:5672
+            - PORT=3002
+        env_file:
+            - ".env"
+
 networks:
     app:
         driver: bridge

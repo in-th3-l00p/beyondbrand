@@ -17,6 +17,7 @@ BeyondBrand is an open-source project that provides a platform for brand and cus
 The application uses the following technologies:
 
 - **Framework:** [Next.js](https://nextjs.org/) for application development.
+- **Microservice architecture**: [Node.js](https://nodejs.org/en) REST APIs, with streaming implemented using [RabbitMQ](https://www.rabbitmq.com/).
 - **Design:** [Tailwind CSS](https://tailwindcss.com/) for styling, complemented by libraries like [clsx](https://github.com/lukeed/clsx) and [tailwind-variants](https://tailwindvariants.com/) for cleaner and more understandable code.
 - **Database:** [MongoDB](https://www.mongodb.com/), interfaced via the [mongoose](https://mongoosejs.com/) library.
 - **Headless CMS:** [Strapi](https://strapi.io/) manages content for landing pages, blog posts, contact forms, and forum content.

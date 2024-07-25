@@ -26,10 +26,12 @@ export default async function RootLayout({ children }: Readonly<{
         <html lang="en">
             <body className={inter.className + " min-h-screen overflow-x-hidden flex flex-col"}>
                 <UserProvider>
-                    <Header/>
-                    <Toaster/>
-                    {children}
-                    <Footer />
+                   <div className="min-h-screen">
+                      <Header/>
+                      <Toaster/>
+                      {children}
+                   </div>
+                  <Footer />
                 </UserProvider>
             </body>
         </html>

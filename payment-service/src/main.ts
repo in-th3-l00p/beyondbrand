@@ -14,7 +14,7 @@ import CustomersRouter from "./routes/customers";
 const app = express();
 
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: process.env.AUTH0_BASE_URL,
     credentials: true
 }));
 app.use(morgan("combined", {

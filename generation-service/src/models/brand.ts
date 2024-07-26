@@ -7,7 +7,7 @@ export interface IBrand {
     colors: string[];
     logo: string;
     website?: string;
-    owner: Types.ObjectId;
+    owner: string;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -35,8 +35,7 @@ const BrandSchema = new mongoose.Schema({
         required: false
     },
     owner: {
-        type: mongoose.Types.ObjectId,
-        ref: 'User',
+        type: String,
         required: true
     },
     createdAt: {

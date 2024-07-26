@@ -1,4 +1,4 @@
-const API = "http://localhost:8000";
+const API = process.env.NEXT_PUBLIC_API;
 
 class GenerationService {
     async name(description: string) {

@@ -24,7 +24,7 @@ export default function Page() {
         setShowPopup(false);
     };
 
-    // todo codul asta e groaznic
+
     return (
         <section className="my-12">
             <div className="h-screen px-4">
@@ -59,7 +59,7 @@ export default function Page() {
                     <div className="w-80 h-40 bg-gray-200 rounded-xl shadow-md shadow-gray-500/50">
                         <div className="pt-4 pl-6">
                             <p className="text-2xl 2xl:text-4xl font-bold">1000+</p>
-                            <p className="text-2xl 2xl:text-4xl">Coffe’s drinked</p>
+                            <p className="text-2xl 2xl:text-4xl">Coffe’s drank</p>
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@ export default function Page() {
                 </div>
             </div>
 
-            <div className="min-h-screen flex flex-col md:flex-row items-center bg-ghost-white py-16 px-24">
+            <div className="min-h-screen flex flex-col md:flex-row items-center py-16 px-24">
                 <div className="md:w-2/3 text-center md:text-left space-y-6">
                     <h1 className="text-4xl 2xl:text-6xl">
                         Our mission: to simplify all things about brand creation and management
@@ -117,9 +117,11 @@ export default function Page() {
                                 &times;
                             </button>
                             <div className="text-center flex justify-content gap-4 w-full h-full">
-                                <Card image={cata} cv={""} name={"Tisca Catalin"} description={"Am 18 ani și sunt elev în clasa a XI-a la Colegiul Național Informatică \"Grigore Moisil\" Brașov. Pe lângă activitățile școlare, am o experiență de zece ani în dezvoltarea web și îmi dedic o parte din timpul liber practicării sporturilor de contact.\n" +
-                                    "\n" +
-                                    "Dezvoltarea web reprezintă o pasiune pe care o cultiv încă din copilărie. De-a lungul acestor zece ani, am dobândit cunoștințe și abilități avansate în acest domeniu, participând la diverse proiecte și inițiative care mi-au permis să-mi dezvolt competențele tehnice. În plus, practicarea sporturilor de contact m-a ajutat să dezvolt disciplină, reziliență și abilități fizice și mentale importante."} website={""}/>
+                                <Card image={cata.src} cv={""} name={"Tisca Catalin"}
+                                      description={"I am 18 years old and an 11th-grade student at the National College of Informatics \"Grigore Moisil\" in Brașov. Besides school activities, I have ten years of experience in web development and dedicate some of my free time to practicing contact sports.\n" +
+                                          "\n" +
+                                          "Web development is a passion I have cultivated since childhood. Over these ten years, I have gained advanced knowledge and skills in this field, participating in various projects and initiatives that have allowed me to develop my technical competencies. Additionally, practicing contact sports has helped me develop discipline, resilience, and important physical and mental skills."}
+                                      website={""}/>
                                 <div className={"flex flex-col justify-between items-center w-1/3 gap-4"}>
                                     <div>
                                         <h2 className="text-3xl pb-4 font-bold">MEET THE TEAM</h2>
@@ -130,16 +132,12 @@ export default function Page() {
                                             a project dedicated to helping you take your brand to the next level.
                                         </p>
                                     </div>
-                                    <Link
-                                        href={"https://cns-media.com"}
-                                        className="btn"
-                                    >
-                                        Our Website
-                                    </Link>
                                 </div>
-                                <Card image={sebi} cv={""} name={"Pasere Sebastian"} description={"Am 19 ani și sunt elev în clasa a XII-a la Colegiul Național Informatică \"Grigore Moisil\" Brașov. Pe lângă activitățile școlare, sunt jucător de volei și am o experiență de trei ani în dezvoltarea web.\n" +
-                                    "\n" +
-                                    "În domeniul sportiv, particip activ la antrenamente și competiții, ceea ce m-a ajutat să dezvolt abilități precum disciplina, munca în echipă și perseverența. În paralel, pasiunea mea pentru tehnologie m-a determinat să mă implic în dezvoltarea web, unde am acumulat cunoștințe valoroase și am avut ocazia să lucrez la diverse proiecte."} website={""}/>
+                                <Card image={sebi.src} cv={""} name={"Pasere Sebastian"}
+                                      description={"I am 19 years old and a 12th-grade student at the National College of Informatics \"Grigore Moisil\" in Brașov. Besides school activities, I am a volleyball player with three years of experience in web development.\n" +
+                                          "\n" +
+                                          "In the sports field, I actively participate in training and competitions, which have helped me develop skills such as discipline, teamwork, and perseverance. Simultaneously, my passion for technology has led me to get involved in web development, where I have gained valuable knowledge and had the opportunity to work on various projects."}
+                                      website={""}/>
                             </div>
                         </div>
                     </div>

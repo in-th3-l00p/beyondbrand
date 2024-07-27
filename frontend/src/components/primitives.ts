@@ -26,7 +26,7 @@ export const input = tv({
 });
 
 export const pageContainer = tv({
-    base: "container mx-auto px-4 py-8",
+    base: "container mx-auto px-4 lg:px-8 2xl:px-16 py-8",
     variants: {
         layout: {
             create: "flex-grow flex flex-col"

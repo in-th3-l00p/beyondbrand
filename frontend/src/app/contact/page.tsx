@@ -1,10 +1,12 @@
 'use client'
 import * as Icon from 'react-feather';
 import ContactForm from "@/app/contact/components/form";
+import {pageContainer} from "@/components/primitives";
+import clsx from "clsx";
 
 export default function Page() {
  return (
-     <section className={"container mx-auto py-24 min-h-screen"}>
+     <section className={clsx(pageContainer(),"container min-h-screen")}>
          <div className={"flex flex-col md:flex-row gap-8"}>
              <div className={"w-full md:w-1/2 flex flex-col justify-between"}>
                  <h1 className="font-bold text-left text-6xl mb-16 ">Contact us</h1>

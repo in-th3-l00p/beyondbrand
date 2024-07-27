@@ -1,6 +1,8 @@
 'use client';
-import {useEffect, useState} from "react";
+import {ChangeEvent, FormEvent, useState} from "react";
 import toast from "react-hot-toast";
+import {pageContainer} from "@/components/primitives";
+import clsx from "clsx";
 
 export default function Page() {
     const [formData, setFormData] = useState({
@@ -9,12 +11,12 @@ export default function Page() {
         user: "Anonymous",
     });
 
-    const handleChange = (e) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             const dataObject = {
@@ -51,7 +53,7 @@ export default function Page() {
     };
 
     return (
-        <section className="responsive-px py-8">
+        <section className={clsx(pageContainer())}>
             <h1 className="font-bold text-left text-4xl mb-4">Create forum post</h1>
             <form className="space-y-8" onSubmit={handleSubmit}>
                 <div className="form-group">

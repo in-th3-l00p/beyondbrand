@@ -1,5 +1,5 @@
 'use client';
-import {useState} from "react";
+import {ChangeEvent, FormEvent, useState} from "react";
 import toast from "react-hot-toast";
 
 export default function ContactForm() {
@@ -9,12 +9,12 @@ export default function ContactForm() {
         phone: "",
         message: ""
     });
-    const handleChange = (e) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             const dataObject = {

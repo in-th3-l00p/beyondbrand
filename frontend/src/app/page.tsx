@@ -218,10 +218,18 @@ function Plan({ name, description, features, price }: {
     );
 }
 
-function Pricing() {
+export function Pricing({ page = false }: { page?: boolean }) {
     return (
         <div className={"pb-24"}>
             <h2 className={clsx(title(), "text-center mb-8")}>Pricing</h2>
+
+            {page && (
+                <p className={"text-center mb-8 text-xl"}>
+                    We have the perfect plan for you, no matter if you are just starting your business, or if you are a big company.
+                    <br/>
+                    Choose the plan that fits your needs, and start building your brand today.
+                </p>
+            )}
 
             <div className={featureContainer()}>
                 <Plan

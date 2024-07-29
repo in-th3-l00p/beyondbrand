@@ -1,9 +1,10 @@
 'use client'
-import { useState, ChangeEvent, FormEvent } from 'react';
+import {ChangeEvent, FormEvent, useState} from 'react';
 import clsx from 'clsx';
-import { useUser } from '@auth0/nextjs-auth0/client';
+import {useUser} from '@auth0/nextjs-auth0/client';
 import Image from 'next/image';
-import { pageContainer } from "@/components/primitives";
+import {pageContainer} from "@/components/primitives";
+import SubscriptionManager from "@/components/SubscriptionManager";
 
 
 export default function Page() {
@@ -76,6 +77,7 @@ export default function Page() {
                     </div>
                 </div>
             </div>
+            <SubscriptionManager />
             <div
                 className="grid mx-4 sm:mx-20 lg:mx-52 2xl:mx-12 grid-cols-1 md:grid-cols-3 2xl:flex 2xl:justify-center gap-16 items-center 2xl:items-start">
                 <div className="flex justify-center">

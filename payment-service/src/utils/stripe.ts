@@ -2,7 +2,7 @@ import {loadStripe} from "@stripe/stripe-js";
 import Stripe from "stripe";
 import logger from "./logger";
 
-export let stripeJs: any;
+export let stripeJs = null as any;
 export async function initializeStripeJs() {
     try {
         stripeJs = await loadStripe(process.env.STRIPE_PUBLIC_KEY!);

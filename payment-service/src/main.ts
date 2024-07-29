@@ -12,6 +12,8 @@ import {initializeStripeJs} from "./utils/stripe";
 import CustomersRouter from "./routes/customers";
 import CheckoutRouter from "./routes/checkout";
 import WebhookRouter from "./routes/webhook";
+import SubscriptionRouter from "./routes/subscription";
+import PortalRouter from "./routes/portal";
 
 const app = express();
 
@@ -30,6 +32,8 @@ app.use(json());
 app.use("/api/payment/webhook", WebhookRouter);
 app.use("/api/payment/customers", CustomersRouter);
 app.use("/api/payment/checkout", CheckoutRouter);
+app.use("/api/payment/subscription", SubscriptionRouter);
+app.use("/api/payment/portal", PortalRouter);
 
 (async () => {
     await initializeMongoose();

@@ -7,9 +7,10 @@ import cors from "cors";
 
 import initializeAmqp from "./utils/amqp";
 import initializeMongoose from "./utils/mongoose";
-import {initializeStripe} from "./utils/stripe";
+import {initializeStripeJs} from "./utils/stripe";
 
 import CustomersRouter from "./routes/customers";
+import CheckoutRouter from "./routes/checkout";
 
 const app = express();
 
@@ -26,11 +27,12 @@ app.use(morgan("combined", {
 }));
 app.use(json());
 app.use("/api/payment/customers", CustomersRouter);
+app.use("/api/payment/checkout", CheckoutRouter);
 
 (async () => {
     await initializeMongoose();
     await initializeAmqp();
-    await initializeStripe();
+    await initializeStripeJs();
 
     const PORT = process.env.PORT || 3002;
     app.listen(PORT, () => {

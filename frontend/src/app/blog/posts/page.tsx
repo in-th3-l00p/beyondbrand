@@ -2,6 +2,8 @@ import Post, {IPost} from "@/app/blog/components/Post";
 import PageTitle from "@/components/PageTitle";
 import {pageContainer} from "@/components/primitives";
 import clsx from "clsx";
+import Link from "next/link";
+import * as Icon from "react-feather";
 
 export default async function Page() {
     const postsResponse = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL!}/api/posts?populate=banner`, {cache: 'no-cache'});

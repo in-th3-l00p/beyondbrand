@@ -22,14 +22,17 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: Readonly<{
     children: React.ReactNode;
 }>) {
+    let accessToken = undefined;
+    try {
+        accessToken = (await getAccessToken()).accessToken;
+    } catch (_) {}
+
     if (!Amqp.isInitialized())
         await Amqp.initializeFromEnv(logger);
     return (
         <html lang="en">
             <body className={inter.className + " min-h-screen overflow-x-hidden flex flex-col"}>
-                <LocalStorageToken
-                    token={(await getAccessToken()).accessToken}
-                />
+                <LocalStorageToken token={accessToken} />
                 <UserProvider>
                    <div className="min-h-screen">
                       <Header/>

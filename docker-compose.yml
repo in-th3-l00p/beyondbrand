@@ -57,7 +57,7 @@ services:
             - APP_NAME=next
             - RABBITMQ_URI=amqp://rabbitmq:5672
             - MONGO_URI=mongodb://mongo:27017/next
-            - NEXT_PUBLIC_CMS_URL=http://strapi:1337
+            - NEXT_PUBLIC_CMS_URL=https://cms.beyondbrand.pro
         env_file:
             - ".env"
 

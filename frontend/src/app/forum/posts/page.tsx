@@ -1,12 +1,11 @@
-import Post from "@/app/forum/components/Post";
-import {IPost} from "@/app/forum/components/Post";
+import Post, {IPost} from "@/app/forum/components/Post";
 import * as Icon from 'react-feather';
 import Link from "next/link";
 import {pageContainer} from "@/components/primitives";
 import clsx from "clsx";
 
 export default async function Page() {
-    const postsResponse = await fetch(`http://localhost:1337/api/forum-posts`, { cache: 'no-cache' });
+    const postsResponse = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/forum-posts`, { cache: 'no-cache' });
     const posts: { data: IPost[] } = await postsResponse.json();
 
     return (

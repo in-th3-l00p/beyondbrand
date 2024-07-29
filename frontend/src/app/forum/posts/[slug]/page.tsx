@@ -26,8 +26,8 @@ const fetchPost = async (slug: string) => {
 export default async function Page({params}: Props) {
     const post = await fetchPost(params.slug);
     return (
-        <section className={clsx(pageContainer(),"min-h-screen bg-gray-100 h-full")}>
-            <div className="md:px-16 items-center">
+        <section className={clsx(pageContainer(),"min-h-screen h-full")}>
+            <div className="md:px-16 items-center py-8">
                 <div className="flex flex-wrap justify-between items-center gap-8 mb-4">
                     <p className="text-4xl font-bold">{post.attributes.title}</p>
                     <Link href="http://localhost:3000/forum/posts" className="btn w-full md:w-auto">

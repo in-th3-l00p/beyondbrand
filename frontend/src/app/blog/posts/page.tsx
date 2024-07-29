@@ -8,15 +8,21 @@ export default async function Page() {
     const posts: { data: IPost[] } = await postsResponse.json();
 
     return (
-        <section className={clsx(pageContainer(),"container mx-auto h-screen")}>
-            <PageTitle back={"/"}>Blog posts:</PageTitle>
-            {posts.data && (
-                <>
-                    {posts.data.map(item => (
-                        <Post post={item}/>
-                    ))}
-                </>
-            )}
-        </section>
-    );
+        <section className={clsx(pageContainer(), "container mx-auto h-screen")}>
+            <div className="responsive-px flex justify-between items-center">
+            <h1 className="font-bold text-left text-4xl mb-4">Blog</h1>
+            <Link href={"https://beyondbrand.pro"} className={"btn"}><Icon.ArrowLeft/></Link>
+        </div>
+    {
+        posts.data && (
+            <>
+                {posts.data.map(item => (
+                    <Post post={item}/>
+                ))}
+            </>
+        )
+    }
+</section>
+)
+    ;
 }

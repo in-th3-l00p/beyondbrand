@@ -52,10 +52,10 @@ async function Hero() {
                         </Link>
                     ) : (
                         <Link
-                            href={"/register"}
+                            href={"/api/auth/login"}
                             className={"btn"}
                         >
-                            Register
+                            Login
                         </Link>
                     )}
                 </div>

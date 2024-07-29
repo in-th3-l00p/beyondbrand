@@ -1,11 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['localhost', 'beyondbrand-storage.s3.eu-north-1.amazonaws.com'],
+        domains: ['localhost', 'beyondbrand-storage.s3.eu-north-1.amazonaws.com', 'cms.beyondbrand.pro'],
         remotePatterns: [
             {
                 protocol: "https",
                 hostname: "beyondbrand-storage.s3.eu-north-1.amazonaws.com",
+                port: "",
+                pathname: "/**"
+            },
+            {
+                protocol: "https",
+                hostname: "cms.beyondbrand.pro",
                 port: "",
                 pathname: "/**"
             },

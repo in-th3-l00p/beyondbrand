@@ -3,6 +3,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import {tv} from "tailwind-variants";
 import {getSession} from "@auth0/nextjs-auth0";
+import {pageContainer} from "@/components/primitives";
 
 const gradientText = tv({
     base: "bg-clip-text bg-gradient-to-br from-cyan to-tomato text-transparent"
@@ -169,12 +170,12 @@ function BrandCreation() {
 
 function Features() {
     return (
-        <section className={"mb-24 mt-12"}>
+        <div className={"mb-24 mt-12"}>
             <h2 className={clsx(title(), "text-center mb-8")}>Features</h2>
 
             <Networking />
             <BrandCreation />
-        </section>
+        </div>
     );
 }
 
@@ -217,10 +218,18 @@ function Plan({ name, description, features, price }: {
     );
 }
 
-function Pricing() {
+export function Pricing({ page = false }: { page?: boolean }) {
     return (
-        <section className={"mb-24"}>
+        <div className={"pb-24"}>
             <h2 className={clsx(title(), "text-center mb-8")}>Pricing</h2>
+
+            {page && (
+                <p className={"text-center mb-8 text-xl"}>
+                    We have the perfect plan for you, no matter if you are just starting your business, or if you are a big company.
+                    <br/>
+                    Choose the plan that fits your needs, and start building your brand today.
+                </p>
+            )}
 
             <div className={featureContainer()}>
                 <Plan
@@ -244,16 +253,16 @@ function Pricing() {
                     price={"$19.99/month"}
                 />
             </div>
-        </section>
+        </div>
     );
 }
 
 export default async function Page() {
     return (
-        <section className={clsx(
+        <section className={clsx(pageContainer(),
             "bg-ghost-white w-full flex-grow",
         )}>
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto">
                 <Hero />
                 <Features />
                 <Pricing />

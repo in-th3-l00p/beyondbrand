@@ -83,7 +83,7 @@ export default function InstagramPost() {
                 selectedIndex, setSelectedIndex
             }}
         >
-            <div className={clsx(pageContainer(), "flex-grow flex flex-col")}>
+            <div className={clsx(pageContainer(), "flex-grow flex flex-col px-4 lg:px-4 2xl:px-4")}>
                 <PageTitle back={"/brands/" + brand._id}>Instagram post: {post.name}</PageTitle>
                 <Toolbox />
 

@@ -11,6 +11,7 @@ import {initializeStripeJs} from "./utils/stripe";
 
 import CustomersRouter from "./routes/customers";
 import CheckoutRouter from "./routes/checkout";
+import WebhookRouter from "./routes/webhook";
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(morgan("combined", {
     }
 }));
 app.use(json());
+app.use("/api/payment/webhook", WebhookRouter);
 app.use("/api/payment/customers", CustomersRouter);
 app.use("/api/payment/checkout", CheckoutRouter);
 

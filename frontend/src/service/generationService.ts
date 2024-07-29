@@ -8,7 +8,8 @@ class GenerationService {
         const resp = await fetch(`${API}/api/generation/name`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
             },
             body: JSON.stringify({description})
         });
@@ -25,7 +26,8 @@ class GenerationService {
         const resp = await fetch(`${API}/api/generation/name/prompted`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
             },
             body: JSON.stringify({prompt})
         });
@@ -44,7 +46,8 @@ class GenerationService {
         const resp = await fetch(`${API}/api/generation/description`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
             },
             body: JSON.stringify({name, description})
         });
@@ -63,7 +66,8 @@ class GenerationService {
         const resp = await fetch(`${API}/api/generation/description/prompted`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
             },
             body: JSON.stringify({name, prompt})
         });
@@ -87,7 +91,8 @@ class GenerationService {
         const resp = await fetch(`${API}/api/generation/colors?colors=${colors}`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
             },
             body: JSON.stringify({name, description})
         });
@@ -113,7 +118,8 @@ class GenerationService {
         const resp = await fetch(`${API}/api/generation/colors/prompted?colors=${colors}`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
             },
             body: JSON.stringify({name, description, prompt})
         });
@@ -138,7 +144,8 @@ class GenerationService {
         const resp = await fetch(`${API}/api/generation/logo`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
             },
             body: JSON.stringify({name, description, colors})
         });
@@ -160,7 +167,8 @@ class GenerationService {
         const resp = await fetch(`${API}/api/generation/logo/prompted`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
             },
             body: JSON.stringify({prompt, colors})
         });
@@ -180,7 +188,8 @@ class GenerationService {
         const resp = await fetch(`${API}/api/generation/business-plan/${id}`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
             },
             body: JSON.stringify({prompt})
         });

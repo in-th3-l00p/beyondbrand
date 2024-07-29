@@ -52,10 +52,10 @@ async function Hero() {
                         </Link>
                     ) : (
                         <Link
-                            href={"/register"}
+                            href={"/api/auth/login"}
                             className={"btn"}
                         >
-                            Register
+                            Login
                         </Link>
                     )}
                 </div>
@@ -260,7 +260,7 @@ export function Pricing({ page = false }: { page?: boolean }) {
 export default async function Page() {
     return (
         <section className={clsx(pageContainer(),
-            "w-full flex-grow",
+            " w-full flex-grow",
         )}>
             <div className="container mx-auto">
                 <Hero />

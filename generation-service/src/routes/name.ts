@@ -3,11 +3,13 @@ import {body, matchedData} from "express-validator";
 import openai from "../utils/openai";
 import logger from "../utils/logger";
 import validate from "../middleware/validate";
+import auth0 from "../middleware/auth0";
 
 const router = Router();
 
 router.post(
     "/",
+    auth0,
     body("description")
         .notEmpty()
         .isLength({ max: 500 }),

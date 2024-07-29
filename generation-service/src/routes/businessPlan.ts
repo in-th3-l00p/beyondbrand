@@ -3,11 +3,13 @@ import {body, matchedData, param} from "express-validator";
 import validate from "../middleware/validate";
 import openai from "../utils/openai";
 import Brand from "../models/brand";
+import auth0 from "../middleware/auth0";
 
 const router = Router();
 
 router.post(
     "/:id",
+    auth0,
     param("id").isMongoId(),
     body("prompt")
         .isString()

@@ -9,6 +9,8 @@ import Amqp from "streaming";
 import logger from "@/utils/logger";
 import Footer from "@/components/layout/Footer";
 import {UserProvider} from "@auth0/nextjs-auth0/client";
+import LocalStorageToken from "@/components/LocalStorageToken";
+import {getAccessToken} from "@auth0/nextjs-auth0";
 
 const inter = Tilt_Neon({subsets: ["latin"]});
 
@@ -25,6 +27,9 @@ export default async function RootLayout({ children }: Readonly<{
     return (
         <html lang="en">
             <body className={inter.className + " min-h-screen overflow-x-hidden flex flex-col"}>
+                <LocalStorageToken
+                    token={(await getAccessToken()).accessToken}
+                />
                 <UserProvider>
                    <div className="min-h-screen">
                       <Header/>

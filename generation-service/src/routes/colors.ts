@@ -3,11 +3,13 @@ import {body, matchedData, query} from "express-validator";
 import validate from "../middleware/validate";
 import openai from "../utils/openai";
 import logger from "../utils/logger";
+import auth0 from "../middleware/auth0";
 
 const router = Router();
 
 router.post(
     "/",
+    auth0,
     body("name").isString().isLength({min: 1, max: 255}).optional(),
     body("description").isString().isLength({min: 1, max: 500}).optional(),
     query("colors").isInt({ min: 1, max: 6 }),
